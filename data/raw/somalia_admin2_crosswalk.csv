@@ -1,0 +1,36 @@
+wfp_admin2_name,gadm_name_2,gadm_name_1,gadm_gid_2,match_status
+Afmadow,Afmadow,Jubbada Hoose,SOM.10.1_1,exact_match
+Banadir,Mogadisho,Banaadir,SOM.3.1_1,renamed_match
+Baydhaba,Baydhabo,Bay,SOM.5.1_1,renamed_match
+Belet Weyne,Beled Weyn,Hiiraan,SOM.8.1_1,renamed_match
+Belet Xaawo,Beled Xaawo,Gedo,SOM.7.2_1,renamed_match
+Berbera,Berbera,Woqooyi Galbeed,SOM.18.1_1,exact_match
+Borama,Boorama,Awdal,SOM.1.2_1,renamed_match
+Bossaso,Bosaaso,Bari,SOM.4.2_1,renamed_match
+Bulo Burto,Buulo Burdo,Hiiraan,SOM.8.2_1,renamed_match
+Burco,Burao,Togdheer,SOM.17.1_1,renamed_match
+Burtinle,Burtinle,Nugaal,SOM.12.1_1,exact_match
+Cabudwaaq,Caabudwaaq,Galguduud,SOM.6.1_1,renamed_match
+Cadaado,Cadaado,Galguduud,SOM.6.2_1,exact_match
+Cadale,Cadale,Shabeellaha Dhexe,SOM.14.3_1,exact_match
+Ceel Barde,Ceel Barde,Bakool,SOM.2.1_1,exact_match
+Ceel Waaq,Ceel Waaq,Gedo,SOM.7.3_1,exact_match
+Ceerigaabo,Ceerigaabo,Sanaag,SOM.13.3_1,exact_match
+Diinsoor,Diinsoor,Bay,SOM.5.3_1,exact_match
+Doolow,Dolow,Gedo,SOM.7.4_1,renamed_match
+Eyl,Eyl,Nugaal,SOM.12.2_1,exact_match
+Gaalkacyo,Gaalkacayo,Mudug,SOM.11.1_1,renamed_match
+Garoowe,Garoowe,Nugaal,SOM.12.3_1,exact_match
+Hargeysa,Hargeysa,Woqooyi Galbeed,SOM.18.3_1,exact_match
+Hobyo,Hobyo,Mudug,SOM.11.3_1,exact_match
+Jalalaqsi,Jalalaqsi,Hiiraan,SOM.8.3_1,exact_match
+Jowhar,Jawhar,Shabeellaha Dhexe,SOM.14.4_1,renamed_match
+Kismaayo,Kismaayo,Jubbada Hoose,SOM.10.4_1,exact_match
+Laas Caanood,Lascaanod,Sool,SOM.16.2_1,renamed_match
+Luuq,Luuk,Gedo,SOM.7.6_1,renamed_match
+Qansax Dheere,Qansax Dheere,Bay,SOM.5.4_1,exact_match
+Qardho,Qardho,Bari,SOM.4.6_1,exact_match
+Rab Dhuure,Rab Dhuure,Bakool,SOM.2.2_1,exact_match
+Taleex,Taleex,Sool,SOM.16.3_1,exact_match
+Xudun,Xudun,Sool,SOM.16.4_1,exact_match
+Xudur,Xudur,Bakool,SOM.2.5_1,exact_match
