@@ -1,0 +1,75 @@
+location_id,country_code,country,admin1,admin2,admin2_gadm_name,gadm_gid_2,latitude,longitude,area_km2,boundary_source,has_market_coverage
+SO_AADAN,SO,Somalia,Shabeellaha Dhexe,Aadan,Aadan,SOM.14.1_1,3.530536,46.547818,4057.2,GADM 4.1,False
+SO_AFGOOYE,SO,Somalia,Shabeellaha Hoose,Afgooye,Afgooye,SOM.15.1_1,2.222548,45.066842,4043.1,GADM 4.1,False
+SO_AFMADOW,SO,Somalia,Jubbada Hoose,Afmadow,Afmadow,SOM.10.1_1,0.580064,41.785679,27178.1,GADM 4.1,True
+SO_BAAR_DHEERE,SO,Somalia,Gedo,Baar-Dheere,Baar-Dheere,SOM.7.1_1,2.084631,41.701743,14788.26,GADM 4.1,False
+SO_BADHAADHE,SO,Somalia,Jubbada Hoose,Badhaadhe,Badhaadhe,SOM.10.2_1,-0.846108,41.443534,9762.49,GADM 4.1,False
+SO_BADHAN,SO,Somalia,Sanaag,Badhan,Badhan,SOM.13.1_1,10.533744,48.678057,12857.38,GADM 4.1,False
+SO_BAKI,SO,Somalia,Awdal,Baki,Baki,SOM.1.1_1,10.267045,43.732472,3578.03,GADM 4.1,False
+SO_BALCAD,SO,Somalia,Shabeellaha Dhexe,Balcad,Balcad,SOM.14.2_1,2.475293,45.652873,4000.54,GADM 4.1,False
+SO_BANADIR,SO,Somalia,Banaadir,Banadir,Mogadisho,SOM.3.1_1,2.109122,45.424251,210.88,GADM 4.1,True
+SO_BANDER_BEYLA,SO,Somalia,Bari,Bander-Beyla,Bander-Beyla,SOM.4.1_1,9.212313,50.32412,11032.52,GADM 4.1,False
+SO_BARAAWE,SO,Somalia,Shabeellaha Hoose,Baraawe,Baraawe,SOM.15.2_1,1.083867,43.829507,2828.34,GADM 4.1,False
+SO_BAYDHABA,SO,Somalia,Bay,Baydhaba,Baydhabo,SOM.5.1_1,3.253335,43.64141,13226.32,GADM 4.1,True
+SO_BELET_WEYNE,SO,Somalia,Hiiraan,Belet Weyne,Beled Weyn,SOM.8.1_1,4.72179,45.382432,14808.93,GADM 4.1,True
+SO_BELET_XAAWO,SO,Somalia,Gedo,Belet Xaawo,Beled Xaawo,SOM.7.2_1,3.422698,41.735654,4106.47,GADM 4.1,True
+SO_BERBERA,SO,Somalia,Woqooyi Galbeed,Berbera,Berbera,SOM.18.1_1,10.350285,45.262138,10592.0,GADM 4.1,True
+SO_BORAMA,SO,Somalia,Awdal,Borama,Boorama,SOM.1.2_1,10.164717,43.170092,2949.66,GADM 4.1,True
+SO_BOSSASO,SO,Somalia,Bari,Bossaso,Bosaaso,SOM.4.2_1,10.904251,49.393242,7955.34,GADM 4.1,True
+SO_BUAALE,SO,Somalia,Jubbada Dhexe,Bu'aale,Bu'aale,SOM.9.1_1,1.175508,42.753269,5525.72,GADM 4.1,False
+SO_BULO_BURTO,SO,Somalia,Hiiraan,Bulo Burto,Buulo Burdo,SOM.8.2_1,3.900885,45.537161,16034.83,GADM 4.1,True
+SO_BURCO,SO,Somalia,Togdheer,Burco,Burao,SOM.17.1_1,9.122557,45.736189,15661.93,GADM 4.1,True
+SO_BURTINLE,SO,Somalia,Nugaal,Burtinle,Burtinle,SOM.12.1_1,7.791477,48.37767,9549.6,GADM 4.1,True
+SO_BUUHOODLE,SO,Somalia,Togdheer,Buuhoodle,Buuhoodle,SOM.17.2_1,8.444054,46.647472,7000.88,GADM 4.1,False
+SO_BUUR_XAKABA,SO,Somalia,Bay,Buur Xakaba,Buur Xakaba,SOM.5.2_1,2.481309,44.018808,17506.17,GADM 4.1,False
+SO_CABUDWAAQ,SO,Somalia,Galguduud,Cabudwaaq,Caabudwaaq,SOM.6.1_1,5.816656,46.109117,5974.05,GADM 4.1,True
+SO_CADAADO,SO,Somalia,Galguduud,Cadaado,Cadaado,SOM.6.2_1,6.1274,47.017614,6761.43,GADM 4.1,True
+SO_CADALE,SO,Somalia,Shabeellaha Dhexe,Cadale,Cadale,SOM.14.3_1,3.072894,46.248254,5710.52,GADM 4.1,True
+SO_CALAWLA,SO,Somalia,Bari,Calawla,Calawla,SOM.4.3_1,11.648091,50.791912,4953.78,GADM 4.1,False
+SO_CAYNABO,SO,Somalia,Sool,Caynabo,Caynabo,SOM.16.1_1,9.279089,46.469423,8780.06,GADM 4.1,False
+SO_CEEL_AFWEIN,SO,Somalia,Sanaag,Ceel-Afwein,Ceel-Afwein,SOM.13.2_1,10.140057,46.677545,15231.08,GADM 4.1,False
+SO_CEEL_BARDE,SO,Somalia,Bakool,Ceel Barde,Ceel Barde,SOM.2.1_1,4.663061,43.991409,7658.04,GADM 4.1,True
+SO_CEEL_BUUR,SO,Somalia,Galguduud,Ceel Buur,Ceel Buur,SOM.6.3_1,4.758053,46.839359,13286.73,GADM 4.1,False
+SO_CEEL_DHEER,SO,Somalia,Galguduud,Ceel Dheer,Ceel Dheer,SOM.6.4_1,4.051546,47.047163,10338.28,GADM 4.1,False
+SO_CEEL_WAAQ,SO,Somalia,Gedo,Ceel Waaq,Ceel Waaq,SOM.7.3_1,2.660386,41.44845,8248.15,GADM 4.1,True
+SO_CEERIGAABO,SO,Somalia,Sanaag,Ceerigaabo,Ceerigaabo,SOM.13.3_1,10.285266,47.779023,25776.21,GADM 4.1,True
+SO_DHUUSAMAREEB,SO,Somalia,Galguduud,Dhuusamareeb,Dhuusamareeb,SOM.6.5_1,5.435334,46.679932,12683.28,GADM 4.1,False
+SO_DIINSOOR,SO,Somalia,Bay,Diinsoor,Diinsoor,SOM.5.3_1,2.089248,42.90951,9698.83,GADM 4.1,True
+SO_DOOLOW,SO,Somalia,Gedo,Doolow,Dolow,SOM.7.4_1,3.974555,42.138422,1633.99,GADM 4.1,True
+SO_EYL,SO,Somalia,Nugaal,Eyl,Eyl,SOM.12.2_1,8.094999,49.556937,9423.55,GADM 4.1,True
+SO_GAALKACYO,SO,Somalia,Mudug,Gaalkacyo,Gaalkacayo,SOM.11.1_1,6.934168,47.67493,15354.4,GADM 4.1,True
+SO_GABILEY,SO,Somalia,Woqooyi Galbeed,Gabiley,Gabiley,SOM.18.2_1,9.842463,43.683825,4048.03,GADM 4.1,False
+SO_GARBAHAARAY,SO,Somalia,Gedo,Garbahaaray,Garbahaaray,SOM.7.5_1,3.189326,42.35918,8012.25,GADM 4.1,False
+SO_GAROOWE,SO,Somalia,Nugaal,Garoowe,Garoowe,SOM.12.3_1,8.45857,48.773826,8708.02,GADM 4.1,True
+SO_GOLDOGOB,SO,Somalia,Mudug,Goldogob,Goldogob,SOM.11.2_1,7.030383,47.192833,1988.97,GADM 4.1,False
+SO_HARGEYSA,SO,Somalia,Woqooyi Galbeed,Hargeysa,Hargeysa,SOM.18.3_1,9.501802,44.277909,13355.49,GADM 4.1,True
+SO_HOBYO,SO,Somalia,Mudug,Hobyo,Hobyo,SOM.11.3_1,5.959108,48.197907,25220.08,GADM 4.1,True
+SO_ISKUSHUBAN,SO,Somalia,Bari,Iskushuban,Iskushuban,SOM.4.4_1,10.513649,50.49727,17987.93,GADM 4.1,False
+SO_JALALAQSI,SO,Somalia,Hiiraan,Jalalaqsi,Jalalaqsi,SOM.8.3_1,3.402907,45.59643,3262.52,GADM 4.1,True
+SO_JAMAAME,SO,Somalia,Jubbada Hoose,Jamaame,Jamaame,SOM.10.3_1,0.116865,42.802295,2051.82,GADM 4.1,False
+SO_JARIIBAN,SO,Somalia,Mudug,Jariiban,Jariiban,SOM.11.4_1,7.155851,48.985442,11179.79,GADM 4.1,False
+SO_JILIB,SO,Somalia,Jubbada Dhexe,Jilib,Jilib,SOM.9.2_1,0.631711,43.060787,5054.82,GADM 4.1,False
+SO_JOWHAR,SO,Somalia,Shabeellaha Dhexe,Jowhar,Jawhar,SOM.14.4_1,2.983994,45.564199,4731.68,GADM 4.1,True
+SO_KISMAAYO,SO,Somalia,Jubbada Hoose,Kismaayo,Kismaayo,SOM.10.4_1,-0.383886,42.021745,8729.88,GADM 4.1,True
+SO_KUNTUWAARAY,SO,Somalia,Shabeellaha Hoose,Kuntuwaaray,Kuntuwaaray,SOM.15.3_1,1.661817,44.067679,2559.86,GADM 4.1,False
+SO_LAAS_CAANOOD,SO,Somalia,Sool,Laas Caanood,Lascaanod,SOM.16.2_1,8.426896,47.633095,11257.03,GADM 4.1,True
+SO_LUGHAYA,SO,Somalia,Awdal,Lughaya,Lughaya,SOM.1.3_1,10.630045,43.578902,3400.85,GADM 4.1,False
+SO_LUUQ,SO,Somalia,Gedo,Luuq,Luuk,SOM.7.6_1,3.77584,42.704884,8246.24,GADM 4.1,True
+SO_MARKA,SO,Somalia,Shabeellaha Hoose,Marka,Marka,SOM.15.4_1,1.721214,44.700258,931.61,GADM 4.1,False
+SO_OODWEYNE,SO,Somalia,Togdheer,Oodweyne,Oodweyne,SOM.17.3_1,9.240387,45.001449,8073.73,GADM 4.1,False
+SO_QANDALA,SO,Somalia,Bari,Qandala,Qandala,SOM.4.5_1,11.039332,50.086277,8037.64,GADM 4.1,False
+SO_QANSAX_DHEERE,SO,Somalia,Bay,Qansax Dheere,Qansax Dheere,SOM.5.4_1,2.800514,42.84173,3506.32,GADM 4.1,True
+SO_QARDHO,SO,Somalia,Bari,Qardho,Qardho,SOM.4.6_1,9.482438,49.505955,18254.27,GADM 4.1,True
+SO_QORYOOLEY,SO,Somalia,Shabeellaha Hoose,Qoryooley,Qoryooley,SOM.15.5_1,1.921787,44.433799,3255.41,GADM 4.1,False
+SO_RAB_DHUURE,SO,Somalia,Bakool,Rab Dhuure,Rab Dhuure,SOM.2.2_1,4.233005,43.205451,3385.38,GADM 4.1,True
+SO_SAAKOW,SO,Somalia,Jubbada Dhexe,Saakow,Saakow,SOM.9.3_1,1.623048,42.072079,8224.82,GADM 4.1,False
+SO_SABLALE,SO,Somalia,Shabeellaha Hoose,Sablale,Sablale,SOM.15.6_1,1.371723,43.531467,6273.81,GADM 4.1,False
+SO_SHEEKH,SO,Somalia,Togdheer,Sheekh,Sheekh,SOM.17.4_1,9.976544,45.408369,3245.15,GADM 4.1,False
+SO_TALEEX,SO,Somalia,Sool,Taleex,Taleex,SOM.16.3_1,9.171511,48.528234,8877.32,GADM 4.1,True
+SO_TIYEEGLOW,SO,Somalia,Bakool,Tiyeeglow,Tiyeeglow,SOM.2.3_1,3.834682,44.524304,6647.73,GADM 4.1,False
+SO_WAJID,SO,Somalia,Bakool,Wajid,Wajid,SOM.2.4_1,3.811095,43.435143,2736.74,GADM 4.1,False
+SO_WANLA_WEYN,SO,Somalia,Shabeellaha Hoose,Wanla Weyn,Wanla Weyn,SOM.15.7_1,2.786395,44.906448,5775.51,GADM 4.1,False
+SO_XARARDHEERE,SO,Somalia,Mudug,Xarardheere,Xarardheere,SOM.11.5_1,4.78739,47.830889,4939.61,GADM 4.1,False
+SO_XUDUN,SO,Somalia,Sool,Xudun,Xudun,SOM.16.4_1,9.132363,47.494254,9163.51,GADM 4.1,True
+SO_XUDUR,SO,Somalia,Bakool,Xudur,Xudur,SOM.2.5_1,4.185545,43.899019,5282.73,GADM 4.1,True
+SO_ZEYLAC,SO,Somalia,Awdal,Zeylac,Zeylac,SOM.1.4_1,10.88019,43.168346,6358.43,GADM 4.1,False
