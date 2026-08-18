@@ -119,8 +119,10 @@ rasterstats fiona scipy beautifulsoup4 nbclient nbformat ipykernel python-pptx`.
   district already stood in the reporting ecosystem last month predicts this month's
   coverage better than conflict or climate stress do, and climate stress has
   essentially zero independent predictive power once conflict, market and reporting
-  history are known. Written into the notebook as the "Extension: recent history and
-  neighbouring districts" section, right after the logistic regression section.
+  history are known. Written into the notebook inside the "Logistic regression: are the
+  reporting gaps systematic?" section (the model, its extension with momentum and
+  neighbour coverage, and the confusion matrices are now one cohesive section, replacing
+  the earlier separate model and extension write-ups).
   Caveat worth keeping in the write-up: momentum could mean attention is
   self-perpetuating, or it could be proxying an unmeasured persistent factor like NGO
   presence, we cannot distinguish the two with data currently in hand.
@@ -160,7 +162,7 @@ Ready means data is in hand. Blocked means an external download is needed.
 **Sub-question 1**
 7. ~~Build a logistic regression predicting whether a district was mentioned that
    month~~. **Done**, including the momentum/neighbour extension, see Current findings
-   and the notebook's "Extension: recent history and neighbouring districts" section.
+   and the notebook's "Logistic regression: are the reporting gaps systematic?" section.
 8. Measure how much each additional source contributes to coverage.
 
 **Strengthening, ready**
