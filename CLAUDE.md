@@ -17,7 +17,7 @@ more broadly" and corrected back.
 
 | Sub-question | Status |
 |---|---|
-| 1. Where are the gaps, and are they systematic? | Substantially covered. Multivariate model still to build. |
+| 1. Where are the gaps, and are they systematic? | **Answered.** Logistic regression is in the notebook. See the ranked-predictors findings below; one extension (momentum/neighbour effects) is analysed but not yet written up, see Next steps. |
 | 2. Does observability differ by crisis type? | **Answered.** See the severity-matched comparison. |
 | 3. Does poor observability mean being wrong, not just incomplete? | **Not started.** Blocked on two things, see below. |
 
@@ -27,7 +27,7 @@ main question, and that half is currently unanswered.
 ## Where things are
 
 ```
-src/Dissertation_master_file.ipynb   the notebook, 95 cells, the whole analysis
+src/Dissertation_master_file.ipynb   the notebook, 102 cells, the whole analysis
 data/raw/                            all source data, committed (~47MB)
   CHIRPS/2024/                       12 monthly rainfall rasters, cropped to Somalia
   VHI/2024/                          52 weekly vegetation rasters, cropped
@@ -37,7 +37,10 @@ data/raw/                            all source data, committed (~47MB)
   Prices-Export-...csv               WFP prices
   gadm41_SOM.gpkg                    district boundaries
   somalia_admin2_crosswalk.csv       WFP to GADM name mapping
-data/processed/                      7 generated tables, committed
+data/processed/                      8 generated tables, committed (includes
+                                      district_observability_gaps.csv, the model's
+                                      over/under-predicted districts)
+tools/analysis/                      standalone modelling scripts, see Next steps item 0
 weekly_meetings/                     feedback notes and slide decks
 ```
 
@@ -97,10 +100,55 @@ rasterstats fiona scipy beautifulsoup4 nbclient nbformat ipykernel python-pptx`.
   conflict received a mean 6.65 reports against 2.67 for the worst decile of vegetation
   stress (p=0.000064). 88.2% versus 65.7% received any report at all. Groups were
   balanced at 68 and 67 with the overlap excluded.
+- **Logistic regression (in the notebook)**: predicts whether a district was mentioned
+  that month from conflict, market status, rainfall, vegetation, region and month.
+  Banaadir excluded (mentioned 12/12 months, causes perfect separation; included
+  separately with an L2-penalised fit as a robustness check). Out-of-sample AUC
+  (5-fold, holding out whole districts) 0.715, versus 0.640 with region dummies
+  removed the naive way, so region genuinely helps generalisation once done properly.
+  Full in-sample/out-of-sample metrics table (accuracy, precision, recall, specificity
+  0.51 OOS, F1, Brier score, confusion matrix) is in `tools/analysis/model_metrics.py`,
+  not yet in the notebook, see Next steps.
+- **Ranked predictors, all in one model, cluster-robust SEs by district** (conflict,
+  market, rainfall, vegetation, momentum, neighbour coverage, region and month
+  together, n=803): covered last month OR 4.63 (p<0.0001, by far the strongest),
+  neighbouring districts covered this month OR 2.72 (p=0.054, borderline once
+  everything else is controlled for), has market data OR 2.42 (p=0.003), conflict
+  events (logged) OR 1.71 (p=0.0001), rainfall and vegetation both OR ≈ 1.00, not
+  significant. **Headline: momentum beats both crisis-severity variables.** Where a
+  district already stood in the reporting ecosystem last month predicts this month's
+  coverage better than conflict or climate stress do, and climate stress has
+  essentially zero independent predictive power once conflict, market and reporting
+  history are known. This result is not yet written into the notebook, see Next steps.
+  Caveat worth keeping in the write-up: momentum could mean attention is
+  self-perpetuating, or it could be proxying an unmeasured persistent factor like NGO
+  presence, we cannot distinguish the two with data currently in hand.
+- Ruled out as predictors, tested and found not to add anything beyond the model
+  above: fatalities vs. plain conflict event count, spatial spread of conflict events
+  within a district, variety of conflict event types, whether the district is its
+  region's administrative seat.
+- Cannot test without external data (biggest acknowledged gaps): NGO/humanitarian
+  operational presence, population, road access, territorial control.
 
 ## Next steps
 
 Ready means data is in hand. Blocked means an external download is needed.
+
+**Immediate, ready, from this session**
+0. Write the momentum/neighbour-coverage extension into the notebook, right after the
+   logistic regression section. Scripts already run and verified, kept in
+   `tools/analysis/` but not yet copied into the notebook itself:
+   `tools/analysis/rank_predictors.py` (the ranked OR table above, all six predictors
+   in one model), `tools/analysis/momentum_neighbour_extension.py` (momentum and
+   neighbour coverage tested as standalone additions via cross-validation, OOS AUC
+   rises from 0.715 to 0.795 with both added; also rules out fatalities, spatial
+   spread of conflict, event-type variety and capital-like status as candidates), and
+   `tools/analysis/model_metrics.py` (full in/out-of-sample metrics table and
+   confusion matrix for the existing logistic regression). All read
+   `data/processed/vw_food_insecurity_panel.csv`; the neighbour-coverage feature needs
+   a `touches` spatial join on `gadm41_SOM.gpkg`, see
+   `momentum_neighbour_extension.py` for the adjacency-building code. Include the
+   self-perpetuation-vs-NGO-presence caveat in the write-up.
 
 **Sub-question 3, the priority**
 1. Define this dataset's own derived assessment. **Ready, scheduled for next week.**
@@ -118,14 +166,15 @@ Ready means data is in hand. Blocked means an external download is needed.
    lag has been tested, and only for conflict.
 6. Test whether attention scales smoothly with severity rather than only at the extreme.
 
-**Sub-question 1, ready**
-7. Build a logistic regression predicting whether a district was mentioned that month,
-   from conflict, market status, region and climate, with month as a control. Report
-   which factors matter independently and which districts the model gets wrong.
+**Sub-question 1**
+7. ~~Build a logistic regression predicting whether a district was mentioned that
+   month~~. **Done**, see Current findings and item 0 above for the remaining write-up.
 8. Measure how much each additional source contributes to coverage.
 
 **Strengthening, ready**
 9. Rank districts by apparent severity, then re-rank accounting for observability.
+   `district_observability_gaps.csv` (which districts the model over/under-predicts
+   for) is already generated in `data/processed/`.
 10. Confirm results survive the 43% geoparsing precision.
 11. Produce observability maps. The boundary geometry has only been used for areas
     and centroids so far.
