@@ -119,10 +119,17 @@ rasterstats fiona scipy beautifulsoup4 nbclient nbformat ipykernel python-pptx`.
   district already stood in the reporting ecosystem last month predicts this month's
   coverage better than conflict or climate stress do, and climate stress has
   essentially zero independent predictive power once conflict, market and reporting
-  history are known. This result is not yet written into the notebook, see Next steps.
+  history are known. Written into the notebook as the "Extension: recent history and
+  neighbouring districts" section, right after the logistic regression section.
   Caveat worth keeping in the write-up: momentum could mean attention is
   self-perpetuating, or it could be proxying an unmeasured persistent factor like NGO
   presence, we cannot distinguish the two with data currently in hand.
+- **Momentum/neighbour extension, out-of-sample validated**: adding momentum and
+  neighbour coverage to the conflict + market + month baseline raises out-of-sample AUC
+  from 0.715 to 0.795 (momentum alone gets to 0.786). Full in/out-of-sample metrics and
+  the out-of-sample confusion matrix for this extended model are in the notebook: AUC
+  0.795, accuracy 0.748, precision 0.775, recall 0.823, specificity 0.635, F1 0.798,
+  Brier 0.177, confusion matrix TN 202 / FP 116 / FN 86 / TP 399 (n=803).
 - Ruled out as predictors, tested and found not to add anything beyond the model
   above: fatalities vs. plain conflict event count, spatial spread of conflict events
   within a district, variety of conflict event types, whether the district is its
@@ -133,22 +140,6 @@ rasterstats fiona scipy beautifulsoup4 nbclient nbformat ipykernel python-pptx`.
 ## Next steps
 
 Ready means data is in hand. Blocked means an external download is needed.
-
-**Immediate, ready, from this session**
-0. Write the momentum/neighbour-coverage extension into the notebook, right after the
-   logistic regression section. Scripts already run and verified, kept in
-   `tools/analysis/` but not yet copied into the notebook itself:
-   `tools/analysis/rank_predictors.py` (the ranked OR table above, all six predictors
-   in one model), `tools/analysis/momentum_neighbour_extension.py` (momentum and
-   neighbour coverage tested as standalone additions via cross-validation, OOS AUC
-   rises from 0.715 to 0.795 with both added; also rules out fatalities, spatial
-   spread of conflict, event-type variety and capital-like status as candidates), and
-   `tools/analysis/model_metrics.py` (full in/out-of-sample metrics table and
-   confusion matrix for the existing logistic regression). All read
-   `data/processed/vw_food_insecurity_panel.csv`; the neighbour-coverage feature needs
-   a `touches` spatial join on `gadm41_SOM.gpkg`, see
-   `momentum_neighbour_extension.py` for the adjacency-building code. Include the
-   self-perpetuation-vs-NGO-presence caveat in the write-up.
 
 **Sub-question 3, the priority**
 1. Define this dataset's own derived assessment. **Ready, scheduled for next week.**
@@ -168,7 +159,8 @@ Ready means data is in hand. Blocked means an external download is needed.
 
 **Sub-question 1**
 7. ~~Build a logistic regression predicting whether a district was mentioned that
-   month~~. **Done**, see Current findings and item 0 above for the remaining write-up.
+   month~~. **Done**, including the momentum/neighbour extension, see Current findings
+   and the notebook's "Extension: recent history and neighbouring districts" section.
 8. Measure how much each additional source contributes to coverage.
 
 **Strengthening, ready**
