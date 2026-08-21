@@ -184,7 +184,7 @@ offers.
 
 ## C. Integration bugs
 
-### C1. The ACLED name-fix list is incomplete, and events are being dropped · confirmed
+### C1. The ACLED name-fix list is incomplete, and events are being dropped · FIXED 2026-08-21
 
 The panel build applies a 14-entry `acled_name_fixes` dictionary, then merges onto GADM
 names. Two ACLED district names survive the fix list without matching any GADM name, so
@@ -205,12 +205,33 @@ Note the irony: both names *are* correctly handled in the ReliefWeb alias map
 (`Sablale: [Sablaale]`, `Badhan: [Las Qoray]`). The two name-reconciliation layers were
 built separately and have drifted apart.
 
-Fix: add both to `acled_name_fixes`, rebuild `fact_conflict_somalia.csv` and the panel,
-and add a merge assertion that fails when any ACLED district fails to match.
+**Fixed.** Both entries were added to `acled_name_fixes` in the two notebook cells that
+define it (the prototype cell and the full-year cell), and both now carry a guard that
+fails loudly rather than dropping rows silently:
 
-**This one is worth fixing before the write-up**, unlike the geoparser items, because it
-is an outright defect rather than a measurement limitation, and it does not touch the
-geoparser the validation sample is pinned to.
+```python
+unresolved = sorted(set(som["admin2"].dropna()) - set(dim_location["admin2"]))
+assert not unresolved, f"ACLED districts with no GADM match: {unresolved}"
+```
+
+`fact_conflict_somalia.csv` and `vw_food_insecurity_panel.csv` were regenerated. The
+change is exactly what was predicted and nothing else moved:
+
+| | before | after |
+|---|---|---|
+| SO_SABLALE, events / fatalities 2024 | 0 / 0 | **1 / 20** |
+| SO_BADHAN, events / fatalities 2024 | 0 / 0 | **2 / 2** |
+| national events / fatalities | 3,444 / 5,610 | 3,447 / 5,632 |
+| panel shape | 888 × 30 | 888 × 30 |
+
+Cells differing across the whole panel: 2 in `conflict_event_count`, 2 in `fatalities`,
+4 in `conflict_trend_log` (the lag carries each correction into the following month).
+
+Downstream effect on the headline model is negligible, as expected from two rows:
+conflict OR 2.006 → 2.012, market OR 3.201 → 3.206, pseudo R² 0.1837 → 0.1839,
+in-sample AUC 0.7753 → 0.7757. No conclusion changes. Note the notebook's hardcoded
+odds-ratio table still reads 3.20 for market, which rounds to 3.21 on the corrected
+panel; refresh it when the notebook is next re-run.
 
 ### C2. A zero can mean at least four different things · confirmed, needs writing up
 
@@ -229,7 +250,7 @@ Collected here as the concrete cases found so far:
 
 ## Fix order, once validation is scored
 
-1. **C1 now** — outright bug, independent of the geoparser, two false zeros.
+1. ~~**C1 now**~~ — **done 2026-08-21**, see above.
 2. **After scoring**: A1 word boundaries, A2 drop `Sheikh`, A3 add `Banderbeyla`,
    A4 add `Mogadiscio`, A5 add French bulletin keywords.
 3. Rebuild `fact_reporting_somalia.csv` and the panel, then report coverage before and

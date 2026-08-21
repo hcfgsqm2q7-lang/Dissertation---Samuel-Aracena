@@ -248,11 +248,17 @@ unblocked: all data is already in the repository.
   for each. Highlights: the geoparser matches without word boundaries; `Sheikh` is an
   alias for district Sheekh and is overwhelmingly a personal name (21 of its 47 reports
   name President Hassan Sheikh Mohamud, which explains the Sheekh outlier); Mataban is a
-  real district absent from GADM entirely; and the ACLED name-fix list drops 3 events
-  and 22 fatalities, leaving `SO_SABLALE` and `SO_BADHAN` with false zeros all year.
-  **Do not fix the geoparser before the validation sample is scored**, since the sample
-  and answer key are pinned to the current method. The ACLED bug is independent and can
-  be fixed now.
+  real district absent from GADM entirely. **Do not fix the geoparser before the
+  validation sample is scored**, since the sample and answer key are pinned to the
+  current method.
+- **The ACLED name-fix bug is fixed** (2026-08-21). `Sablaale` and `Laasqoray` were
+  dropping out of the merge, leaving `SO_SABLALE` and `SO_BADHAN` on a false zero for
+  all of 2024 and losing one event that killed 20 people. Both are now mapped, both
+  ACLED cells carry an assertion that fails rather than dropping rows silently, and
+  `fact_conflict_somalia.csv` and the panel were regenerated. Model results moved
+  negligibly (conflict OR 2.006 → 2.012, market 3.201 → 3.206). The notebook's
+  hardcoded odds-ratio table still says 3.20 for market and should read 3.21 after the
+  next full re-run.
 - **Cell ordering.** An early data-quality cell reads tables generated later in the
   notebook. Predates the migration. Committing the generated tables hides the symptom
   on a fresh clone but does not fix it. Worth moving that cell after the pipeline
