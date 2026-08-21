@@ -70,6 +70,9 @@ tools/analysis/                      standalone modelling scripts. model_metrics
                                       and now out of scope, see Scope boundaries
 tools/geoparser_validation/          sample builder and scorer for the final geoparser
                                       validation, see Next steps item 1
+docs/data_quality_findings.md        running log of measurement problems found, with
+                                      evidence. Read before touching the geoparser or
+                                      the ACLED name-fix list
 weekly_meetings/                     feedback notes and slide decks
   2026_08_21_feedback.md             the reframing feedback; read before planning work
 ```
@@ -241,6 +244,15 @@ unblocked: all data is already in the repository.
 
 ## Known issues
 
+- **Measurement problems are logged in `docs/data_quality_findings.md`**, with evidence
+  for each. Highlights: the geoparser matches without word boundaries; `Sheikh` is an
+  alias for district Sheekh and is overwhelmingly a personal name (21 of its 47 reports
+  name President Hassan Sheikh Mohamud, which explains the Sheekh outlier); Mataban is a
+  real district absent from GADM entirely; and the ACLED name-fix list drops 3 events
+  and 22 fatalities, leaving `SO_SABLALE` and `SO_BADHAN` with false zeros all year.
+  **Do not fix the geoparser before the validation sample is scored**, since the sample
+  and answer key are pinned to the current method. The ACLED bug is independent and can
+  be fixed now.
 - **Cell ordering.** An early data-quality cell reads tables generated later in the
   notebook. Predates the migration. Committing the generated tables hides the symptom
   on a fresh clone but does not fix it. Worth moving that cell after the pipeline
