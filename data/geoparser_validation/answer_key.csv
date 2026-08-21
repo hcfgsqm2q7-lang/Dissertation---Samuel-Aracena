@@ -1,0 +1,151 @@
+row_id,report_id,stratum,matched_location_ids,matched_surface_forms
+1,4103915,unmatched,,
+2,4062514,unmatched,,
+3,4115871,unmatched,,
+4,4077179,matched,SO_BALCAD|SO_BAYDHABA,Baidoa|Balcad
+5,4082560,matched,SO_BAAR_DHEERE,Baardheere|baardheere
+6,4083490,matched,SO_BANADIR,Mogadishu
+7,4068788,matched,SO_BANADIR,MOGADISHU
+8,4112918,unmatched,,
+9,4107862,unmatched,,
+10,4097322,unmatched,,
+11,4090732,unmatched,,
+12,4120348,matched,SO_KISMAAYO,Kismayo
+13,4084443,unmatched,,
+14,4071619,matched,SO_BAYDHABA,Baidoa
+15,4079468,matched,SO_GAALKACYO|SO_GOLDOGOB,Galdogob|Galkacyo
+16,4120039,matched,SO_AFGOOYE|SO_AFMADOW|SO_BAAR_DHEERE|SO_BALCAD|SO_BAYDHABA|SO_BELET_WEYNE|SO_BELET_XAAWO|SO_CABUDWAAQ|SO_DHUUSAMAREEB|SO_DOOLOW|SO_GAALKACYO|SO_GAROOWE|SO_HOBYO|SO_JAMAAME|SO_JOWHAR|SO_KISMAAYO|SO_LUUQ|SO_WAJID|SO_XUDUR,Afgooye|Afmadow|Baardheere|Baidoa|Balcad|Belet Weyne|Belet Xaawo|Cabudwaaq|Dhuusamarreeb|Doolow|Gaalkacyo|Garoowe|Hobyo|Jamaame|Jowhar|Kismaayo|Luuq|Waajid|Xudur
+17,4109945,unmatched,,
+18,4110272,unmatched,,
+19,4091432,matched,SO_AFGOOYE|SO_BALCAD|SO_BANADIR|SO_BAYDHABA|SO_BELET_WEYNE|SO_DHUUSAMAREEB|SO_DOOLOW|SO_EYL|SO_GAALKACYO|SO_GAROOWE|SO_GOLDOGOB|SO_KISMAAYO,Afgooye|Baidoa|Balcad|Belet Weyne|Dhuusamarreeb|Doolow|Gaalkacyo|Galdogob|Garowe|Kismayo|Mogadishu|eyl
+20,4112376,matched,SO_AFGOOYE|SO_EYL,Afgooye|eyl
+21,4104848,matched,SO_BALCAD,Balcad
+22,4090575,matched,SO_AFGOOYE|SO_BANADIR|SO_BAYDHABA|SO_DOOLOW|SO_KISMAAYO,Afgooye|Banadir|Baydhaba|Doolow|Kismaayo
+23,4054316,unmatched,,
+24,4061769,matched,SO_BALCAD|SO_BAYDHABA|SO_BELET_WEYNE|SO_BURCO|SO_CABUDWAAQ|SO_CADAADO|SO_CAYNABO|SO_CEERIGAABO|SO_JOWHAR|SO_SHEEKH,Abudwak|Adado|Ainabo|Baidoa|Balad|Beletweyne|Burao|Erigabo|Jowhar|Sheik
+25,4090733,unmatched,,
+26,4116059,unmatched,,
+27,4101340,unmatched,,
+28,4080653,matched,SO_AFMADOW|SO_KISMAAYO,Afmadow|Kismayo
+29,4050086,matched,SO_AFGOOYE|SO_BALCAD|SO_BOSSASO|SO_BUUR_XAKABA,Afgoye|Balcad|Bossaso|Burhakaba|Buurhakab
+30,4084362,matched,SO_BANADIR,Mogadishu
+31,4074529,unmatched,,
+32,4117876,unmatched,,
+33,4077951,matched,SO_BANADIR,Banadir
+34,4069136,unmatched,,
+35,4059959,unmatched,,
+36,4075532,matched,SO_BELET_XAAWO,Belet Xaawo
+37,4075530,matched,SO_QANSAX_DHEERE,Qansax Dheere
+38,4109718,unmatched,,
+39,4118457,unmatched,,
+40,4085496,matched,SO_DHUUSAMAREEB|SO_GOLDOGOB|SO_JARIIBAN|SO_LUUQ|SO_WAJID,Dhuusamarreeb|Galdogob|Jariiban|Luuq|Wajid
+41,4102501,matched,SO_DOOLOW|SO_LUUQ|SO_QORYOOLEY|SO_XUDUN,Doolow|Luuq|Qoryooley|Xudun
+42,4095052,unmatched,,
+43,4109079,matched,SO_BELET_WEYNE|SO_HARGEYSA|SO_XUDUN,Belet Weyne|Hargeisa|Xudun
+44,4118283,unmatched,,
+45,4077936,unmatched,,
+46,4045572,unmatched,,
+47,4114557,matched,SO_AFGOOYE|SO_AFMADOW|SO_BAAR_DHEERE|SO_BADHAADHE|SO_BANADIR|SO_BARAAWE|SO_BAYDHABA|SO_BELET_WEYNE|SO_BELET_XAAWO|SO_CALAWLA|SO_CEEL_BARDE|SO_CEEL_WAAQ|SO_EYL|SO_GARBAHAARAY|SO_ISKUSHUBAN|SO_KISMAAYO|SO_KUNTUWAARAY|SO_LUUQ|SO_MARKA|SO_QARDHO|SO_QORYOOLEY|SO_RAB_DHUURE|SO_SAAKOW|SO_SABLALE|SO_TIYEEGLOW|SO_WAJID|SO_WANLA_WEYN|SO_XUDUN|SO_XUDUR,Afamadow|Afgooye|Baardheere|Badhaadhe|Banadir|Baraawe|Baydhaba|Belet Weyne|Belet Xaawo|Caluula|Ceel Barde|Ceel Waaq|Eyl|Garbahaarey|Iskushuban|Kismaayo|Kurtunwaarey|Luuq|Marka|Qardho|Qoryooley|Rab Dhuure|Saakow|Sablaale|Tayeeglow|Waajid|Wanla Weyn|Xudun|Xudur|eyl
+48,4050516,matched,SO_BANADIR,Mogadishu
+49,4108361,matched,SO_BANADIR|SO_BAYDHABA|SO_GAALKACYO,Baidoa|Banadir|Galkacyo|Mogadishu
+50,4090717,matched,SO_XUDUR,Xudur
+51,4115448,unmatched,,
+52,4063364,unmatched,,
+53,4050105,unmatched,,
+54,4118557,unmatched,,
+55,4113471,unmatched,,
+56,4118555,unmatched,,
+57,4095565,matched,SO_BANADIR|SO_SHEEKH,Mogadishu|Sheik
+58,4112779,unmatched,,
+59,4063482,unmatched,,
+60,4083035,matched,SO_BAYDHABA,Baidoa
+61,4103256,unmatched,,
+62,4088547,matched,SO_BADHAN|SO_BALCAD|SO_BELET_WEYNE|SO_CABUDWAAQ|SO_CADAADO|SO_GOLDOGOB|SO_HARGEYSA|SO_JOWHAR,Abudwak|Adado|Badhan|Balad|Beletweyne|Goldogob|Hargeisa|Jowhar
+63,4100923,unmatched,,
+64,4083677,unmatched,,
+65,4086757,unmatched,,
+66,4108199,unmatched,,
+67,4062160,unmatched,,
+68,4092958,matched,SO_AFGOOYE|SO_AFMADOW|SO_BAAR_DHEERE|SO_BALCAD|SO_BANADIR|SO_BAYDHABA|SO_BELET_WEYNE|SO_GAALKACYO|SO_GAROOWE|SO_JAMAAME|SO_JOWHAR|SO_KISMAAYO|SO_LUUQ,Afgooye|Afmadow|Baardheere|Baidoa|Balcad|Banadir|Belet Weyne|Gaalkacyo|Garoowe|Jamaame|Jowhar|Kismaayo|Luuq
+69,4049475,unmatched,,
+70,4118554,unmatched,,
+71,4096001,matched,SO_BANADIR,Mogadishu
+72,4063346,matched,SO_BAAR_DHEERE|SO_BANADIR|SO_BAYDHABA|SO_BELET_WEYNE|SO_CABUDWAAQ|SO_GAALKACYO,Abudwak|Baidoa|Banadir|Bardera|Beletweyne|Galkayo
+73,4085366,matched,SO_KISMAAYO,Kismayo
+74,4072719,matched,SO_SHEEKH,Sheik
+75,4073990,unmatched,,
+76,4090771,unmatched,,
+77,4052555,matched,SO_CADAADO|SO_GAALKACYO|SO_HOBYO|SO_XARARDHEERE,Cadaado|Galkayo|Harardheere|Hobyo|Xarardheere
+78,4059843,unmatched,,
+79,4075527,matched,SO_BAYDHABA,Baidoa|Baydhaba
+80,4117446,matched,SO_BANADIR,Mogadishu
+81,4100992,matched,SO_BADHAADHE|SO_BAKI|SO_BELET_WEYNE|SO_BORAMA|SO_BURTINLE|SO_CEERIGAABO|SO_DHUUSAMAREEB|SO_EYL|SO_GABILEY|SO_HARGEYSA|SO_KISMAAYO|SO_LUUQ|SO_QARDHO|SO_SHEEKH|SO_XUDUN,Badhaadhe|Baki|Belet Weyne|Borama|Burtinle|Ceerigaabo|Dhuusamarreeb|Eyl|Gebiley|Hargeisa|Kismaayo|Luuq|Qardho|Sheik|Xudun|eyl
+82,4072676,matched,SO_BANADIR|SO_QARDHO,Mogadishu|Qardho
+83,4067911,matched,SO_AFMADOW|SO_BAAR_DHEERE|SO_BAYDHABA|SO_BELET_WEYNE|SO_GAALKACYO|SO_JOWHAR|SO_KISMAAYO,Afmadow|Baardheere|Baidoa|Belet Weyne|Galkacyo|Jowhar|Kismayo
+84,4084773,matched,SO_BELET_WEYNE,Beledweyne
+85,4044513,matched,SO_BANADIR,Mogadishu
+86,4118549,unmatched,,
+87,4044522,matched,SO_HARGEYSA,Hargeisa
+88,4109221,matched,SO_BANADIR,Mogadishu
+89,4099609,unmatched,,
+90,4121559,matched,SO_BAYDHABA,Baidoa
+91,4106506,matched,SO_BANADIR|SO_JOWHAR,Jowhar|Mogadishu
+92,4067372,matched,SO_AFMADOW|SO_BAAR_DHEERE|SO_BALCAD|SO_BANADIR|SO_BELET_WEYNE|SO_BORAMA|SO_BOSSASO|SO_BURCO|SO_DOOLOW|SO_GAALKACYO|SO_GAROOWE|SO_JALALAQSI|SO_JARIIBAN|SO_JILIB|SO_JOWHAR|SO_KISMAAYO|SO_LUUQ|SO_QARDHO,Afmadow|Baardheere|Balcad|Banadir|Belet Weyne|Borama|Bossaso|Burco|Doolow|Gaalkacyo|Garowe|Jalalaqsi|Jariiban|Jilib|Jowhar|Kismayo|Luuq|Qardho
+93,4101530,matched,SO_CABUDWAAQ|SO_GOLDOGOB,Cabudwaaq|Galdogob
+94,4054933,unmatched,,
+95,4089387,unmatched,,
+96,4104855,matched,SO_AFGOOYE|SO_BALCAD|SO_BELET_WEYNE|SO_EYL,Afgooye|Balcad|Belet Weyne|eyl
+97,4063587,unmatched,,
+98,4072043,matched,SO_AFGOOYE|SO_BAYDHABA|SO_BURCO|SO_CADAADO|SO_CAYNABO|SO_CEEL_AFWEIN|SO_GAALKACYO|SO_HARGEYSA|SO_KISMAAYO|SO_QORYOOLEY,Adado|Afgooye|Baidoa|Burco|Caynabo|Ceel Afweyn|Galkacyo|Hargeysa|Kismaayo|Kismayo|Qoryooley
+99,4090725,matched,SO_BANADIR,Banadir
+100,4082154,matched,SO_AFGOOYE|SO_AFMADOW|SO_BAAR_DHEERE|SO_BALCAD|SO_BANADIR|SO_BAYDHABA|SO_BELET_WEYNE|SO_BELET_XAAWO|SO_DOOLOW|SO_GAALKACYO|SO_GAROOWE|SO_JAMAAME|SO_JOWHAR|SO_KISMAAYO|SO_LUUQ,Afgooye|Afmadow|Baardheere|Baidoa|Balcad|Banadir|Belet Weyne|Belet Xaawo|Doolow|Gaalkacyo|Garoowe|Jamaame|Jowhar|Kismaayo|Luuq
+101,4076800,matched,SO_BOSSASO|SO_BUUHOODLE|SO_CABUDWAAQ|SO_DOOLOW,Bossaso|Buuhoodle|Cabudwaaq|Doolow
+102,4080091,unmatched,,
+103,4103100,matched,SO_BANADIR|SO_SHEEKH,Mogadishu|Sheik
+104,4062754,unmatched,,
+105,4104641,matched,SO_AFGOOYE|SO_AFMADOW|SO_BAAR_DHEERE|SO_BALCAD|SO_BAYDHABA|SO_BELET_WEYNE|SO_BELET_XAAWO|SO_CABUDWAAQ|SO_DHUUSAMAREEB|SO_DOOLOW|SO_GAALKACYO|SO_GAROOWE|SO_HOBYO|SO_JAMAAME|SO_JOWHAR|SO_KISMAAYO|SO_LUUQ|SO_WAJID|SO_XUDUR,Afgooye|Afmadow|Baardheere|Baidoa|Balcad|Belet Weyne|Belet Xaawo|Cabudwaaq|Dhuusamarreeb|Doolow|Gaalkacyo|Garoowe|Hobyo|Jamaame|Jowhar|Kismaayo|Luuq|Waajid|Xudur
+106,4115090,matched,SO_BANADIR,Banadir
+107,4077191,unmatched,,
+108,4073447,matched,SO_BANADIR,Banadir
+109,4063483,unmatched,,
+110,4076780,matched,SO_BOSSASO|SO_BUUHOODLE|SO_CABUDWAAQ|SO_DOOLOW,Bossaso|Buuhoodle|Cabudwaaq|Doolow
+111,4115099,unmatched,,
+112,4097328,unmatched,,
+113,4114447,unmatched,,
+114,4085859,matched,SO_BAYDHABA|SO_MARKA,Baidoa|marka
+115,4086755,unmatched,,
+116,4064285,matched,SO_BELET_WEYNE|SO_CEERIGAABO|SO_GAROOWE|SO_XUDUN,Belet Weyne|Ceerigaabo|Garowe|Xudun
+117,4075536,matched,SO_LUUQ,Luuq
+118,4116843,unmatched,,
+119,4097311,unmatched,,
+120,4106723,unmatched,,
+121,4061881,matched,SO_BELET_WEYNE,Belet Weyne
+122,4086038,unmatched,,
+123,4071539,matched,SO_GAALKACYO,Galkacyo
+124,4056403,matched,SO_AFMADOW|SO_BANADIR|SO_CADAADO|SO_XUDUR,Afmadow|Banadir|Cadaado|Xudur
+125,4087472,unmatched,,
+126,4064109,unmatched,,
+127,4096732,unmatched,,
+128,4081808,unmatched,,
+129,4092345,unmatched,,
+130,4091159,matched,SO_DIINSOOR,Dinsor
+131,4121810,unmatched,,
+132,4070691,matched,SO_BELET_WEYNE,Belet Weyne
+133,4097114,unmatched,,
+134,4085367,matched,SO_CADAADO,Adado
+135,4075472,unmatched,,
+136,4044078,unmatched,,
+137,4057002,matched,SO_AFGOOYE|SO_JAMAAME|SO_LUUQ,Afgooye|Jamame|Luuq
+138,4120097,unmatched,,
+139,4059419,matched,SO_BELET_WEYNE,Beletweyne
+140,4065522,unmatched,,
+141,4099762,unmatched,,
+142,4061786,matched,SO_BANADIR,Mogadishu
+143,4105336,unmatched,,
+144,4072607,matched,SO_BANADIR|SO_BELET_WEYNE|SO_GAROOWE|SO_HARGEYSA|SO_SHEEKH,Banadir|Beledweyne|Garoowe|Hargeysa|Mogadishu|Sheik
+145,4043944,unmatched,,
+146,4072608,matched,SO_BELET_WEYNE|SO_GAROOWE|SO_HARGEYSA|SO_SHEEKH,Beledweyne|Garoowe|Hargeysa|Sheik
+147,4091649,unmatched,,
+148,4074255,matched,SO_BANADIR|SO_BAYDHABA|SO_BELET_WEYNE|SO_GARBAHAARAY,Banadir|Baydhaba|Belet Weyne|Garbahaaray
+149,4085335,matched,SO_BAYDHABA,Baidoa
+150,4101339,matched,SO_KISMAAYO,Kismayo
