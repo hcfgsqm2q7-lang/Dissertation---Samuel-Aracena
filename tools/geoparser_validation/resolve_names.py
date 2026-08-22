@@ -68,7 +68,23 @@ CONFIRMED_MAPPINGS = {
     "togwajal": "Gabiley",            # Tog Wajaale, border town (NOT Afgooye)
     "togwajale": "Gabiley",
     "wajaale": "Gabiley",
+    "maxaas": "Bulo Burto",           # confirmed via ACLED location -> admin2
+    "mahas": "Bulo Burto",
+    "brava": "Baraawe",               # historic/Italian name for Baraawe
+    "khada": "Banadir",
+    "galkayu north": "Gaalkacyo",
+    "galkayu south": "Gaalkacyo",
+    "jamaame east": "Jamaame",
+    "jamaame west": "Jamaame",
+    "zeila": "Zeylac",
+    "buleburte": "Bulo Burto",
+    "dusamreb": "Dhuusamareeb",
 }
+
+# ACLED itself files Ceel Garas under two different districts (Dhuusamareeb and
+# Xudur), so it cannot be resolved automatically without reading the specific
+# report. Deliberately left unmapped and reported as unresolved rather than guessed.
+AMBIGUOUS_NAMES = {"elgaras", "el garas", "ceel garas"}
 
 # Districts of Mogadishu. GADM collapses the whole city into the single Admin2 unit
 # "Banadir", so every one of these resolves there. See docs/data_quality_findings.md B2.
@@ -171,6 +187,8 @@ class Resolver:
         key = _norm(raw)
         if not key or key in {"none", "n", "na", "n a", "and"}:
             return None, "empty"
+        if key in AMBIGUOUS_NAMES:
+            return None, "unknown"
 
         hit = self._direct(key)
         if hit:
