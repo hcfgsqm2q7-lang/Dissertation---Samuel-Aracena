@@ -40,6 +40,36 @@ FUZZY_CUTOFF = 0.86
 # Below the auto-accept bar but close enough to be worth a human glance.
 SUGGEST_CUTOFF = 0.70
 
+# Spellings confirmed by hand during labelling, 2026-08-21. These are checked against
+# the report they came from rather than guessed by similarity, so they resolve directly
+# instead of going through the fuzzy path. Each is also an alias the geoparser itself
+# lacks, and is queued for addition once the validation is scored.
+CONFIRMED_MAPPINGS = {
+    "merka": "Marka",                 # Italian/English spelling of Marka
+    "qoriole": "Qoryooley",
+    "rabdhuree": "Rab Dhuure",
+    "benadir": "Banadir",
+    "jariban": "Jariiban",
+    "beletweyn": "Belet Weyne",
+    "bandarbeyla": "Bander-Beyla",
+    "banderbeyla": "Bander-Beyla",
+    "dollow": "Doolow",
+    "tijieglo": "Tiyeeglow",
+    "laasqoray": "Badhan",            # GADM lists Las Qoray as Badhan's variant name
+    "south galkacyo": "Gaalkacyo",    # Gaalkacyo is split north/south; one Admin2 unit
+    "south galkaio": "Gaalkacyo",
+    "doblei": "Afmadow",              # Dhobley, a town in Afmadow district
+    "dhobley": "Afmadow",
+    "hawadley": "Balcad",             # Hawadley village, in Balcad
+    "hawadley village": "Balcad",
+    # Below: read from general geography rather than a source in this repository.
+    # Flagged for Samuel to confirm; both were wrong under fuzzy matching.
+    "dhahar": "Badhan",               # Dhahar is in Sanaag, not Bari (NOT Iskushuban)
+    "togwajal": "Gabiley",            # Tog Wajaale, border town (NOT Afgooye)
+    "togwajale": "Gabiley",
+    "wajaale": "Gabiley",
+}
+
 # Districts of Mogadishu. GADM collapses the whole city into the single Admin2 unit
 # "Banadir", so every one of these resolves there. See docs/data_quality_findings.md B2.
 MOGADISHU_DISTRICTS = [
@@ -89,6 +119,8 @@ class Resolver:
                 self.lookup.setdefault(_norm(a), canon)
         for d in MOGADISHU_DISTRICTS:
             self.lookup.setdefault(_norm(d), "Banadir")
+        for k, v in CONFIRMED_MAPPINGS.items():
+            self.lookup[_norm(k)] = v
 
         # Banadir region contains exactly one district, so the region name is an
         # unambiguous way of referring to it. Both spellings resolve to the district.

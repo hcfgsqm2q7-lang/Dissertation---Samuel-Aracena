@@ -49,8 +49,14 @@ def load_labels():
     labels = pd.read_excel(WORKBOOK, sheet_name="Labelling")
     labels = labels[labels["report_id"].astype(str) != "EXAMPLE"]
 
+    # A row counts as labelled once either district column has been filled in. The
+    # no_admin2_identifiable column is no longer typed by hand: it is fully determined
+    # by the other two (nothing in either => no Admin2 could be identified), so it is
+    # derived below rather than asked for. Writing NONE is what marks a report as read
+    # and empty, as opposed to not yet reached.
     labelled = labels[
         labels["districts_genuinely_about"].notna()
+        | labels["districts_mentioned_in_passing"].notna()
         | labels["no_admin2_identifiable"].notna()
     ].copy()
 
@@ -75,6 +81,11 @@ def load_labels():
             region_only.append(rec.row_id)
     merged["truth_ids"] = truth
     merged["passing_ids"] = passing
+    # Derived, not typed: no district anywhere in either column, and no region either.
+    merged["no_admin2_derived"] = [
+        "Y" if not t and not p and rid not in region_only else "N"
+        for t, p, rid in zip(truth, passing, merged["row_id"])
+    ]
     merged["pred_ids"] = merged["matched_location_ids"].apply(
         lambda v: set(str(v).split("|")) if isinstance(v, str) and v else set()
     )
