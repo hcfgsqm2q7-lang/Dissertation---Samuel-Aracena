@@ -370,3 +370,52 @@ to the current method.
 The right framing is that **the 150 labelled reports become a reusable benchmark**.
 Reporting that simple string matching reaches a measured precision, and publishing the
 evaluation set alongside it, hands the next researcher both the problem and the yardstick.
+
+## E. Repeated-measures corrections (2026-08-22)
+
+### E1. Pilot 1's full-year conflict result was a pseudo-replication artefact · FIXED 2026-08-22
+
+Audited every bivariate significance test in the notebook's full-year section against
+the "repeated district-months are not independent" rule (CLAUDE.md Key decisions).
+
+`has_market_coverage` is fixed per district across all 12 months, so "Pilot 1" (does
+market coverage track conflict) tested it against `conflict_event_count` and
+`fatalities` on all 888 month-level rows, each district's market status counted 12
+times over. Reported `conflict_event_count` as significant, p=0.0001.
+
+Collapsed to one row per district (n=74, mean conflict per district) instead: p=0.188,
+not significant. `fatalities` moves from p=0.114 to p=0.978, also not significant. The
+naive month-level result was entirely an artefact of the repetition; at the correct
+grain the full year agrees with the two-month prototype (Task 9), which also found no
+relationship. Both readings are now in the notebook side by side, with the naive one
+explicitly labelled as such, following the same before/after pattern used for the
+logistic regression's in-sample vs out-of-sample framing.
+
+Verified by extracting the relevant cells into a standalone notebook and re-executing
+via `jupyter nbconvert --execute`; the printed output matches the numbers quoted in the
+surrounding markdown exactly.
+
+### E2. Month-level correlations involving time-varying features are mostly, not entirely, robust · confirmed
+
+Pilot 2 (conflict vs reports, r=0.366, n=888) and the climate checks against reporting
+coverage use variables that genuinely change month to month, so pooling all 888 rows is
+a weaker violation than E1: it is not literal duplication, just non-independence within
+a district's 12 months (a district's reporting attention in January is not unrelated to
+its attention in February). Checked with a district-cluster bootstrap (3,000 resamples,
+whole districts resampled with replacement, not individual district-months) rather than
+a full district-level redo, since these correlations are the headline evidence for
+Sub-Question 2 and a bootstrap keeps the full n while still respecting the clustering.
+
+Results: conflict vs reports (r=0.367, cluster CI [0.213, 0.501]), rainfall vs reports
+(r=0.090, CI [0.015, 0.167]) and VHI vs conflict (r=-0.133, CI [-0.255, -0.013]) all
+survive, CIs nowhere near zero. **VHI vs reports does not**: pooled r=-0.113, but the
+cluster-robust CI is [-0.237, 0.003], crossing zero (p~0.057). The pooled month-level
+test called this "detectable" only by treating 888 non-independent rows as independent;
+under clustering it is inconclusive. This does not overturn the substantive reading
+that climate carries far less signal than conflict, since the effect was already
+described as small, but the specific r=-0.11 figure should not be quoted as confirmed.
+
+The two-month prototype cells (Task 9 era, cells testing `conflict_density`, area, and
+similar) were left unchanged: CLAUDE.md and the notebook's own cell 27 already disclaim
+them as illustrative-only, not part of current findings, so they carry no risk of being
+mistakenly cited as evidence.

@@ -140,10 +140,14 @@ rasterstats fiona scipy beautifulsoup4 nbclient nbformat ipykernel python-pptx`.
   has no market either.
 - Reporting coverage swings between 34 and 54 districts by month. Market coverage is
   flat at 34 to 35. Different kinds of gap.
-- Correlates of reporting coverage: conflict activity r=0.49, market status r=0.43,
-  district area r=0.06 (nothing), distance to capital r=-0.11 (nothing). **The market
-  correlation is one of the district-independence casualties**, since market status
-  barely varies within a district across the year; it needs redoing at district level.
+- Correlates of reporting coverage, already computed correctly at district level (n=74,
+  one row per district, notebook cell "Candidate predictors of reporting coverage"):
+  conflict activity r=0.49, market status r=0.43, district area r=0.06 (nothing). There
+  is no "distance to capital" feature anywhere in the codebase; an earlier version of
+  this note conflated that with a separate month-level figure (VHI vs reports, r=-0.11,
+  see below). The market and conflict correlations above do NOT need redoing, since
+  `prof` in that cell already aggregates the panel to one row per district before
+  computing them.
 - **WFP observed vs forecast, audited and written up 2026-08-21** (notebook, "WFP
   observed-vs-forecast audit, full year"). The export carries a `Data Type` column
   ("Aggregated" = observed, "Forecast") and a `Forecast Methodology` column. Across the
@@ -164,6 +168,26 @@ rasterstats fiona scipy beautifulsoup4 nbclient nbformat ipykernel python-pptx`.
   not touch the panel: Livestock (Goat) and Salt both show 0 observed / 35 missing
   in January (absent that whole month, not forecast), and Meat (Goat) does the same
   in May. Next steps item 2 is done.
+- **Repeated-district-months audit, done 2026-08-22** (notebook, "Correcting Pilot 1 for
+  repeated district-months" and "Are the month-level correlations above robust to
+  repeated district-months?"). Every bivariate test in the full-year section was
+  checked. One was a genuine violation and is now fixed in place: "Pilot 1"
+  (`has_market_coverage` vs conflict/fatalities) tested a district-fixed variable on all
+  888 month-level rows, reporting conflict_event_count as significant (p=0.0001). At
+  the correct district level (n=74, one row per district) it is not significant
+  (p=0.188); fatalities moves from p=0.114 to p=0.978. The naive figures are kept in the
+  notebook alongside the correction, not deleted, so the artefact is visible. The
+  remaining month-level correlations (Pilot 2's conflict-reports r=0.366, and the
+  climate checks in "Candidate predictors of reporting coverage") use time-varying
+  variables, not fixed ones, so pooling is a weaker violation; checked with a
+  district-cluster bootstrap (resampling whole districts, not individual district-
+  months) rather than a full redo. Conflict vs reports, rainfall vs reports and VHI vs
+  conflict all survive clustering. **VHI vs reports does not**: its cluster-robust 95%
+  CI crosses zero ([-0.237, 0.003], p~0.057), so the r=-0.11 figure should not be quoted
+  as a confirmed effect, only as inconclusive. This does not change the substantive
+  reading that climate carries far less signal than conflict. The two-month prototype
+  cells (Task 9 era) were left alone: they are already disclaimed as illustrative-only
+  and are not part of the current findings. Next steps item 3 is done.
 - **Reporting attention by crisis type** (rewording pending, see Key decisions):
   district-months in the worst decile for conflict received a mean 6.65 reports against
   2.67 for the worst decile of vegetation stress (p=0.000064). 88.2% versus 65.7%
@@ -220,10 +244,13 @@ unblocked: all data is already in the repository.
    of observed, forecast and missing record counts is in the notebook, both for every
    WFP-tracked commodity and restricted to the panel's own basket. See Current
    findings for the numbers.
-3. **Fix the repeated-district-months problem.** Audit every existing bivariate result.
-   District-fixed variables (`has_market_coverage`) move to district-level analysis;
-   monthly outcomes keep district-clustered SEs. The logistic regression already
-   clusters, so it is largely compliant.
+3. ~~**Fix the repeated-district-months problem.**~~ **Done 2026-08-22.** Audited every
+   bivariate result in the full-year section. `has_market_coverage` (district-fixed) was
+   the one real violation and is now corrected in the notebook, kept alongside the
+   naive figure for transparency. Time-varying monthly correlations were checked with a
+   district-cluster bootstrap instead of a full redo; all but one (VHI vs reports)
+   survive. See Current findings for the numbers. The logistic regression already
+   clustered, so it needed no change.
 4. **Strengthen the conflict-vs-climate reporting result.** Reword away from
    "comparable severity". Re-run at 5%, 10% and 20% thresholds. Add a continuous
    version: does reporting rise with conflict intensity, and does it stay flat across
