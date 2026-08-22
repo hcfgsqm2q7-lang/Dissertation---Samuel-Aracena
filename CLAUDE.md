@@ -144,15 +144,20 @@ rasterstats fiona scipy beautifulsoup4 nbclient nbformat ipykernel python-pptx`.
   district area r=0.06 (nothing), distance to capital r=-0.11 (nothing). **The market
   correlation is one of the district-independence casualties**, since market status
   barely varies within a district across the year; it needs redoing at district level.
-- **WFP observed vs forecast, checked 2026-08-21**: the export carries a `Data Type`
-  column ("Aggregated" = observed, "Forecast") and a `Forecast Methodology` column.
-  Across the whole 69,162-row export, 63% is forecast. But the **Somalia 2024 slice
-  actually used is 6,973 rows of which only 4 are forecasts** (2 in November, 2 in
-  December, 0.3% of those months, 0.0% Jan-Oct). The forecast contamination lives in
-  the other three countries (Ethiopia, Kenya, South Sudan) and other years. The earlier
-  prototype-stage warning was correct about the export as a whole and does not bite on
-  the slice in use. This still needs writing up properly as the audit table, see Next
-  steps item 2, but the answer is reassuring rather than damaging.
+- **WFP observed vs forecast, audited and written up 2026-08-21** (notebook, "WFP
+  observed-vs-forecast audit, full year"). The export carries a `Data Type` column
+  ("Aggregated" = observed, "Forecast") and a `Forecast Methodology` column. Across the
+  whole 69,162-row export, 63% is forecast. But the **Somalia 2024 slice actually used
+  is 6,973 rows of which only 4 are forecasts**, and those 4 are Sorghum (red and
+  white) in Afmadow for November and December, a commodity the panel does not track.
+  **The four basket commodities the panel actually keeps (wheat flour, rice, sugar,
+  oil) have zero forecast rows in any month, all year.** Missingness is small and
+  explained: January is missing 4 of 140 expected market x commodity series (2.9%),
+  all four the same market (Bakaara) not yet reporting in the export's first month;
+  every month from February on is 100% complete. The panel-building code already
+  filters to `Data Type == "Aggregated"` before anything else happens, so this was
+  always safe; the audit confirms it with numbers rather than fixing anything. Next
+  steps item 2 is done.
 - **Reporting attention by crisis type** (rewording pending, see Key decisions):
   district-months in the worst decile for conflict received a mean 6.65 reports against
   2.67 for the worst decile of vegetation stress (p=0.000064). 88.2% versus 65.7%
@@ -205,10 +210,10 @@ unblocked: all data is already in the repository.
    positive and false negative examples once labels come back. Labelling is blind by
    design: the geoparser's predictions are not in the workbook. Report against the
    **final** method, never the original.
-2. **WFP observed-vs-forecast audit.** Month-by-month table of observed, forecast and
-   missing record counts. Preliminary numbers are in Current findings and look
-   favourable; this is a write-up task, not a discovery task. Never mix forecast and
-   observed prices without marking them.
+2. ~~**WFP observed-vs-forecast audit.**~~ **Done 2026-08-21.** Month-by-month table
+   of observed, forecast and missing record counts is in the notebook, both for every
+   WFP-tracked commodity and restricted to the panel's own basket. See Current
+   findings for the numbers.
 3. **Fix the repeated-district-months problem.** Audit every existing bivariate result.
    District-fixed variables (`has_market_coverage`) move to district-level analysis;
    monthly outcomes keep district-clustered SEs. The logistic regression already
