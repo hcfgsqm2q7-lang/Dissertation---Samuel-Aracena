@@ -419,3 +419,53 @@ The two-month prototype cells (Task 9 era, cells testing `conflict_density`, are
 similar) were left unchanged: CLAUDE.md and the notebook's own cell 27 already disclaim
 them as illustrative-only, not part of current findings, so they carry no risk of being
 mistakenly cited as evidence.
+
+## F. Strengthening the conflict-vs-climate reporting result (2026-08-22)
+
+### F1. The extreme-conflict group is dominated by a handful of chronically affected districts · confirmed
+
+While adding robustness checks to the "extreme conflict vs extreme climate stress"
+reporting-attention comparison (Next steps item 4), checked how many distinct districts
+each group actually draws on, since the district-independence audit (section E) had
+already shown this kind of test can be fooled by repetition.
+
+The 68 district-months of extreme conflict come from only 18 distinct districts;
+Baydhaba, Marka and Afgooye alone supply 11, 10 and 9 of them respectively. The 67
+district-months of extreme climate stress are much more spread out, 41 distinct
+districts. Re-run at the district level (one row per district, its own mean reports
+across its extreme months), the result survives but weakens substantially: p=0.0067
+versus the naive p=0.000064, and a district-cluster bootstrap of the original row-level
+statistic gives a 95% CI of [0.57, 7.54] on the mean difference, excluding zero but far
+wider than the naive test implied. The conclusion (conflict attracts more reporting
+attention than climate stress, even at comparably extreme positions in each
+distribution) survives; the apparent strength of the naive p-value does not, for the
+same reason as the Pilot 1 finding in section E.
+
+### F2. Reporting rises continuously with conflict intensity; the same is not true for climate stress · confirmed
+
+Quintile-binned mean reports show a close to monotonic rise across conflict quintiles
+(1.40 to 5.66 reports) and no comparable pattern across VHI quintiles (a somewhat
+elevated 4.01 in the worst-stress quintile, then flat around 2.0-2.4 for the rest).
+Some of that elevation in the worst-VHI quintile is plausibly conflict riding along with
+it (VHI and conflict correlate weakly, r=-0.133), which is exactly why the threshold
+test excludes district-months extreme on both axes at once.
+
+### F3. Climate stress is not reported late, it is reported less throughout · confirmed
+
+Tested whether the conflict/climate reporting gap narrows over the three months
+following an extreme month, as it would if slow-onset stress simply attracted delayed
+rather than absent attention. It does not: the gap stays at 3.9-4.5 reports at lags 1
+and 2 (versus 3.98 at lag 0), and cumulative reporting over the following three months
+keeps the same roughly 2.5x ratio (17.47 vs 6.82 reports, p=0.0001) as the same-month
+comparison. Lag 2 and lag 3 have shrinking samples (the extreme climate-stress group
+thins out towards year-end, since fewer full months remain to look forward from) and
+should be read cautiously, but the pattern across lags 0-2 is consistent.
+
+### F4. Food/nutrition-specific reporting shows the same bias, weaker · confirmed
+
+Restricting to `food_nutrition_report_count`, unused in any analysis until now, the
+conflict-favouring gap persists (3.21 vs 2.09 reports) but is weaker than the all-reports
+version (p=0.016 vs p=0.0001). Food and nutrition reporting is somewhat less
+conflict-biased than reporting overall, but still favours conflict over climate stress,
+which is the more directly relevant reading for a food-insecurity dataset than the
+all-reports figure used originally.

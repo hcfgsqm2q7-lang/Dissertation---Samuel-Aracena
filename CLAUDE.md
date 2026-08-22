@@ -188,14 +188,30 @@ rasterstats fiona scipy beautifulsoup4 nbclient nbformat ipykernel python-pptx`.
   reading that climate carries far less signal than conflict. The two-month prototype
   cells (Task 9 era) were left alone: they are already disclaimed as illustrative-only
   and are not part of the current findings. Next steps item 3 is done.
-- **Reporting attention by crisis type** (rewording pending, see Key decisions):
-  district-months in the worst decile for conflict received a mean 6.65 reports against
-  2.67 for the worst decile of vegetation stress (p=0.000064). 88.2% versus 65.7%
-  received any report at all. Groups were 68 and 67 with the overlap excluded.
-  **Two caveats before this can be quoted**: the "comparable severity" framing is
-  banned, and the Mann-Whitney test treats district-months as independent when
-  districts repeat across groups. Needs threshold robustness (5/10/20%) and a
-  continuous version, see Next steps item 4.
+- **Reporting attention by crisis type, strengthened and reworded 2026-08-22** (notebook,
+  "Comparing Crisis Types: Relatively Extreme Conflict vs. Climate-Stress Observations").
+  Both caveats flagged against this result are now resolved. Wording changed throughout
+  to "relatively extreme conflict observations" vs "relatively extreme climate-stress
+  observations", never "comparable severity". Five robustness checks were added:
+  (1) the original 10%-threshold result (mean 6.65 reports for extreme conflict vs 2.67
+  for extreme climate stress, p=0.000064, 88.2% vs 65.7% received any report) holds at
+  5% and 20% thresholds too, all p<0.001; (2) a continuous, non-threshold version shows
+  reporting rising close to monotonically with conflict intensity (1.40 to 5.66 reports
+  across conflict quintiles) with no comparable rise across climate-stress quintiles;
+  (3) restricted to `food_nutrition_report_count` only, the same direction holds but
+  weaker (3.21 vs 2.09 reports, p=0.016); (4) the gap does not narrow over the three
+  months following an extreme month (17.47 vs 6.82 cumulative reports, p=0.0001), so
+  climate stress is not simply reported late; (5) **the repeated-district-months
+  caveat**, since the extreme-conflict group draws heavily on a handful of chronically
+  conflict-affected districts (18 distinct districts for 68 district-months, versus 41
+  distinct districts for the climate group's 67), is now checked directly: at the
+  district level (n=18 vs n=41) the result survives but weakens substantially, from
+  p=0.000064 to p=0.0067, and a district-cluster bootstrap on the original statistic
+  gives a 95% CI of [0.57, 7.54] on the mean difference, excluding zero but far wider
+  than the naive test implied. The direction and significance hold; the effective
+  sample size does not. The one caveat that remains, and cannot be resolved by any of
+  these checks, is that "extreme" is defined relative to Somalia's own 2024
+  distribution, not an external measure of human impact. Next steps item 4 is done.
 - **Logistic regression, descriptive reading** (in the notebook, "Logistic regression:
   are the reporting gaps systematic?"). Odds ratios with district-clustered SEs, from
   conflict, market status, rainfall, vegetation, region and month. Banaadir excluded
@@ -251,12 +267,14 @@ unblocked: all data is already in the repository.
    district-cluster bootstrap instead of a full redo; all but one (VHI vs reports)
    survive. See Current findings for the numbers. The logistic regression already
    clustered, so it needed no change.
-4. **Strengthen the conflict-vs-climate reporting result.** Reword away from
-   "comparable severity". Re-run at 5%, 10% and 20% thresholds. Add a continuous
-   version: does reporting rise with conflict intensity, and does it stay flat across
-   climate stress? Also repeat using `food_nutrition_report_count` only, which has
-   never been used, and test whether slow-onset stress is reported late rather than
-   never.
+4. ~~**Strengthen the conflict-vs-climate reporting result.**~~ **Done 2026-08-22.**
+   Reworded away from "comparable severity" throughout. Re-run at 5/10/20% thresholds,
+   all significant. Added a continuous version (quintile bins), the
+   `food_nutrition_report_count`-only version, a test for whether climate stress is
+   reported late rather than never (it is not), and a district-cluster check of the
+   test itself, which survives but at markedly weaker significance (p=0.0067, not
+   p=0.000064) once repeated conflict-heavy districts stop being overcounted. See
+   Current findings for the numbers.
 5. **Measure source complementarity** (sub-question 3, the open one). For each
    district-month count how many of the four mechanisms are observed, then report the
    share with 1, 2, 3 and 4. Add each source's unique contribution: how many
