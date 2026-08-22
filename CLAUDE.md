@@ -156,8 +156,14 @@ rasterstats fiona scipy beautifulsoup4 nbclient nbformat ipykernel python-pptx`.
   all four the same market (Bakaara) not yet reporting in the export's first month;
   every month from February on is 100% complete. The panel-building code already
   filters to `Data Type == "Aggregated"` before anything else happens, so this was
-  always safe; the audit confirms it with numbers rather than fixing anything. Next
-  steps item 2 is done.
+  always safe; the audit confirms it with numbers rather than fixing anything. The
+  notebook also carries the full breakdown at the supervisor's literal spec (month,
+  observed, forecast, missing) for **every** commodity WFP tracks, not just the
+  basket, with the four basket commodities marked `*` for comparison. That fuller
+  table surfaced one thing outside the basket, noted but not acted on since it does
+  not touch the panel: Livestock (Goat) and Salt both show 0 observed / 35 missing
+  in January (absent that whole month, not forecast), and Meat (Goat) does the same
+  in May. Next steps item 2 is done.
 - **Reporting attention by crisis type** (rewording pending, see Key decisions):
   district-months in the worst decile for conflict received a mean 6.65 reports against
   2.67 for the worst decile of vegetation stress (p=0.000064). 88.2% versus 65.7%
