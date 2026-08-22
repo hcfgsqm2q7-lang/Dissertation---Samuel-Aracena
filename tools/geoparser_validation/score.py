@@ -33,6 +33,7 @@ import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import geoparser as gp  # noqa: E402
+from resolve_names import Resolver  # noqa: E402
 
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 VAL_DIR = os.path.join(REPO, "data", "geoparser_validation")
@@ -42,30 +43,8 @@ N_BOOTSTRAP = 5000
 SEED = 20260821
 
 
-def parse_districts(cell, valid_names):
-    """Split a semicolon-separated label cell into canonical district names."""
-    if cell is None or (isinstance(cell, float) and np.isnan(cell)):
-        return set(), []
-    text = str(cell).strip()
-    if not text or text.upper() == "NONE":
-        return set(), []
-    names, unknown = set(), []
-    for part in text.split(";"):
-        p = part.strip()
-        if not p:
-            continue
-        if p in valid_names:
-            names.add(valid_names[p])
-        elif p.lower() in {k.lower(): v for k, v in valid_names.items()}:
-            names.add({k.lower(): v for k, v in valid_names.items()}[p.lower()])
-        else:
-            unknown.append(p)
-    return names, unknown
-
-
 def load_labels():
-    dim = pd.read_csv(f"{REPO}/data/processed/dim_location_somalia_full74.csv")
-    valid = {r.admin2: r.location_id for r in dim.itertuples()}
+    resolver = Resolver(REPO)
 
     labels = pd.read_excel(WORKBOOK, sheet_name="Labelling")
     labels = labels[labels["report_id"].astype(str) != "EXAMPLE"]
@@ -80,21 +59,27 @@ def load_labels():
 
     merged = labelled.merge(key, on=["row_id", "report_id"], how="left", validate="1:1")
 
-    unknown_all = []
+    unknown_all, region_only = [], []
     truth, passing = [], []
     for rec in merged.itertuples():
-        t, unk_t = parse_districts(rec.districts_genuinely_about, valid)
-        p, unk_p = parse_districts(rec.districts_mentioned_in_passing, valid)
+        t, reg_t, unk_t, _, sug_t = resolver.parse_cell(rec.districts_genuinely_about)
+        p, _, unk_p, _, sug_p = resolver.parse_cell(rec.districts_mentioned_in_passing)
         truth.append(t)
         passing.append(p)
         unknown_all.extend([(rec.row_id, u) for u in unk_t + unk_p])
+        unknown_all.extend([(rec.row_id, f"{a} (suggest {b}?)") for a, b in sug_t + sug_p])
+        # A report written about a region has no Admin2 to record. That is a real
+        # property of the report, not a labelling error, and must not be scored as a
+        # district the geoparser missed.
+        if reg_t and not t:
+            region_only.append(rec.row_id)
     merged["truth_ids"] = truth
     merged["passing_ids"] = passing
     merged["pred_ids"] = merged["matched_location_ids"].apply(
         lambda v: set(str(v).split("|")) if isinstance(v, str) and v else set()
     )
 
-    return merged, manifest, unknown_all, len(labels)
+    return merged, manifest, unknown_all, len(labels), region_only
 
 
 def pair_counts(row):
@@ -203,7 +188,7 @@ def main():
     if not os.path.exists(WORKBOOK):
         raise SystemExit(f"No workbook at {WORKBOOK}. Run build_sample.py first.")
 
-    df, manifest, unknown, total_rows = load_labels()
+    df, manifest, unknown, total_rows, region_only = load_labels()
     dim = pd.read_csv(f"{REPO}/data/processed/dim_location_somalia_full74.csv")
     dim_names = {r.location_id: r.admin2 for r in dim.itertuples()}
 
@@ -221,8 +206,11 @@ def main():
         n = (df["stratum"] == s).sum()
         print(f"  {s:10s} {n:3d} labelled   (corpus weight {weights[s]:.2f})")
 
+    if region_only:
+        print(f"\nRows whose truth is a region, not a district (no Admin2 to find): {region_only}")
+
     if unknown:
-        print("\n!! Unrecognised district names, these rows are being scored without them:")
+        print("\n!! Unresolved names, these rows are being scored without them:")
         for row_id, name in unknown[:15]:
             print(f"   row {row_id}: '{name}'")
         print("   Fix the spelling against the 'District reference' sheet and re-run.")
