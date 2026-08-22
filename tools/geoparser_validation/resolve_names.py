@@ -46,13 +46,14 @@ MOGADISHU_DISTRICTS = [
     "abdiaziz", "boondheere", "bondhere", "daynile", "dayniile", "deynile", "dharkenley",
     "dharkenleey", "hamar jajab", "hamar weyne", "hawl wadaag", "heliwaa", "hodan",
     "howl wadag", "huriwaa", "kaxda", "kahda", "karan", "shangaani", "shibis", "waberi",
-    "waaberi", "wadajir", "wardhiigleey", "yaaqshiid", "yaqshid",
+    "waaberi", "wadajir", "wardhiigleey", "wardhiigley", "wardegley", "yaaqshiid",
+    "yaqshid", "abdul aziz", "abdiaziz", "danyile", "kaaraan",
 ]
 
 # Alternative and older Admin1 region names that appear in reports but are not in GADM's
 # 18. Listed so they are recognised as regions rather than reported as unknown.
 EXTRA_REGION_NAMES = [
-    "ayn", "gardafuu", "karkaar", "hiran", "hiiraan", "galgadud", "galgaduud",
+    "ayn", "gardafuu", "karkaar", "hiran", "hiiraan", "hiraan", "hirshabelle", "galgadud", "galgaduud",
     "middle shabelle", "middle shebelle", "lower shabelle", "lower shebelle",
     "middle juba", "lower juba", "banadir", "banaadir", "somaliland", "puntland",
     "jubaland", "hirshabelle", "south west state", "galmudug",
@@ -136,12 +137,18 @@ class Resolver:
     def resolve(self, raw):
         """-> (canonical district | None, status)  status in ok/fuzzy/region/unknown."""
         key = _norm(raw)
-        if not key:
+        if not key or key in {"none", "n", "na", "n a", "and"}:
             return None, "empty"
 
         hit = self._direct(key)
         if hit:
             return hit, "ok"
+
+        stripped = re.sub(r"\s+(sl|pl|somaliland|puntland)$", "", key)
+        if stripped != key:
+            hit = self._direct(stripped)
+            if hit:
+                return hit, "ok"
 
         # "Bay (Baydhaba/Baidoa)" and similar: the bare name is a region but the
         # parenthetical names the district actually meant. Prefer the district.

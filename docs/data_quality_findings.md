@@ -256,3 +256,117 @@ Collected here as the concrete cases found so far:
 3. Rebuild `fact_reporting_somalia.csv` and the panel, then report coverage before and
    after so the effect of each fix is visible.
 4. **Never fixable, document instead**: B1, B2, B3, A6.
+
+---
+
+## D. Raised during manual labelling (2026-08-21)
+
+Points Samuel raised while working through the validation sample. Several are
+findings in their own right rather than labelling questions.
+
+### D1. ReliefWeb publishes in formats the geoparser structurally cannot read · confirmed
+
+The geoparser reads `title + body` only. It does not read images.
+
+| Format | Reports | Match rate | Median body | Empty body |
+|---|---|---|---|---|
+| News and Press Release | 307 | 72.6% | 3,992 | 0% |
+| Situation Report | 350 | 57.4% | 1,603 | 1% |
+| **Infographic** | **216** | **15.3%** | **0** | **56%** |
+| **Map** | **110** | **21.8%** | **0** | **60%** |
+
+Infographics and maps are **326 reports, 24% of the corpus**, matching at 17.5%
+against 55.5% for text formats. 57% carry no body text at all: the content is in the
+image. Of the image reports that do match, 42% match on the title alone.
+
+Not fixable by alias or word-boundary work. Reading them needs OCR or a vision model,
+which is out of scope. It is a clean case of the structural-availability versus
+recorded-coverage distinction: a district covered mainly through infographics appears
+unobserved in the panel while being well documented in reality.
+
+**Report precision and recall separately for text formats and for the whole corpus.**
+The method's real behaviour on text is very different from its behaviour overall.
+
+### D2. Admin2 identity is contested, and the dataset inherits one authority's answer · confirmed
+
+Samuel found districts described online as Somali districts that are absent from the
+panel. What the repository itself shows:
+
+| Source | Admin2 units |
+|---|---|
+| GADM 4.1 (the panel's backbone) | 74 |
+| ACLED, units used in 2024 | 67 |
+| WFP crosswalk (market districts) | 35 |
+
+Confirmed real districts absent from GADM's Admin2 layer entirely: **Mataban**,
+**Mahas / Maxaas**, **Mahaday**. All three are reported on, and ACLED records events at
+them, filed under a neighbouring district.
+
+**This belongs in the dissertation as a stated assumption**, roughly: *Admin2 is
+defined here as GADM 4.1's ADM2 layer, 74 units. Other authorities divide Somalia
+differently, so district identity is not agreed and any Admin2 dataset inherits its
+geography from a choice its author has to declare.* Directly serves the "common
+subnational framework" wording in the research question.
+
+### D3. Two defensible definitions of "about a district", so measure both · decision
+
+Labelling surfaced cases where a report carries real district-specific information with
+no narrative: a flood-risk line for Bulo Burto, a vaccination rate for Balcad, a
+deaths-by-district table. "Does it tell a story" is therefore the wrong test. The
+working rule is **does the report assert something specific about this district**.
+
+That still leaves routine tabulations ambiguous, so two definitions are carried:
+
+- **A, attention**: the report says something happened or was done in the district.
+  Routine tables and price bulletins excluded.
+- **B, observation**: the report carries any district-specific information. Included.
+
+Labelling is done under **B**, the inclusive definition, with the document type recorded
+in the notes column. That makes A computable at scoring time by excluding those types,
+so both can be reported without re-labelling. B is primary; A is the sensitivity check.
+
+### D4. Periodic reporting does not obviously inflate coverage persistence · confirmed, weak test
+
+Serial publications (weekly bulletins, monthly dashboards) appear regardless of
+conditions, so they could inflate reporting counts independently of events. Tested with
+a title-keyword proxy: 30% of the corpus looks periodic, but its match rate is 43.5%
+against 47.4% for the rest, and the median district appears in 5 months either way.
+
+Relevant to the momentum result: if serial publication drove coverage persistence, the
+"reporting attention is self-perpetuating" reading would be an artefact of publication
+schedules. This test says it is not, but the proxy is crude and a proper test using
+source and series metadata would be better.
+
+### D5. Further alias gaps found by hand · confirmed
+
+Found while labelling, all absent from `FINAL_ALIAS_MAP`:
+
+| Report spelling | District |
+|---|---|
+| Benadir | Banadir |
+| Jariban | Jariiban |
+| Merka | Marka |
+| Qoriole | Qoryooley |
+| Rabdhuree | Rab Dhuure |
+| Beletweyn | Belet Weyne |
+| Bandarbeyla | Bander-Beyla |
+| Laasqoray | Badhan |
+| Dollow | Doolow |
+| Tijieglo | Tiyeeglow |
+
+Manual labelling is finding alias gaps faster than the automated construction did,
+which is itself worth stating: the three-stage alias expansion reached 65 of 74
+districts but still misses spellings that appear in real reports.
+
+### D6. Context extraction (NLP) as future work, not now · decision
+
+Distinguishing "the report is about this district" from "the district is named" is a
+context problem that a language model could plausibly solve. Deliberately not attempted
+here, for three reasons: the contribution is documenting what the data can and cannot
+see rather than building a better method; validating such an approach needs labelled
+ground truth, which is exactly what this exercise is producing; and the sample is pinned
+to the current method.
+
+The right framing is that **the 150 labelled reports become a reusable benchmark**.
+Reporting that simple string matching reaches a measured precision, and publishing the
+evaluation set alongside it, hands the next researcher both the problem and the yardstick.
