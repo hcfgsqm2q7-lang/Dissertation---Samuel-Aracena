@@ -241,6 +241,23 @@ rasterstats fiona scipy beautifulsoup4 nbclient nbformat ipykernel python-pptx`.
 - Cannot test without external data (biggest acknowledged gaps): NGO/humanitarian
   operational presence, population, road access, territorial control. Per the
   no-new-datasets rule, these stay as acknowledged limitations rather than todos.
+- **Source complementarity, done 2026-08-23** (notebook, "Measuring source
+  complementarity", answers Sub-Question 3, previously the one open sub-question).
+  "Observed" uses the same recorded-coverage definition as the structural
+  availability / recorded coverage / true observability section: conflict and climate
+  are observed for all 888 district-months by construction (ACLED is zero-filled,
+  satellite has no gaps), so they contribute no variation and every district-month sits
+  at a floor of 2 of 4 mechanisms observed. The interesting variation is entirely in
+  market and reporting: 31.0% of district-months reach only that floor of 2 (neither
+  market nor reporting), 34.8% reach 3, 34.2% reach all 4. Market and reporting are
+  genuinely complementary at the month level, not redundant: of the 383 district-months
+  market covers, 79 (20.6%) are ones reporting missed that month; of the 534 reporting
+  covers, 230 (43.1%) are ones market missed. At the district level the picture is
+  different: every one of the 32 districts with a market is mentioned by ReliefWeb at
+  least once during the year (market adds no new districts reporting doesn't already
+  reach), while reporting alone reaches 41 districts market never touches at all.
+  `SO_BANDER_BEYLA` remains the one district invisible to both, all year. Next steps
+  item 5 is done.
 
 ## Next steps
 
@@ -275,10 +292,13 @@ unblocked: all data is already in the repository.
    test itself, which survives but at markedly weaker significance (p=0.0067, not
    p=0.000064) once repeated conflict-heavy districts stop being overcounted. See
    Current findings for the numbers.
-5. **Measure source complementarity** (sub-question 3, the open one). For each
-   district-month count how many of the four mechanisms are observed, then report the
-   share with 1, 2, 3 and 4. Add each source's unique contribution: how many
-   district-months gain an additional observed mechanism when that source is added.
+5. ~~**Measure source complementarity**~~ (sub-question 3). **Done 2026-08-23.**
+   Conflict and climate are observed for all 888 district-months by construction, so
+   every district-month sits at a floor of 2 of 4; the real variation is entirely in
+   market and reporting. They complement each other at the month level (each covers
+   real district-months the other misses) but not at the district level (every
+   market district is reached by reporting too; reporting alone reaches 41 districts
+   market never touches). See Current findings for the numbers.
 6. **Finalise every feature definition and formula.** Exact formulas, especially the
    log-difference variables. Define PEWI and cite where its formula comes from (may
    need a WFP methodology note; their domains have been proxy-blocked before). Resolve
