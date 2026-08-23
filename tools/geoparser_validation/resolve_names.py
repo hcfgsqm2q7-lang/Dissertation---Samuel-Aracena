@@ -79,6 +79,19 @@ CONFIRMED_MAPPINGS = {
     "zeila": "Zeylac",
     "buleburte": "Bulo Burto",
     "dusamreb": "Dhuusamareeb",
+    # Below: confirmed 2026-08-23 while scoring the completed geoparser validation
+    # sample, against ACLED's own location -> admin2 mapping (not guessed).
+    "garasbaley": "Banadir",          # ACLED "Mogadishu - Garasbaaley" -> Banadir
+                                       # (fuzzy matching alone wrongly suggested Gabiley)
+    "bandiradley": "Gaalkacyo",       # ACLED "Bandiidley" -> Gaalkacyo
+    "burdubo": "Garbahaaray",         # ACLED "Buurdhuubo" -> Garbahaaray
+    "jilib east": "Jilib",            # Jilib itself is already canonical
+    "jilib west": "Jilib",
+    "xudun hudun": "Xudun",           # malformed cell "Xudun (Hudun" (unclosed paren);
+                                       # Hudun is already a documented GADM alias for Xudun
+    "hawadley village in balad": "Balcad",  # both halves already independently resolve here
+    "awdal borama": "Borama",         # "Awdal / Borama (Harirad FMP)"; Awdal is the region,
+                                       # Borama is the actual district
 }
 
 # ACLED itself files Ceel Garas under two different districts (Dhuusamareeb and
@@ -93,7 +106,7 @@ MOGADISHU_DISTRICTS = [
     "dharkenleey", "hamar jajab", "hamar weyne", "hawl wadaag", "heliwaa", "hodan",
     "howl wadag", "huriwaa", "kaxda", "kahda", "karan", "shangaani", "shibis", "waberi",
     "waaberi", "wadajir", "wardhiigleey", "wardhiigley", "wardegley", "yaaqshiid",
-    "yaqshid", "abdul aziz", "abdiaziz", "danyile", "kaaraan",
+    "yaqshid", "abdul aziz", "abdiaziz", "danyile", "kaaraan", "warta nabada",
 ]
 
 # Alternative and older Admin1 region names that appear in reports but are not in GADM's
@@ -102,7 +115,7 @@ EXTRA_REGION_NAMES = [
     "ayn", "gardafuu", "karkaar", "hiran", "hiiraan", "hiraan", "hirshabelle", "galgadud", "galgaduud",
     "middle shabelle", "middle shebelle", "lower shabelle", "lower shebelle",
     "middle juba", "lower juba", "banadir", "banaadir", "somaliland", "puntland",
-    "jubaland", "hirshabelle", "south west state", "galmudug",
+    "jubaland", "hirshabelle", "south west state", "south west", "galmudug",
 ]
 
 
@@ -228,14 +241,16 @@ class Resolver:
         """Split a label cell and resolve every entry.
 
         Accepts semicolons, commas and newlines as separators, since all three turn up
-        in hand-typed cells.
+        in hand-typed cells. Also splits on " and "/"&", since a prose list like
+        "X, Y, and Z" otherwise leaves "and Z" as one unresolved chunk (found 2026-08-23
+        scoring the completed validation sample: "Sool, Togdheer, and Woqooyi Galbeed)").
         """
         if cell is None or (isinstance(cell, float) and pd.isna(cell)):
             return set(), [], [], [], []
         text = str(cell).strip()
         if not text or _norm(text) == "none":
             return set(), [], [], [], []
-        parts = [p for p in re.split(r"[;,\n]+", text) if p.strip()]
+        parts = [p for p in re.split(r"[;,\n]+|\s+and\s+|\s*&\s*", text) if p.strip()]
         ids, regions, unknown, fuzzy, suggest = set(), [], [], [], []
         for p in parts:
             name, status = self.resolve(p)
