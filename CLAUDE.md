@@ -380,12 +380,21 @@ unblocked: all data is already in the repository.
 8. **Optional and descriptive only: IPC.** At most, show whether poorly covered
    districts are also badly food-insecure. Not a priority, not a model.
 
-**Also outstanding, from before the reframing**
-9. Produce observability maps. The boundary geometry has only been used for areas and
-   centroids so far.
-10. Strip the prediction apparatus out of the notebook's logistic regression section
-    (out-of-sample AUC, cross-validation, confusion matrices), keeping the odds-ratio
-    tables and the descriptive reading. Not yet done.
+**Also outstanding, not from the supervisor's literal checklist but implied by section 7's
+"do not turn the project into a prediction study"**
+9. Strip the prediction apparatus out of the notebook's logistic regression section
+   (out-of-sample AUC, cross-validation, confusion matrices), keeping the odds-ratio
+   tables and the descriptive reading. Not yet done. Unlike items 1-8 above, this was
+   never itemised by name in `weekly_meetings/2026_08_21_feedback.md`; it follows from
+   that document's section 7 and "Other Small Issues" scope language (no train/test
+   splits, no evaluation-metric tables), applied to logistic-regression content that
+   predates the reframing. Flag to Samuel before treating as equally authoritative.
+
+**Dropped 2026-08-23**: "Produce observability maps" was removed from this list. It had
+no basis in `2026_08_21_feedback.md` (zero mentions of maps there); it originated from
+the pre-reframing slide deck `tools/slides/build_next_steps.js`, carried into this file
+without being checked against the actual supervisor feedback. Confirmed with Samuel and
+dropped rather than treated as a real requirement.
 
 ## Known issues
 
