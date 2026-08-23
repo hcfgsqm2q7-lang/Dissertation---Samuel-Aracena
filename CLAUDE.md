@@ -373,8 +373,9 @@ unblocked: all data is already in the repository.
 7. ~~**Build the source-level table.**~~ **Done 2026-08-23.** One table in the notebook
    ("Source-level table: how each mechanism actually observes Somalia") covering all
    four mechanisms: collection method, structural availability, recorded coverage,
-   what a zero means, what missing means, plus a main-measurement-biases writeup per
-   source. See Current findings for the numbers and Key decisions / findings doc for
+   what a zero means, what missing means, and measurement limitations, as rows in the
+   table itself, plus an expanded measurement-biases writeup with citations directly
+   below. See Current findings for the numbers and Key decisions / findings doc for
    the market coverage-definition discovery this surfaced.
 8. **Optional and descriptive only: IPC.** At most, show whether poorly covered
    districts are also badly food-insecure. Not a priority, not a model.
