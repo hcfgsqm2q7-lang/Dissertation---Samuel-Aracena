@@ -128,8 +128,15 @@ rasterstats fiona scipy beautifulsoup4 nbclient nbformat ipykernel python-pptx`.
   different variables does not make the humanitarian impact equivalent. Use
   "relatively extreme conflict observations" versus "relatively extreme climate-stress
   observations". This was corrected explicitly and must not drift back.
-- **The 1.0 market-stress threshold is unsupported** by WFP documentation. Either
-  justify it with a sensitivity analysis or drop `market_stress_count`.
+- **The 1.0 market-stress threshold is resolved, not unsupported.** It is exactly WFP's
+  own Stress/Alert boundary on the Pewi (ALPS) score, confirmed directly from the `ALPS
+  Phase` column in the raw export: Normal up to 0.25, Stress 0.25-1.0, Alert 1.0-2.0,
+  Crisis above 2.0, identical for Somalia's basket commodities and the full export. No
+  sensitivity analysis was needed and the feature was not dropped. What the name gets
+  wrong: `market_stress_count` (Pewi > 1.0) actually counts Alert-or-worse, not WFP's
+  own Stress phase. The column itself was not renamed, since it is already used
+  throughout the notebook and the committed CSVs; the corrected reading is documented
+  in the notebook instead. See Current findings and Next steps item 6.
 
 ## Current findings
 
@@ -258,6 +265,25 @@ rasterstats fiona scipy beautifulsoup4 nbclient nbformat ipykernel python-pptx`.
   reach), while reporting alone reaches 41 districts market never touches at all.
   `SO_BANDER_BEYLA` remains the one district invisible to both, all year. Next steps
   item 5 is done.
+- **Feature reference and PEWI definition, done 2026-08-23** (notebook, "Feature
+  reference: exact formulas and definitions" and "Defining PEWI"). Every one of the 24
+  features now has its exact formula documented in one place: conflict and fatalities
+  are zero-filled ACLED counts, `conflict_trend_log` uses `log1p` because event counts
+  can be 0, market `{c}_trend_log` uses plain `log` because prices cannot, VHI is a
+  day-weighted average of the weekly rasters overlapping each calendar month, and
+  `{c}_pewi_score` is not computed by this pipeline at all, it is WFP's own `Pewi`
+  column taken directly from their export. PEWI stands for Price Early Warning
+  Indicator, WFP's own name for the ALPS (Alert for Price Spikes) methodology
+  (WFP/CERDI, *Technical Guidance Note: Calculation and Use of the ALPS Indicator*,
+  April 2014): a price's deviation from its own seasonal trend, normalised by the
+  historic standard deviation of the trend residuals. WFP's and ReliefWeb's domains
+  are proxy-blocked in this environment, so the citation came from a web search rather
+  than the PDF itself; the exact phase boundaries were confirmed independently and
+  more reliably from the raw export's own `ALPS Phase` column (see Key decisions:
+  Normal up to 0.25, Stress 0.25-1.0, Alert 1.0-2.0, Crisis above 2.0). This also
+  resolved the market-stress-threshold question, see Key decisions. Next steps item 6
+  is substantially done; the log-difference and PEWI parts are complete, no other
+  formula was found to need resolving.
 
 ## Next steps
 
@@ -299,10 +325,12 @@ unblocked: all data is already in the repository.
    real district-months the other misses) but not at the district level (every
    market district is reached by reporting too; reporting alone reaches 41 districts
    market never touches). See Current findings for the numbers.
-6. **Finalise every feature definition and formula.** Exact formulas, especially the
-   log-difference variables. Define PEWI and cite where its formula comes from (may
-   need a WFP methodology note; their domains have been proxy-blocked before). Resolve
-   the 1.0 market-stress threshold by sensitivity analysis or removal.
+6. ~~**Finalise every feature definition and formula.**~~ **Done 2026-08-23.** Every
+   feature's exact formula is documented in the notebook, including the log-difference
+   variables. PEWI is defined and cited (WFP/CERDI's ALPS technical note, found via web
+   search since WFP's own domains are proxy-blocked). The 1.0 market-stress threshold
+   is resolved as a genuine WFP phase boundary, not dropped or sensitivity-tested. See
+   Current findings for the numbers.
 7. **Build the source-level table.** For each source: how the data are collected, where
    it can theoretically provide information, where values actually exist, what a zero
    means, what missing means, main measurement biases. The structural availability /
