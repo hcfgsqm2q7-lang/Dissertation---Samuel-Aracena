@@ -299,6 +299,30 @@ rasterstats fiona scipy beautifulsoup4 nbclient nbformat ipykernel python-pptx`.
   unaffected and still stands. Panel regenerated and verified: 888 rows, 29 columns
   (30 minus the dropped column), same 73/74 district coverage and missingness pattern
   as before.
+- **Source-level table, done 2026-08-23** (notebook, "Source-level table: how each
+  mechanism actually observes Somalia", Next steps item 7, the dissertation's key
+  table). Corrects the two-month-prototype numbers still sitting in the earlier
+  structural availability section (reporting's recorded coverage there still says
+  50/74; the full year is 73/74). Collection-method claims are grounded directly in
+  the raw data, not general knowledge: ACLED's Somalia 2024 events are 65.3%
+  "Local partner" sourced per ACLED's own `source_scale` field (dominated by Somali
+  outlets Calamada, Al Furqaan, Somali Memo, Caasimada) and 31.2% cite no named source
+  at all; WFP prices are collected weekly by WFP's own VAM enumerators; ReliefWeb's
+  2024 Somalia corpus is led by IOM, UNHCR, OCHA, FSNAU, FEWS NET, the Somali
+  government, WHO and Radio Ergo, and 216 of 1,336 reports are Infographics and 110
+  are Maps, formats the text-matching geoparser cannot read.
+  **Surfaced a real, previously undocumented finding while building the market row**:
+  `commodities_tracked_count` and the other PEWI-based market features understate
+  recorded market coverage. Three districts (`SO_RAB_DHUURE`, `SO_TALEEX`,
+  `SO_XUDUN`) have complete price data for all 4 basket commodities all year but WFP
+  never computed a Pewi score for any of it, so these features read 0 across all 12
+  months despite real prices existing. Price-based coverage is 47.2% of
+  district-months (419/888, 35/74 districts, exactly the structural availability
+  figure) versus 43.1% (383/888, 32/74 districts) by the PEWI-based definition used
+  throughout Sub-Question 3. The Sub-Question 3 numbers (Next steps item 5) were not
+  revised, since they used the PEWI-based definition consistently and are only
+  slightly conservative about market's reach as a result; whether to redo them with a
+  price-based definition is an open decision, see `docs/data_quality_findings.md` G1.
 
 ## Next steps
 
@@ -346,11 +370,12 @@ unblocked: all data is already in the repository.
    search since WFP's own domains are proxy-blocked). The 1.0 market-stress threshold
    is resolved as a genuine WFP phase boundary, not dropped or sensitivity-tested. See
    Current findings for the numbers.
-7. **Build the source-level table.** For each source: how the data are collected, where
-   it can theoretically provide information, where values actually exist, what a zero
-   means, what missing means, main measurement biases. The structural availability /
-   recorded coverage / true observability distinction already in the notebook is the
-   backbone; this turns it into the dissertation's key table.
+7. ~~**Build the source-level table.**~~ **Done 2026-08-23.** One table in the notebook
+   ("Source-level table: how each mechanism actually observes Somalia") covering all
+   four mechanisms: collection method, structural availability, recorded coverage,
+   what a zero means, what missing means, plus a main-measurement-biases writeup per
+   source. See Current findings for the numbers and Key decisions / findings doc for
+   the market coverage-definition discovery this surfaced.
 8. **Optional and descriptive only: IPC.** At most, show whether poorly covered
    districts are also badly food-insecure. Not a priority, not a model.
 

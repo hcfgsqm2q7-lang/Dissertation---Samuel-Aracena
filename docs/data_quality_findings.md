@@ -470,6 +470,46 @@ conflict-biased than reporting overall, but still favours conflict over climate 
 which is the more directly relevant reading for a food-insecurity dataset than the
 all-reports figure used originally.
 
+## G. Found while building the source-level table (2026-08-23)
+
+### G1. `commodities_tracked_count` and the PEWI-based market features understate real price coverage · confirmed
+
+Found while writing the source-level table (Next steps item 7), checking precisely what
+"recorded coverage" means for market. `commodities_tracked_count`, `market_anomaly_mean`,
+`market_anomaly_max` and `market_stress_count` are all built from the 4 `{c}_pewi_score`
+columns (non-null count/mean/max/threshold). Three districts with real, complete price
+data all year, `SO_RAB_DHUURE`, `SO_TALEEX`, `SO_XUDUN`, never once have a `_pewi_score`
+for any commodity in any month: `wheatflour_price_usd` is populated in all 12 months for
+each, but WFP itself never computed a Pewi value for these markets (0 of 48 basket rows
+each have a non-null `Pewi` in the raw export, confirmed directly against the source
+file, not just the panel). The likely explanation is that WFP's ALPS/Pewi calculation
+needs enough historical price observations at that specific market to fit a seasonal
+trend and residual standard deviation (see the PEWI definition above), and these three
+markets may not have enough history yet, but the raw export gives no explicit reason
+column to confirm that from the data alone.
+
+The practical effect: every summary feature that reads through `commodities_tracked_count`
+undercounts real market activity for these three districts, reading 0 across all 12
+months when real prices exist. This changes the "recorded coverage" figure depending on
+which definition is used: 43.1% of district-months (383/888) by the PEWI-based
+definition already used throughout the notebook (Measuring source complementarity,
+Sub-Question 3) versus **47.2%** (419/888) by a price-based definition
+(`any of the four {c}_price_usd columns non-null`). At the district level the gap is
+larger in relative terms: 32/74 districts ever show a tracked commodity by the PEWI
+definition, versus **35/74**, exactly the structural availability figure, by the
+price-based one. In other words: every district with a monitored market did in fact
+report real prices at some point in the year; it is only the PEWI/anomaly layer that
+misses three of them entirely.
+
+**Not yet acted on.** The Sub-Question 3 source-complementarity numbers (Next steps item
+5, done 2026-08-23) used the PEWI-based `market_observed` definition throughout, so they
+are very slightly conservative about market's true reach: SO_RAB_DHUURE, SO_TALEEX and
+SO_XUDUN might no longer count among the 41 districts reporting reaches that market
+never touches, since they do have real price data even though they have no PEWI score.
+Whether to revisit those numbers with a price-based definition, or leave them as
+documented and flag this as a known refinement, is a decision for Samuel; not changed
+here without asking.
+
 ### F5. "Conflict-heavy" is an ACLED label, not a description of what the reports are about · flagged, not yet integrated
 
 Raised by Samuel after manually reading reports and noticing many are about health,
