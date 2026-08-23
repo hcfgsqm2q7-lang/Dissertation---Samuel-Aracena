@@ -106,7 +106,11 @@ rasterstats fiona scipy beautifulsoup4 nbclient nbformat ipykernel python-pptx`.
 
 ## Key decisions already made, do not relitigate
 
-- **24 features**, unchanged between the 148-row prototype and the 888-row full year.
+- **23 features** (24 through the full-year build, then `wash_report_count` was dropped
+  2026-08-23: never used in any analysis, and the project's reframing as a general
+  humanitarian-observability dataset rather than a food-insecurity-specific one made it
+  out of scope. `food_nutrition_report_count` was kept, since food insecurity remains
+  the project's application domain per the reframing note. See Current findings.
 - **`conflict_density` was tested and dropped.** It correlated with plain event count
   at r=0.96, tracked district area more than anything humanitarian, and predicted
   fatalities worse than the raw count.
@@ -140,7 +144,8 @@ rasterstats fiona scipy beautifulsoup4 nbclient nbformat ipykernel python-pptx`.
 
 ## Current findings
 
-- Panel is 888 rows (74 districts × 12 months of 2024) × 30 columns.
+- Panel is 888 rows (74 districts × 12 months of 2024) × 29 columns (30 minus
+  `wash_report_count`, dropped 2026-08-23).
 - Coverage by source: conflict and climate 100%, market 47%, reporting 68% at the
   prototype stage rising to 99% of districts across the full year.
 - `SO_BANDER_BEYLA` is the only district never mentioned by ReliefWeb all year, and it
@@ -284,6 +289,16 @@ rasterstats fiona scipy beautifulsoup4 nbclient nbformat ipykernel python-pptx`.
   resolved the market-stress-threshold question, see Key decisions. Next steps item 6
   is substantially done; the log-difference and PEWI parts are complete, no other
   formula was found to need resolving.
+- **`wash_report_count` dropped, 2026-08-23**, at Samuel's request while reviewing the
+  feature reference above: never used in any analysis, and out of scope for a project
+  reframed around general humanitarian observability rather than food insecurity
+  specifically. `food_nutrition_report_count` was kept (option 3 of three considered),
+  since food insecurity remains the project's application domain. This also removes
+  it from Robustness check 3's finding on the F4 conflict-vs-climate result: that
+  finding used `food_nutrition_report_count`, not `wash_report_count`, so it is
+  unaffected and still stands. Panel regenerated and verified: 888 rows, 29 columns
+  (30 minus the dropped column), same 73/74 district coverage and missingness pattern
+  as before.
 
 ## Next steps
 
