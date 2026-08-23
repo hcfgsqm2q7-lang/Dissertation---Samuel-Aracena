@@ -1,5 +1,4 @@
 row_id,report_id,stratum,matched_location_ids,matched_surface_forms
-1,4103915,unmatched,,
 2,4062514,unmatched,,
 3,4115871,unmatched,,
 4,4077179,matched,SO_BALCAD|SO_BAYDHABA,Baidoa|Balcad
@@ -22,7 +21,6 @@ row_id,report_id,stratum,matched_location_ids,matched_surface_forms
 21,4104848,matched,SO_BALCAD,Balcad
 22,4090575,matched,SO_AFGOOYE|SO_BANADIR|SO_BAYDHABA|SO_DOOLOW|SO_KISMAAYO,Afgooye|Banadir|Baydhaba|Doolow|Kismaayo
 23,4054316,unmatched,,
-24,4061769,matched,SO_BALCAD|SO_BAYDHABA|SO_BELET_WEYNE|SO_BURCO|SO_CABUDWAAQ|SO_CADAADO|SO_CAYNABO|SO_CEERIGAABO|SO_JOWHAR|SO_SHEEKH,Abudwak|Adado|Ainabo|Baidoa|Balad|Beletweyne|Burao|Erigabo|Jowhar|Sheik
 25,4090733,unmatched,,
 26,4116059,unmatched,,
 27,4101340,unmatched,,
@@ -101,51 +99,3 @@ row_id,report_id,stratum,matched_location_ids,matched_surface_forms
 100,4082154,matched,SO_AFGOOYE|SO_AFMADOW|SO_BAAR_DHEERE|SO_BALCAD|SO_BANADIR|SO_BAYDHABA|SO_BELET_WEYNE|SO_BELET_XAAWO|SO_DOOLOW|SO_GAALKACYO|SO_GAROOWE|SO_JAMAAME|SO_JOWHAR|SO_KISMAAYO|SO_LUUQ,Afgooye|Afmadow|Baardheere|Baidoa|Balcad|Banadir|Belet Weyne|Belet Xaawo|Doolow|Gaalkacyo|Garoowe|Jamaame|Jowhar|Kismaayo|Luuq
 101,4076800,matched,SO_BOSSASO|SO_BUUHOODLE|SO_CABUDWAAQ|SO_DOOLOW,Bossaso|Buuhoodle|Cabudwaaq|Doolow
 102,4080091,unmatched,,
-103,4103100,matched,SO_BANADIR|SO_SHEEKH,Mogadishu|Sheik
-104,4062754,unmatched,,
-105,4104641,matched,SO_AFGOOYE|SO_AFMADOW|SO_BAAR_DHEERE|SO_BALCAD|SO_BAYDHABA|SO_BELET_WEYNE|SO_BELET_XAAWO|SO_CABUDWAAQ|SO_DHUUSAMAREEB|SO_DOOLOW|SO_GAALKACYO|SO_GAROOWE|SO_HOBYO|SO_JAMAAME|SO_JOWHAR|SO_KISMAAYO|SO_LUUQ|SO_WAJID|SO_XUDUR,Afgooye|Afmadow|Baardheere|Baidoa|Balcad|Belet Weyne|Belet Xaawo|Cabudwaaq|Dhuusamarreeb|Doolow|Gaalkacyo|Garoowe|Hobyo|Jamaame|Jowhar|Kismaayo|Luuq|Waajid|Xudur
-106,4115090,matched,SO_BANADIR,Banadir
-107,4077191,unmatched,,
-108,4073447,matched,SO_BANADIR,Banadir
-109,4063483,unmatched,,
-110,4076780,matched,SO_BOSSASO|SO_BUUHOODLE|SO_CABUDWAAQ|SO_DOOLOW,Bossaso|Buuhoodle|Cabudwaaq|Doolow
-111,4115099,unmatched,,
-112,4097328,unmatched,,
-113,4114447,unmatched,,
-114,4085859,matched,SO_BAYDHABA|SO_MARKA,Baidoa|marka
-115,4086755,unmatched,,
-116,4064285,matched,SO_BELET_WEYNE|SO_CEERIGAABO|SO_GAROOWE|SO_XUDUN,Belet Weyne|Ceerigaabo|Garowe|Xudun
-117,4075536,matched,SO_LUUQ,Luuq
-118,4116843,unmatched,,
-119,4097311,unmatched,,
-120,4106723,unmatched,,
-121,4061881,matched,SO_BELET_WEYNE,Belet Weyne
-122,4086038,unmatched,,
-123,4071539,matched,SO_GAALKACYO,Galkacyo
-124,4056403,matched,SO_AFMADOW|SO_BANADIR|SO_CADAADO|SO_XUDUR,Afmadow|Banadir|Cadaado|Xudur
-125,4087472,unmatched,,
-126,4064109,unmatched,,
-127,4096732,unmatched,,
-128,4081808,unmatched,,
-129,4092345,unmatched,,
-130,4091159,matched,SO_DIINSOOR,Dinsor
-131,4121810,unmatched,,
-132,4070691,matched,SO_BELET_WEYNE,Belet Weyne
-133,4097114,unmatched,,
-134,4085367,matched,SO_CADAADO,Adado
-135,4075472,unmatched,,
-136,4044078,unmatched,,
-137,4057002,matched,SO_AFGOOYE|SO_JAMAAME|SO_LUUQ,Afgooye|Jamame|Luuq
-138,4120097,unmatched,,
-139,4059419,matched,SO_BELET_WEYNE,Beletweyne
-140,4065522,unmatched,,
-141,4099762,unmatched,,
-142,4061786,matched,SO_BANADIR,Mogadishu
-143,4105336,unmatched,,
-144,4072607,matched,SO_BANADIR|SO_BELET_WEYNE|SO_GAROOWE|SO_HARGEYSA|SO_SHEEKH,Banadir|Beledweyne|Garoowe|Hargeysa|Mogadishu|Sheik
-145,4043944,unmatched,,
-146,4072608,matched,SO_BELET_WEYNE|SO_GAROOWE|SO_HARGEYSA|SO_SHEEKH,Beledweyne|Garoowe|Hargeysa|Sheik
-147,4091649,unmatched,,
-148,4074255,matched,SO_BANADIR|SO_BAYDHABA|SO_BELET_WEYNE|SO_GARBAHAARAY,Banadir|Baydhaba|Belet Weyne|Garbahaaray
-149,4085335,matched,SO_BAYDHABA,Baidoa
-150,4101339,matched,SO_KISMAAYO,Kismayo

@@ -10,9 +10,16 @@ Design decisions, all of which need stating in the dissertation:
 
 2. **Stratified, not simple random.** Precision can only be measured on reports the
    geoparser matched, and recall needs reports it did not. A simple random sample of
-   150 would spend most of its labelling effort on whichever stratum happens to be
-   larger. So 75 are drawn from each stratum, and `score.py` reweights back to corpus
+   100 would spend most of its labelling effort on whichever stratum happens to be
+   larger. So 50 are drawn from each stratum, and `score.py` reweights back to corpus
    proportions when combining them.
+
+   (An earlier draft of this harness drew 75 per stratum, 150 total. That target was
+   cut down once actual labelling speed made 150 impractical; 50 per stratum matches
+   what was actually completed. The committed `sample_manifest.csv` and
+   `answer_key.csv` reflect the 100 reports genuinely labelled, weighted by their real
+   counts per stratum, 52 matched and 48 unmatched, not by 50/50 exactly, since
+   stopping partway did not land on a perfectly even split.)
 
 3. **Blind labelling.** The geoparser's predictions are NOT in the workbook, and the
    two strata are shuffled together so their order gives nothing away. Predictions go
@@ -41,7 +48,7 @@ REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
 OUT_DIR = os.path.join(REPO, "data", "geoparser_validation")
 
 SEED = 20260821
-PER_STRATUM = 75
+PER_STRATUM = 50
 EXCLUDED_MONTHS = [1, 2]  # the prototype subset used while improving the method
 BODY_EXCERPT_CHARS = 2000
 
