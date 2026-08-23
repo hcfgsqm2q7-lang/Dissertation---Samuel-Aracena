@@ -469,3 +469,32 @@ version (p=0.016 vs p=0.0001). Food and nutrition reporting is somewhat less
 conflict-biased than reporting overall, but still favours conflict over climate stress,
 which is the more directly relevant reading for a food-insecurity dataset than the
 all-reports figure used originally.
+
+### F5. "Conflict-heavy" is an ACLED label, not a description of what the reports are about · flagged, not yet integrated
+
+Raised by Samuel after manually reading reports and noticing many are about health,
+vegetation, pregnancy and other non-conflict topics, not conflict itself: is it still
+fair to call a district "conflict-heavy" when the reports counted for it cover such a
+mix of subjects?
+
+Worth stating precisely, since the two things are easy to conflate. "Conflict-heavy"
+(and `conflict_event_count`) comes entirely from ACLED, an independent incident-tracking
+dataset; it has no dependency on ReliefWeb content at all. Separately,
+`reports_mentioning_district_count` is topic-blind: it counts any report whose text
+mentions the district by name, regardless of subject. So a district's report count is
+never "reports about its conflict", it is "reports of any kind that happen to name it".
+
+Checked whether this makes the F1-F4 conflict-vs-climate finding circular (conflict
+happens -> conflict-topic reports get written -> those reports name conflict districts
+-> of course conflict districts have higher counts). Pulled ReliefWeb's own theme tags
+for reports naming the 18 extreme-conflict-only districts versus the 41
+extreme-climate-only districts (from the F1 groups). The topic mix is close to
+identical between the two groups (Protection and Human Rights 64.2% vs 74.0%, Health
+60.8% vs 61.6%, WASH 57.7% vs 66.2%, Food and Nutrition 50.7% vs 60.0%, Agriculture
+30.6% vs 36.6%), and the one genuinely conflict-specific tag, Peacekeeping, is rare in
+both (5.9% vs 2.7%). This weighs against the circularity worry: conflict districts are
+not simply accumulating conflict-topic reports, they are accumulating more reports
+across the same broad mix of humanitarian topics as everywhere else, consistent with
+conflict-affected areas carrying more general humanitarian operational presence rather
+than just more conflict-specific coverage. Not yet written into the notebook or
+CLAUDE.md; Samuel asked to come back to it later.
