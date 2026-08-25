@@ -12,10 +12,10 @@ const SW = 13.3, SH = 7.5, M = 0.62;
 function darkSlide() { const s = pres.addSlide(); s.background = { color: INK }; return s; }
 function lightSlide() { const s = pres.addSlide(); s.background = { color: W }; return s; }
 function header(s, title, sub) {
-  s.addText(title, { x: M, y: 0.52, w: SW - 2 * M, h: 0.6, margin: 0,
-    fontFace: "Cambria", fontSize: 27, bold: true, color: INK });
-  if (sub) s.addText(sub, { x: M, y: 1.14, w: SW - 2 * M, h: 0.36, margin: 0,
-    fontFace: "Calibri", fontSize: 13, color: MUTED, italic: true });
+  s.addText(title, { x: M, y: 0.5, w: SW - 2 * M, h: 0.6, margin: 0,
+    fontFace: "Cambria", fontSize: 25, bold: true, color: INK });
+  if (sub) s.addText(sub, { x: M, y: 1.08, w: SW - 2 * M, h: 0.36, margin: 0,
+    fontFace: "Calibri", fontSize: 12.5, color: MUTED, italic: true });
 }
 function badge(s, n, x, y, d, fill, txtColor) {
   s.addShape(pres.ShapeType.ellipse, { x, y, w: d, h: d, fill: { color: fill || P } });
@@ -45,22 +45,94 @@ function statRow(s, x, y, w, stats) {
       fontFace: "Calibri", fontSize: 9.5, color: MUTED, lineSpacing: 11 });
   });
 }
+function footNote(s, text) {
+  s.addText(text, { x: M, y: 6.72, w: SW - 2 * M, h: 0.26, margin: 0,
+    fontFace: "Calibri", fontSize: 9, italic: true, color: MUTED });
+}
 
 // =========================================================
 // TITLE
 // =========================================================
 {
   const s = darkSlide();
-  s.addText("Week of August 17, 2026", { x: M, y: 2.7, w: SW - 2 * M, h: 1.0, margin: 0,
-    fontFace: "Cambria", fontSize: 40, bold: true, color: W });
-  s.addText("This week's work: geoparser validation, correcting for repeated\ndistrict-months, strengthening the conflict-vs-climate result, source complementarity,\nfinal feature formulas, and the source-level table.",
-    { x: M, y: 3.7, w: SW - 2 * M, h: 1.1, margin: 0, fontFace: "Calibri", fontSize: 14, color: SAND, lineSpacing: 19 });
-  s.addText("Somalia humanitarian observability dissertation", { x: M, y: 6.5, w: SW - 2 * M, h: 0.4, margin: 0,
+  s.addText("Week of August 17, 2026", { x: M, y: 2.5, w: SW - 2 * M, h: 1.0, margin: 0,
+    fontFace: "Cambria", fontSize: 38, bold: true, color: W });
+  s.addText("Working through the outstanding to-do list: geoparser validation, correcting for\nrepeated district-months, strengthening the conflict-vs-climate result, source\ncomplementarity, final feature formulas, and the source-level table.",
+    { x: M, y: 3.5, w: SW - 2 * M, h: 1.2, margin: 0, fontFace: "Calibri", fontSize: 14, color: SAND, lineSpacing: 19 });
+  s.addText("Somalia humanitarian observability dissertation  --  a self-contained summary of this week's work", { x: M, y: 6.5, w: SW - 2 * M, h: 0.4, margin: 0,
     fontFace: "Calibri", fontSize: 11.5, color: SAGE, italic: true });
 }
 
 // =========================================================
-// 1.1 GEOPARSER -- WHAT WE DID
+// CONTEXT RECAP
+// =========================================================
+{
+  const s = lightSlide();
+  header(s, "Where this fits", "The research question and the dataset this week's work builds on");
+
+  card(s, M, 1.6, SW - 2 * M, 1.24, INK);
+  s.addText("How do heterogeneous humanitarian data sources differ in their spatial and temporal coverage, granularity, missingness and measurement reliability when integrated into a common subnational framework?",
+    { x: M + 0.3, y: 1.74, w: SW - 2 * M - 0.6, h: 1.0, margin: 0, fontFace: "Cambria", fontSize: 15, italic: true, color: W, lineSpacing: 20 });
+
+  const subq = [
+    ["1", "Where are the gaps?", "Which districts, periods and mechanisms are well or poorly observed"],
+    ["2", "Are the gaps systematic?", "Do they depend on how the data is collected: satellite, survey, event monitoring, reporting"],
+    ["3", "What does combining sources add?", "Which are complementary, which add little on their own"],
+  ];
+  let x = M;
+  const cw = (SW - 2 * M - 2 * 0.22) / 3;
+  subq.forEach(([n, t, d]) => {
+    card(s, x, 3.1, cw, 1.5);
+    badge(s, n, x + 0.2, 3.28, 0.42, P, W);
+    s.addText(t, { x: x + 0.76, y: 3.26, w: cw - 0.96, h: 0.5, margin: 0, fontFace: "Cambria", fontSize: 12, bold: true, color: INK, valign: "middle", lineSpacing: 14 });
+    s.addText(d, { x: x + 0.22, y: 3.9, w: cw - 0.44, h: 0.66, margin: 0, fontFace: "Calibri", fontSize: 9.5, color: MUTED, lineSpacing: 12 });
+    x += cw + 0.22;
+  });
+
+  card(s, M, 4.86, SW - 2 * M, 1.6, SAND);
+  s.addText("The panel this all runs on", { x: M + 0.3, y: 5.0, w: SW - 2 * M - 0.6, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 13, bold: true, color: INK });
+  statRow(s, M + 0.3, 5.32, SW - 2 * M - 0.6, [
+    { value: "888", label: "district-months (74 districts x 12 months, 2024)", color: P },
+    { value: "4", label: "sources: conflict (ACLED), climate (CHIRPS/VHI),\nmarket (WFP), reporting (ReliefWeb)", color: P },
+    { value: "23", label: "engineered features across those 4 sources", color: P },
+  ]);
+
+  footNote(s, "This week continues directly from last week's chapter and works through the remaining items on the outstanding to-do list, one at a time.");
+}
+
+// =========================================================
+// GEOPARSER 1: WHAT IT DOES
+// =========================================================
+{
+  const s = lightSlide();
+  header(s, "What the geoparser actually does", "Six rules, applied consistently, before any validation begins");
+
+  s.addText("It matches each ReliefWeb report's text against a list of district names and aliases, to tag which of Somalia's 74 districts the report is about.",
+    { x: M, y: 1.56, w: SW - 2 * M, h: 0.44, margin: 0, fontFace: "Calibri", fontSize: 12.5, italic: true, color: MUTED });
+
+  const rules = [
+    ["1", "Only title + body text", "No attachment, image or linked file is ever read, only the exported title and body."],
+    ["2", "Datelines stripped", "A leading \"Mogadishu -\" is removed first, since it says where a report was filed from, not what it is about."],
+    ["3", "Alias matching", "Each district is matched against its name plus a merged alias list covering 65 of 74 districts, built from the WFP crosswalk, the ACLED crosswalk, GADM's own spelling variants, and manual research."],
+    ["4", "Bulletin exclusion", "Reports titled as a price/supply/market bulletin are excluded entirely; they list many districts as comparison points, not because anything happened there."],
+    ["5", "No word boundaries", "A known limitation, not an oversight: matching is substring-based, so \"Sheekh\" the district also matches inside \"Hassan Sheikh Mohamud\", the president's name."],
+    ["6", "No limit per report", "A single report can be tied to any number of districts; there is no cap."],
+  ];
+  let x = M, y = 2.2;
+  const cw = (SW - 2 * M - 0.24) / 2, ch = 1.46;
+  rules.forEach((r, i) => {
+    const cx = M + (i % 2) * (cw + 0.24);
+    const cy = y + Math.floor(i / 2) * (ch + 0.16);
+    card(s, cx, cy, cw, ch);
+    badge(s, r[0], cx + 0.18, cy + 0.16, 0.38, P, W);
+    s.addText(r[1], { x: cx + 0.68, y: cy + 0.12, w: cw - 0.9, h: 0.46, margin: 0, fontFace: "Cambria", fontSize: 12, bold: true, color: INK, valign: "middle" });
+    s.addText(r[2], { x: cx + 0.22, y: cy + 0.64, w: cw - 0.44, h: 0.76, margin: 0, fontFace: "Calibri", fontSize: 9.5, color: MUTED, lineSpacing: 12 });
+    x += cw + 0.24;
+  });
+}
+
+// =========================================================
+// GEOPARSER 2: BUILDING THE SAMPLE
 // =========================================================
 {
   const s = lightSlide();
@@ -88,7 +160,7 @@ function statRow(s, x, y, w, stats) {
 }
 
 // =========================================================
-// 1.2 GEOPARSER -- RESULTS
+// GEOPARSER 3: RESULTS
 // =========================================================
 {
   const s = lightSlide();
@@ -114,80 +186,119 @@ function statRow(s, x, y, w, stats) {
     cx += colW[i];
   });
 
-  s.addText("Read plainly: when the geoparser says a report is about a district, it is right roughly four times out of five, at either level of detail.",
-    { x: M, y: 3.72, w: SW - 2 * M, h: 0.5, margin: 0, fontFace: "Calibri", fontSize: 12.5, italic: true, color: INK, lineSpacing: 16 });
+  s.addText("Read plainly: when the geoparser says a report is about a district, it is right roughly four times out of five, at either level of detail. Recall is where the two levels diverge sharply: the geoparser is usually right that a report is about at least one district, but often misses other districts that same report also genuinely covers.",
+    { x: M, y: 3.72, w: SW - 2 * M, h: 0.9, margin: 0, fontFace: "Calibri", fontSize: 12, color: INK, lineSpacing: 16 });
 
-  card(s, M, 4.4, 6.0, 2.42, INK);
-  tag(s, "Why the pair-level recall is low", M + 0.26, 4.56, P);
-  s.addText("The geoparser can only work with a report's title and exported body text. It has no access to images, tables or attached files, so recall can only ever be as good as what that exported text contains.",
-    { x: M + 0.26, y: 4.9, w: 5.5, h: 1.8, margin: 0, fontFace: "Calibri", fontSize: 11, color: SAND, lineSpacing: 15 });
+  card(s, M, 4.78, 6.0, 2.04, INK);
+  tag(s, "Why the pair-level recall is low", M + 0.26, 4.94, P);
+  s.addText("The geoparser can only work with a report's title and exported body text. It has no access to images, tables or attached files, so recall can only ever be as good as what that exported text contains. Explained fully on the next slide.",
+    { x: M + 0.26, y: 5.28, w: 5.5, h: 1.4, margin: 0, fontFace: "Calibri", fontSize: 11, color: SAND, lineSpacing: 15 });
 
-  card(s, 6.9, 4.4, SW - M - 6.9, 2.42, SAGE);
-  s.addText("97.4%", { x: 7.16, y: 4.56, w: 5.2, h: 0.8, margin: 0, fontFace: "Cambria", fontSize: 34, bold: true, color: INK });
+  card(s, 6.9, 4.78, SW - M - 6.9, 2.04, SAGE);
+  s.addText("97.4%", { x: 7.16, y: 4.94, w: 5.2, h: 0.7, margin: 0, fontFace: "Cambria", fontSize: 30, bold: true, color: INK });
   s.addText("recall, once restricted to only the district mentions that were actually present in the report's exported text",
-    { x: 7.16, y: 5.4, w: 5.2, h: 1.2, margin: 0, fontFace: "Calibri", fontSize: 11, color: INK, lineSpacing: 14 });
+    { x: 7.16, y: 5.66, w: 5.2, h: 1.0, margin: 0, fontFace: "Calibri", fontSize: 11, color: INK, lineSpacing: 14 });
 }
 
 // =========================================================
-// 1.3 GEOPARSER -- ATTACHMENTS AND LIMITATIONS
+// GEOPARSER 4: ATTACHMENTS / PDF FINDING
 // =========================================================
 {
   const s = lightSlide();
   header(s, "The real limitation: attachments and PDFs, not matching quality", "Confirmed by opening the reports directly");
 
-  card(s, M, 1.66, SW - 2 * M, 2.0, INK);
-  s.addText("What we found", { x: M + 0.3, y: 1.82, w: 6, h: 0.32, margin: 0, fontFace: "Cambria", fontSize: 14.5, bold: true, color: SAGE });
+  card(s, M, 1.66, SW - 2 * M, 1.7, INK);
+  s.addText("What we found", { x: M + 0.3, y: 1.8, w: 6, h: 0.32, margin: 0, fontFace: "Cambria", fontSize: 14.5, bold: true, color: SAGE });
   s.addText("Of every district a human labeller said a report was genuinely about, 80.5% of those district names never appear anywhere in the report's exported title or body text at all. They only exist inside attached files ReliefWeb does not index as text.",
-    { x: M + 0.3, y: 2.18, w: SW - 2 * M - 0.6, h: 1.3, margin: 0, fontFace: "Calibri", fontSize: 12.5, color: SAND, lineSpacing: 17 });
+    { x: M + 0.3, y: 2.16, w: SW - 2 * M - 0.6, h: 1.1, margin: 0, fontFace: "Calibri", fontSize: 12.5, color: SAND, lineSpacing: 17 });
 
-  card(s, M, 3.86, 6.0, 1.9);
-  s.addText("The clearest example", { x: M + 0.26, y: 4.02, w: 5.5, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 12.5, bold: true, color: P });
+  card(s, M, 3.56, 6.0, 1.9);
+  s.addText("The clearest example", { x: M + 0.26, y: 3.72, w: 5.5, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 12.5, bold: true, color: P });
   s.addText("Weekly cholera/AWD bulletins list their real district-by-district breakdown only inside a table in an attached PDF. ReliefWeb files them as an ordinary \"Situation Report\", with nothing in the metadata to say the substance lives in an attachment. The exported body is just a one-line summary, no district named at all.",
-    { x: M + 0.26, y: 4.36, w: 5.5, h: 1.35, margin: 0, fontFace: "Calibri", fontSize: 10.5, color: MUTED, lineSpacing: 14 });
+    { x: M + 0.26, y: 4.06, w: 5.5, h: 1.35, margin: 0, fontFace: "Calibri", fontSize: 10.5, color: MUTED, lineSpacing: 14 });
 
-  card(s, 6.9, 3.86, SW - M - 6.9, 1.9);
-  s.addText("What this is not", { x: 7.16, y: 4.02, w: 5.2, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 12.5, bold: true, color: P });
+  card(s, 6.9, 3.56, SW - M - 6.9, 1.9);
+  s.addText("What this is not", { x: 7.16, y: 3.72, w: 5.2, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 12.5, bold: true, color: P });
   bullets(s, [
     "The five genuine misses in the whole sample all come from one report, and are a deliberate design choice (price bulletins are excluded on purpose), not an error",
     "Reading PDF attachments reliably is a materially different, less reliable engineering problem, and is out of scope for this project",
-  ], 7.16, 4.36, 5.2, 1.4, { size: 10.5, color: MUTED, lineSpacing: 13 });
+  ], 7.16, 4.06, 5.2, 1.4, { size: 10.5, color: MUTED, lineSpacing: 13 });
 
-  card(s, M, 5.94, SW - 2 * M, 0.92, SAND);
-  s.addText("Bottom line: precision (81-79%), not recall, is the figure to trust for this method. Recall should be read as \"recall on what a text-based method can structurally see\", not \"recall on everything a human could find in the full report\".",
-    { x: M + 0.3, y: 6.06, w: SW - 2 * M - 0.6, h: 0.7, margin: 0, fontFace: "Calibri", fontSize: 11.5, color: INK, lineSpacing: 14 });
+  card(s, M, 5.64, SW - 2 * M, 1.0, SAND);
+  s.addText("Bottom line: the geoparser cannot read attachments or images, only exported text. That single structural fact, not a matching failure, explains almost the entire gap between the pair-level and restricted recall figures.",
+    { x: M + 0.3, y: 5.78, w: SW - 2 * M - 0.6, h: 0.76, margin: 0, fontFace: "Calibri", fontSize: 11.5, color: INK, lineSpacing: 15 });
 }
 
 // =========================================================
-// 2.1 REPEATED DISTRICT-MONTHS -- THE PROBLEM
+// GEOPARSER 5: LIMITATIONS
 // =========================================================
 {
   const s = lightSlide();
-  header(s, "Correcting for repeated district-months", "Each of the 74 districts contributes 12 rows to the panel");
+  header(s, "Geoparser validation: limitations", "What is still open, stated plainly");
 
-  card(s, M, 1.66, SW - 2 * M, 1.5, INK);
-  s.addText("The issue", { x: M + 0.3, y: 1.8, w: 5, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 13.5, bold: true, color: SAGE });
-  s.addText("A district's conflict level, market status and reporting attention this month are largely the same underlying district carrying forward, not a fresh, independent observation. Treating all 888 rows as 888 independent pieces of evidence can turn a genuinely null result into one that looks statistically significant.",
-    { x: M + 0.3, y: 2.14, w: SW - 2 * M - 0.6, h: 0.95, margin: 0, fontFace: "Calibri", fontSize: 12, color: SAND, lineSpacing: 16 });
-
-  tag(s, "The one genuine violation found: does market access track conflict?", M, 3.42, P, 8);
-
-  card(s, M, 3.78, 6.0, 2.5);
-  s.addText("Naive reading (888 rows, wrong)", { x: M + 0.26, y: 3.94, w: 5.5, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 12.5, bold: true, color: INK });
-  statRow(s, M + 0.26, 4.3, 5.5, [
-    { value: "p = 0.0001", label: "conflict events, market vs no market" },
-  ]);
-  s.addText("Statistically significant: looks like a real relationship.", { x: M + 0.26, y: 5.5, w: 5.5, h: 0.6, margin: 0, fontFace: "Calibri", fontSize: 11, italic: true, color: MUTED, lineSpacing: 14 });
-
-  card(s, 6.9, 3.78, SW - M - 6.9, 2.5, SAGE);
-  s.addText("Corrected (n = 74 districts, right)", { x: 7.16, y: 3.94, w: 5.2, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 12.5, bold: true, color: INK });
-  statRow(s, 7.16, 4.3, 5.2, [
-    { value: "p = 0.188", label: "same test, one row per district", color: INK },
-  ]);
-  s.addText("Not significant. The naive result was entirely an artefact of counting each district twelve times over.", { x: 7.16, y: 5.5, w: 5.2, h: 0.6, margin: 0, fontFace: "Calibri", fontSize: 11, italic: true, color: INK, lineSpacing: 14 });
+  const lims = [
+    ["A small number of place names remain unresolved", "Garadag has no match under any spelling in ACLED or GADM. Mataban is a real district that GADM does not include as its own Admin2 unit at all. Neither has much effect on the headline numbers, since both fall in the lower-priority \"mentioned in passing\" category."],
+    ["The attachment-content gap is out of scope for this project", "Reading attached PDFs and extracting tabular data from them is a substantially different and less reliable engineering problem than text matching, and would need its own validation exercise. It is documented as a genuine, measured limit, not a bug to fix."],
+    ["Precision, not recall, is the trustworthy headline figure", "Recall here should be read as \"recall on district mentions that are structurally visible to a text-based method\", not \"recall on everything a human could determine from the full report\". Those are two different things."],
+  ];
+  let y = 1.7;
+  lims.forEach(([t, d]) => {
+    card(s, M, y, SW - 2 * M, 1.6);
+    s.addText(t, { x: M + 0.3, y: y + 0.16, w: SW - 2 * M - 0.6, h: 0.4, margin: 0, fontFace: "Cambria", fontSize: 13.5, bold: true, color: P });
+    s.addText(d, { x: M + 0.3, y: y + 0.58, w: SW - 2 * M - 0.6, h: 0.9, margin: 0, fontFace: "Calibri", fontSize: 11.5, color: MUTED, lineSpacing: 15 });
+    y += 1.78;
+  });
 }
 
 // =========================================================
-// 2.2 REPEATED DISTRICT-MONTHS -- EVERYTHING ELSE, BOTTOM LINE
+// REPEATED DISTRICT-MONTHS 1: THE PROBLEM
+// =========================================================
+{
+  const s = lightSlide();
+  header(s, "Why repeated district-months are a statistical trap", "12 rows per district is not the same as 12 independent observations");
+
+  card(s, M, 1.7, SW - 2 * M, 1.9, INK);
+  s.addText("888 rows, but only 74 real \"units\"", { x: M + 0.3, y: 1.86, w: SW - 2 * M - 0.6, h: 0.34, margin: 0, fontFace: "Cambria", fontSize: 14.5, bold: true, color: SAGE });
+  s.addText("Each of the 74 districts contributes 12 rows to the panel, one per month. A district's conflict level, market status and reporting attention this month is largely the same underlying district carrying forward, not a fresh, independent measurement. Treating all 888 rows as 888 independent pieces of evidence silently multiplies the effective sample size, and can turn a genuinely null result into one that looks statistically significant.",
+    { x: M + 0.3, y: 2.24, w: SW - 2 * M - 0.6, h: 1.3, margin: 0, fontFace: "Calibri", fontSize: 12, color: SAND, lineSpacing: 16 });
+
+  card(s, M, 3.86, SW - 2 * M, 1.5, SAND);
+  s.addText("In plain terms", { x: M + 0.3, y: 4.0, w: SW - 2 * M - 0.6, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 13, bold: true, color: INK });
+  s.addText("Imagine asking 74 people the same yes/no question once a month for a year, and then reporting the result as if 888 different people had each answered once. A statistical test cannot tell the difference between genuine agreement across 888 independent people, and the same 74 people simply repeating their own answer twelve times.",
+    { x: M + 0.3, y: 4.32, w: SW - 2 * M - 0.6, h: 1.0, margin: 0, fontFace: "Calibri", fontSize: 11.5, color: INK, lineSpacing: 15 });
+
+  footNote(s, "This is a known statistical issue called pseudo-replication. It was checked across every bivariate result in the full-year panel.");
+}
+
+// =========================================================
+// REPEATED DISTRICT-MONTHS 2: THE ONE REAL VIOLATION
+// =========================================================
+{
+  const s = lightSlide();
+  header(s, "The one genuine violation found, and its fix", "Does market access track conflict?");
+
+  card(s, M, 1.7, 6.0, 2.7);
+  s.addText("Naive reading (888 rows, wrong)", { x: M + 0.26, y: 1.86, w: 5.5, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 12.5, bold: true, color: INK });
+  statRow(s, M + 0.26, 2.22, 5.5, [
+    { value: "p = 0.0001", label: "conflict events, market vs no market" },
+  ]);
+  s.addText("Statistically significant: looks like a real relationship.", { x: M + 0.26, y: 3.42, w: 5.5, h: 0.6, margin: 0, fontFace: "Calibri", fontSize: 11, italic: true, color: MUTED, lineSpacing: 14 });
+
+  card(s, 6.9, 1.7, SW - M - 6.9, 2.7, SAGE);
+  s.addText("Corrected (n = 74 districts, right)", { x: 7.16, y: 1.86, w: 5.2, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 12.5, bold: true, color: INK });
+  statRow(s, 7.16, 2.22, 5.2, [
+    { value: "p = 0.188", label: "same test, one row per district", color: INK },
+  ]);
+  s.addText("Not significant. The naive result was entirely an artefact of counting each district twelve times over.", { x: 7.16, y: 3.42, w: 5.2, h: 0.6, margin: 0, fontFace: "Calibri", fontSize: 11, italic: true, color: INK, lineSpacing: 14 });
+
+  card(s, M, 4.6, SW - 2 * M, 1.7, INK);
+  s.addText("Why this is the clearest example in the whole notebook", { x: M + 0.3, y: 4.74, w: SW - 2 * M - 0.6, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 13, bold: true, color: SAGE });
+  s.addText("has_market_coverage is fixed at the district level, it never changes month to month, so pooling all 888 rows was double-counting each district twelve times over, as badly as this problem can occur. Once every district counts once, the full year gives the same answer as the earlier two-month prototype: no detectable relationship between market coverage and conflict. The naive figures are kept in the notebook next to the correction, not deleted, so the artefact stays visible.",
+    { x: M + 0.3, y: 5.06, w: SW - 2 * M - 0.6, h: 1.2, margin: 0, fontFace: "Calibri", fontSize: 11, color: SAND, lineSpacing: 15 });
+}
+
+// =========================================================
+// REPEATED DISTRICT-MONTHS 3: EVERYTHING ELSE, BOTTOM LINE
 // =========================================================
 {
   const s = lightSlide();
@@ -199,7 +310,7 @@ function statRow(s, x, y, w, stats) {
     ["One exception", "Vegetation health (VHI) vs reports",
       "Its cluster-robust confidence interval crosses zero. The earlier r=-0.11 figure should be read as inconclusive, not a confirmed effect.", P],
     ["Conflict-vs-climate reporting gap", "Collapsed to one row per district (n=18 vs n=41)",
-      "Survives, but weakens: p=0.000064 falls to p=0.0067 once repeated conflict-heavy districts stop being over-counted.", SAND],
+      "Survives, but weakens: p=0.000064 falls to p=0.0067 once repeated conflict-heavy districts stop being over-counted. Full detail two sections ahead.", SAND],
     ["Logistic regression", "Already clusters its standard errors by district",
       "No correction was needed. It would have had the same problem built in from the start had it not.", SAGE],
   ];
@@ -218,61 +329,110 @@ function statRow(s, x, y, w, stats) {
 }
 
 // =========================================================
-// 3.1 CONFLICT VS CLIMATE -- DIFFERENT THRESHOLDS
+// CONFLICT VS CLIMATE 1: ORIGINAL RESULT
 // =========================================================
 {
   const s = lightSlide();
   header(s, "Strengthening the conflict-vs-climate reporting result", "The original test, and why the wording changed");
 
-  card(s, M, 1.66, SW - 2 * M, 1.7, INK);
-  s.addText("The original result", { x: M + 0.3, y: 1.8, w: 5, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 13.5, bold: true, color: SAGE });
-  statRow(s, M + 0.3, 2.16, SW - 2 * M - 0.6, [
+  card(s, M, 1.7, SW - 2 * M, 1.9, INK);
+  s.addText("The original result", { x: M + 0.3, y: 1.86, w: 5, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 13.5, bold: true, color: SAGE });
+  statRow(s, M + 0.3, 2.22, SW - 2 * M - 0.6, [
     { value: "6.65", label: "avg reports, relatively extreme conflict", color: P },
     { value: "2.67", label: "avg reports, relatively extreme climate stress", color: SAND },
     { value: "p = 0.000064", label: "the difference is unlikely to be chance", color: SAGE },
   ]);
+  s.addText("\"Relatively extreme\" means the worst 10% of district-months on that one measure: conflict events, or vegetation-health stress.",
+    { x: M + 0.3, y: 3.2, w: SW - 2 * M - 0.6, h: 0.3, margin: 0, fontFace: "Calibri", fontSize: 10, italic: true, color: SAND });
 
-  card(s, M, 3.6, SW - 2 * M, 1.0, SAND);
-  s.addText("Wording note: the two groups are matched on their position within Somalia's own 2024 distribution, not on equal humanitarian severity. \"Relatively extreme conflict/climate-stress observations\", never \"comparable severity\".",
-    { x: M + 0.3, y: 3.72, w: SW - 2 * M - 0.6, h: 0.8, margin: 0, fontFace: "Calibri", fontSize: 11.5, italic: true, color: INK, lineSpacing: 15 });
+  card(s, M, 3.86, SW - 2 * M, 1.5, SAND);
+  s.addText("Wording note", { x: M + 0.3, y: 4.0, w: SW - 2 * M - 0.6, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 13, bold: true, color: INK });
+  s.addText("The two groups are matched on their position within Somalia's own 2024 distribution, not on equal humanitarian severity. Wording changed throughout to \"relatively extreme conflict / climate-stress observations\", never \"comparable severity\".",
+    { x: M + 0.3, y: 4.32, w: SW - 2 * M - 0.6, h: 0.95, margin: 0, fontFace: "Calibri", fontSize: 11.5, color: INK, lineSpacing: 15 });
 
-  tag(s, "Different thresholds, as asked", M, 4.86, P, 6);
-  card(s, M, 5.16, SW - 2 * M, 1.3);
-  const th = [["5%", "strictest, ~44 per group"], ["10%", "original result"], ["20%", "loosest, ~155 vs 117"]];
-  let x3 = M + 0.3;
-  th.forEach(([v, d]) => {
-    s.addText(v, { x: x3, y: 5.3, w: 3.6, h: 0.5, margin: 0, fontFace: "Cambria", fontSize: 20, bold: true, color: INK });
-    s.addText(d + "  --  p < 0.001", { x: x3, y: 5.86, w: 3.6, h: 0.5, margin: 0, fontFace: "Calibri", fontSize: 10, color: MUTED });
-    x3 += 3.7;
-  });
+  footNote(s, "Four robustness checks follow across the next two slides, testing whether this result holds beyond the original single threshold.");
 }
 
 // =========================================================
-// 3.2 CONFLICT VS CLIMATE -- CONTINUOUS CHECK
+// CONFLICT VS CLIMATE 2: THRESHOLDS
 // =========================================================
 {
   const s = lightSlide();
-  header(s, "A continuous check, not just thresholds", "Does reporting rise steadily with intensity, on either axis?");
+  header(s, "Robustness check: different thresholds", "Does the gap survive stricter or looser cutoffs for \"extreme\"?");
 
-  card(s, M, 1.7, 6.0, 3.0);
-  s.addText("Conflict quintiles", { x: M + 0.26, y: 1.86, w: 5.5, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 13.5, bold: true, color: P });
-  s.addText("1.40  →  5.66 reports", { x: M + 0.26, y: 2.2, w: 5.5, h: 0.6, margin: 0, fontFace: "Cambria", fontSize: 22, bold: true, color: INK });
-  s.addText("Reporting rises in a close to straight line from the least-conflict group to the most-conflict group.",
-    { x: M + 0.26, y: 2.9, w: 5.5, h: 1.6, margin: 0, fontFace: "Calibri", fontSize: 11.5, color: MUTED, lineSpacing: 15 });
+  const th = [
+    ["5%", "Strictest", "~44 district-months per group", "p < 0.001"],
+    ["10%", "Original result", "68 vs 67 district-months", "p = 0.000064"],
+    ["20%", "Loosest", "~155 vs 117 district-months", "p < 0.001"],
+  ];
+  let x = M;
+  const cw = (SW - 2 * M - 2 * 0.24) / 3;
+  th.forEach(([v, tag2, d, p]) => {
+    card(s, x, 1.8, cw, 2.6, x === M + 2 * (cw + 0.24) ? "F7F5F1" : (v === "10%" ? INK : "F7F5F1"));
+    const dark = v === "10%";
+    s.addText(v, { x: x + 0.24, y: 2.0, w: cw - 0.48, h: 0.8, margin: 0, fontFace: "Cambria", fontSize: 36, bold: true, color: dark ? SAGE : P });
+    s.addText(tag2, { x: x + 0.24, y: 2.86, w: cw - 0.48, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 12.5, bold: true, color: dark ? W : INK });
+    s.addText(d, { x: x + 0.24, y: 3.2, w: cw - 0.48, h: 0.5, margin: 0, fontFace: "Calibri", fontSize: 10, color: dark ? SAND : MUTED, lineSpacing: 13 });
+    s.addText(p, { x: x + 0.24, y: 3.8, w: cw - 0.48, h: 0.4, margin: 0, fontFace: "Calibri", fontSize: 12, bold: true, color: dark ? SAGE : P });
+    x += cw + 0.24;
+  });
 
-  card(s, 6.9, 1.7, SW - M - 6.9, 3.0, INK);
-  s.addText("Climate-stress quintiles", { x: 7.16, y: 1.86, w: 5.2, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 13.5, bold: true, color: SAGE });
-  s.addText("No steady rise", { x: 7.16, y: 2.2, w: 5.2, h: 0.6, margin: 0, fontFace: "Cambria", fontSize: 22, bold: true, color: W });
-  s.addText("The worst-stress group sits a little higher than the middle groups (4.01 vs ~2.0), but there is no climbing pattern the way conflict shows.",
-    { x: 7.16, y: 2.9, w: 5.2, h: 1.6, margin: 0, fontFace: "Calibri", fontSize: 11.5, color: SAND, lineSpacing: 15 });
-
-  card(s, M, 4.9, SW - 2 * M, 1.5, SAND);
-  s.addText("What's left open: \"extreme\" is defined relative to Somalia's own 2024 data, not an outside measure of human impact. This result says how the reporting system responds to different kinds of signal. It does not say the underlying suffering in the two groups was ever equal.",
-    { x: M + 0.3, y: 5.04, w: SW - 2 * M - 0.6, h: 1.2, margin: 0, fontFace: "Calibri", fontSize: 12, italic: true, color: INK, lineSpacing: 16 });
+  card(s, M, 4.7, SW - 2 * M, 1.5, SAND);
+  s.addText("Result: the gap holds at every threshold tested. The size moves a little (largest at the strictest cutoff, since the most extreme district-months attract the most reporting), but the direction and significance never change. This rules out the result being a one-threshold coincidence.",
+    { x: M + 0.3, y: 4.84, w: SW - 2 * M - 0.6, h: 1.2, margin: 0, fontFace: "Calibri", fontSize: 12, color: INK, lineSpacing: 16 });
 }
 
 // =========================================================
-// 4.1 SOURCE COMPLEMENTARITY -- MECHANISMS OBSERVED
+// CONFLICT VS CLIMATE 3: CONTINUOUS CHECK
+// =========================================================
+{
+  const s = lightSlide();
+  header(s, "Robustness check: a continuous version", "Does reporting rise steadily with intensity, not just at one cutoff?");
+
+  card(s, M, 1.7, 6.0, 3.4);
+  s.addText("Conflict quintiles", { x: M + 0.26, y: 1.86, w: 5.5, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 13.5, bold: true, color: P });
+  s.addText("1.40  ->  5.66 reports", { x: M + 0.26, y: 2.2, w: 5.5, h: 0.6, margin: 0, fontFace: "Cambria", fontSize: 22, bold: true, color: INK });
+  s.addText("Reporting rises in a close to straight line from the least-conflict group to the most-conflict group, across all five groups.",
+    { x: M + 0.26, y: 2.9, w: 5.5, h: 1.8, margin: 0, fontFace: "Calibri", fontSize: 11.5, color: MUTED, lineSpacing: 15 });
+
+  card(s, 6.9, 1.7, SW - M - 6.9, 3.4, INK);
+  s.addText("Climate-stress quintiles", { x: 7.16, y: 1.86, w: 5.2, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 13.5, bold: true, color: SAGE });
+  s.addText("No steady rise", { x: 7.16, y: 2.2, w: 5.2, h: 0.6, margin: 0, fontFace: "Cambria", fontSize: 22, bold: true, color: W });
+  s.addText("The worst-stress group sits a little higher than the middle groups (4.01 vs ~2.0), but there is no climbing pattern the way conflict shows.",
+    { x: 7.16, y: 2.9, w: 5.2, h: 1.8, margin: 0, fontFace: "Calibri", fontSize: 11.5, color: SAND, lineSpacing: 15 });
+
+  s.addText("Together, the threshold and continuous checks agree: reporting responds clearly and continuously to conflict, and shows no reliable, independent response to climate stress.",
+    { x: M, y: 5.3, w: SW - 2 * M, h: 0.6, margin: 0, fontFace: "Calibri", fontSize: 12, italic: true, color: INK, lineSpacing: 16 });
+}
+
+// =========================================================
+// CONFLICT VS CLIMATE 4: EXTRA CHECKS + WHAT REMAINS OPEN
+// =========================================================
+{
+  const s = lightSlide();
+  header(s, "Three further checks, and what remains open", "Beyond what was strictly asked for, kept for completeness");
+
+  const extra = [
+    ["Food and nutrition reports only", "3.21 vs 2.09 reports (p = 0.016)", "Same direction, but weaker. Food/nutrition-specific reporting still favours conflict, just less strongly than reporting overall."],
+    ["Is climate stress just reported late?", "17.47 vs 6.82 reports (p = 0.0001)", "No. The gap does not shrink over the three months after an extreme month; if anything it widens slightly. Climate stress is not \"noticed late\", it attracts less attention throughout."],
+    ["Checked at the district level", "p = 0.000064 -> p = 0.0067", "Survives, but weaker. The extreme-conflict group leans on far fewer distinct districts (18) than the extreme-climate group (41), so the effective sample size is smaller than the naive test implied."],
+  ];
+  let y = 1.7;
+  extra.forEach(([t, stat, d]) => {
+    card(s, M, y, SW - 2 * M, 1.34);
+    s.addText(t, { x: M + 0.26, y: y + 0.14, w: 4.1, h: 0.5, margin: 0, fontFace: "Cambria", fontSize: 12.5, bold: true, color: INK, valign: "middle", lineSpacing: 15 });
+    s.addText(stat, { x: 5.3, y: y + 0.14, w: 2.5, h: 1.0, margin: 0, fontFace: "Cambria", fontSize: 12.5, bold: true, color: P, valign: "middle", lineSpacing: 15 });
+    s.addText(d, { x: 8.0, y: y + 0.12, w: SW - M - 8.0 - 0.3, h: 1.1, margin: 0, fontFace: "Calibri", fontSize: 10, color: MUTED, lineSpacing: 13, valign: "middle" });
+    y += 1.48;
+  });
+
+  card(s, M, 6.16, SW - 2 * M, 0.86, SAND);
+  s.addText("What's left open: \"extreme\" is defined relative to Somalia's own 2024 data, not an outside measure of human impact. This result says how the reporting system responds to different kinds of signal, not that the underlying suffering in the two groups was ever equal.",
+    { x: M + 0.3, y: 6.28, w: SW - 2 * M - 0.6, h: 0.64, margin: 0, fontFace: "Calibri", fontSize: 10.5, italic: true, color: INK, lineSpacing: 14 });
+}
+
+// =========================================================
+// SOURCE COMPLEMENTARITY 1: MECHANISMS OBSERVED
 // =========================================================
 {
   const s = lightSlide();
@@ -292,13 +452,44 @@ function statRow(s, x, y, w, stats) {
     x4 += bw + 0.2;
   });
 
-  card(s, M, 5.66, SW - 2 * M, 1.16);
-  s.addText("Market vs reporting overlap: of the 383 district-months market covers, 79 (20.6%) are ones reporting missed. Of the 534 reporting covers, 230 (43.1%) are ones market missed. Genuinely complementary, not redundant.",
-    { x: M + 0.3, y: 5.8, w: SW - 2 * M - 0.6, h: 0.9, margin: 0, fontFace: "Calibri", fontSize: 11.5, color: INK, lineSpacing: 15 });
+  footNote(s, "31.0% of district-months (275) sit at the floor of 2. 34.8% (309) reach 3. 34.2% (304) reach all 4. No district-month is ever observed by 0 or 1 mechanism.");
 }
 
 // =========================================================
-// 4.2 SOURCE COMPLEMENTARITY -- DISTRICT LEVEL
+// SOURCE COMPLEMENTARITY 2: OVERLAP + UNIQUE CONTRIBUTION
+// =========================================================
+{
+  const s = lightSlide();
+  header(s, "Do market and reporting overlap, or add different things?", "Genuinely complementary, not redundant");
+
+  card(s, M, 1.7, SW - 2 * M, 1.9);
+  const rows = [
+    ["Both market and reporting observed", "304", "34.2%"],
+    ["Market only (reporting silent that month)", "79", "8.9%"],
+    ["Reporting only (market silent that month)", "230", "25.9%"],
+    ["Neither observed", "275", "31.0%"],
+  ];
+  let ry = 1.86;
+  rows.forEach(([t, n, pct]) => {
+    s.addText(t, { x: M + 0.3, y: ry, w: 6.8, h: 0.4, margin: 0, fontFace: "Calibri", fontSize: 11.5, color: INK, valign: "middle" });
+    s.addText(n, { x: 8.3, y: ry, w: 1.4, h: 0.4, margin: 0, fontFace: "Cambria", fontSize: 13, bold: true, color: P, align: "right", valign: "middle" });
+    s.addText(pct, { x: 9.9, y: ry, w: 1.6, h: 0.4, margin: 0, fontFace: "Calibri", fontSize: 11.5, color: MUTED, align: "right", valign: "middle" });
+    ry += 0.42;
+  });
+
+  card(s, M, 3.8, SW - 2 * M, 1.5, INK);
+  s.addText("Each source's own unique contribution", { x: M + 0.3, y: 3.94, w: SW - 2 * M - 0.6, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 13, bold: true, color: SAGE });
+  statRow(s, M + 0.3, 4.28, SW - 2 * M - 0.6, [
+    { value: "20.6%", label: "of market's 383 covered district-months,\nreporting would have missed on its own", color: P },
+    { value: "43.1%", label: "of reporting's 534 covered district-months,\nmarket would have missed on its own", color: SAND },
+  ]);
+
+  s.addText("Reporting is the bigger and more independent contributor: it covers more district-months outright, and a much larger share of what it covers, market simply cannot reach (39 of 74 districts have no market at all).",
+    { x: M, y: 5.5, w: SW - 2 * M, h: 0.7, margin: 0, fontFace: "Calibri", fontSize: 11.5, italic: true, color: INK, lineSpacing: 15 });
+}
+
+// =========================================================
+// SOURCE COMPLEMENTARITY 3: DISTRICT LEVEL
 // =========================================================
 {
   const s = lightSlide();
@@ -306,8 +497,8 @@ function statRow(s, x, y, w, stats) {
 
   card(s, M, 1.7, 6.0, 3.4);
   tag(s, "Month to month: complementary", M + 0.24, 1.86, SAGE);
-  s.addText("Market fills in real gaps reporting leaves in an average month, and reporting fills in gaps market leaves.",
-    { x: M + 0.24, y: 2.2, w: 5.5, h: 1.0, margin: 0, fontFace: "Calibri", fontSize: 12, color: MUTED, lineSpacing: 16 });
+  s.addText("Market fills in real gaps reporting leaves in an average month, and reporting fills in gaps market leaves. Each source genuinely widens what gets seen, beyond what the other alone would show.",
+    { x: M + 0.24, y: 2.2, w: 5.5, h: 1.2, margin: 0, fontFace: "Calibri", fontSize: 12, color: MUTED, lineSpacing: 16 });
 
   card(s, 6.9, 1.7, SW - M - 6.9, 3.4, INK);
   tag(s, "Which districts get seen at all: not complementary", 7.16, 1.86, P, 4.8);
@@ -321,7 +512,7 @@ function statRow(s, x, y, w, stats) {
 }
 
 // =========================================================
-// 5.1 FEATURE FORMULAS -- OVERVIEW
+// FEATURES 1: OVERVIEW
 // =========================================================
 {
   const s = lightSlide();
@@ -353,7 +544,84 @@ function statRow(s, x, y, w, stats) {
 }
 
 // =========================================================
-// 5.2 FEATURE FORMULAS -- PEWI AND THE THRESHOLD
+// FEATURES 2: CONFLICT + CLIMATE, FEATURE BY FEATURE
+// =========================================================
+{
+  const s = lightSlide();
+  header(s, "Conflict and climate features, one by one", "5 of the 23, all fully documented");
+
+  const feats = [
+    ["conflict_event_count", "Count of ACLED events in that district and month", "Zero-filled: no matching events means 0, not a missing gap."],
+    ["fatalities", "Sum of ACLED's fatalities field, same events", "Also zero-filled the same way."],
+    ["conflict_trend_log", "log1p(events_t) - log1p(events_t-1)", "How conflict activity changed since last month, on a log scale. Missing for each district's first month."],
+    ["rainfall_mean_mm", "Zonal mean of that month's CHIRPS raster", "Average rainfall across the district, in millimetres. Never missing."],
+    ["vegetation_health_index_mean", "Day-weighted average of the weekly VHI rasters overlapping the month", "VHI is published weekly, not monthly, so each week is weighted by its overlap with the target month. Never missing."],
+  ];
+  let y = 1.66;
+  feats.forEach(([n, f, d]) => {
+    card(s, M, y, SW - 2 * M, 0.98);
+    s.addText(n, { x: M + 0.24, y: y + 0.1, w: 3.2, h: 0.78, margin: 0, fontFace: "Cambria", fontSize: 11.5, bold: true, color: P, valign: "middle", lineSpacing: 14 });
+    s.addText(f, { x: 4.0, y: y + 0.1, w: 3.9, h: 0.78, margin: 0, fontFace: "Calibri", fontSize: 10, italic: true, color: INK, valign: "middle", lineSpacing: 13 });
+    s.addText(d, { x: 8.05, y: y + 0.1, w: SW - M - 8.05 - 0.24, h: 0.78, margin: 0, fontFace: "Calibri", fontSize: 9.5, color: MUTED, valign: "middle", lineSpacing: 12 });
+    y += 1.1;
+  });
+}
+
+// =========================================================
+// FEATURES 3: MARKET FEATURES, BY FORMULA GROUP
+// =========================================================
+{
+  const s = lightSlide();
+  header(s, "Market features, by formula group", "16 features, 7 distinct formula patterns (4 are per-commodity)");
+
+  const feats = [
+    ["{c}_price_usd  (x4)", "price_local / exchange_rate_to_usd", "USD price for wheat flour, rice, sugar, oil. Averaged across markets if more than one reports in a district."],
+    ["{c}_trend_log  (x4)", "log(price_t) - log(price_t-1)", "Month-over-month change, log scale. Missing whenever either month's price is missing."],
+    ["{c}_pewi_score  (x4)", "Taken directly from WFP's own \"Pewi\" column", "Not computed by this pipeline. Full explanation next slide."],
+    ["commodities_tracked_count", "Count of the 4 commodities with a non-null pewi_score", "Never missing; 0 is a valid value."],
+    ["market_anomaly_mean / max", "Mean / max of the non-null pewi_score values", "Missing only when all four commodities are missing."],
+    ["market_stress_count", "Count of commodities with pewi_score > 1.0", "Never missing. What the 1.0 threshold means is resolved on the PEWI slide."],
+  ];
+  let y = 1.5;
+  feats.forEach(([n, f, d]) => {
+    card(s, M, y, SW - 2 * M, 0.78);
+    s.addText(n, { x: M + 0.24, y: y + 0.06, w: 3.2, h: 0.66, margin: 0, fontFace: "Cambria", fontSize: 10.5, bold: true, color: P, valign: "middle", lineSpacing: 12 });
+    s.addText(f, { x: 4.0, y: y + 0.06, w: 3.9, h: 0.66, margin: 0, fontFace: "Calibri", fontSize: 9, italic: true, color: INK, valign: "middle", lineSpacing: 11 });
+    s.addText(d, { x: 8.05, y: y + 0.06, w: SW - M - 8.05 - 0.24, h: 0.66, margin: 0, fontFace: "Calibri", fontSize: 8.5, color: MUTED, valign: "middle", lineSpacing: 10 });
+    y += 0.88;
+  });
+}
+
+// =========================================================
+// FEATURES 4: REPORTING + INTRO TO PEWI
+// =========================================================
+{
+  const s = lightSlide();
+  header(s, "Reporting features, and what comes next", "The last 2 of 23, plus why PEWI needs its own slide");
+
+  card(s, M, 1.7, SW - 2 * M, 2.0);
+  const feats = [
+    ["reports_mentioning_district_count", "Count of Somalia reports that month whose title + body match the district's name or an alias", "After stripping datelines and excluding price bulletins, matched case-insensitively without word boundaries."],
+    ["food_nutrition_report_count", "Subset of the above where ReliefWeb's own \"themes\" field contains \"Food and Nutrition\"", "wash_report_count was dropped for never being used; this one was kept, since food insecurity remains the project's application domain."],
+  ];
+  let y = 1.86;
+  feats.forEach(([n, f, d]) => {
+    s.addText(n, { x: M + 0.26, y, w: SW - 2 * M - 0.52, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 12.5, bold: true, color: P });
+    s.addText(f, { x: M + 0.26, y: y + 0.32, w: SW - 2 * M - 0.52, h: 0.3, margin: 0, fontFace: "Calibri", fontSize: 10.5, italic: true, color: INK });
+    s.addText(d, { x: M + 0.26, y: y + 0.64, w: SW - 2 * M - 0.52, h: 0.3, margin: 0, fontFace: "Calibri", fontSize: 10, color: MUTED });
+    y += 0.98;
+  });
+
+  card(s, M, 3.9, SW - 2 * M, 2.9, INK);
+  s.addText("Two items that needed their own explanation", { x: M + 0.3, y: 4.04, w: SW - 2 * M - 0.6, h: 0.34, margin: 0, fontFace: "Cambria", fontSize: 14, bold: true, color: SAGE });
+  bullets(s, [
+    "What PEWI actually is, since {c}_pewi_score, market_anomaly_mean/max and market_stress_count all depend on it, and it was never defined anywhere in the notebook until this week",
+    "Whether the 1.0 threshold behind market_stress_count is a real, sourced cutoff or an arbitrary one that would need a sensitivity analysis or should be dropped",
+  ], M + 0.3, 4.42, SW - 2 * M - 0.6, 1.6, { size: 12, color: SAND, lineSpacing: 17, gap: 12 });
+}
+
+// =========================================================
+// FEATURES 5: PEWI + THRESHOLD RESOLVED
 // =========================================================
 {
   const s = lightSlide();
@@ -383,7 +651,7 @@ function statRow(s, x, y, w, stats) {
 }
 
 // =========================================================
-// 6.1 SOURCE-LEVEL TABLE -- COLLECTION AND COVERAGE
+// SOURCE-LEVEL TABLE 1: COLLECTION AND COVERAGE
 // =========================================================
 {
   const s = lightSlide();
@@ -413,7 +681,7 @@ function statRow(s, x, y, w, stats) {
 }
 
 // =========================================================
-// 6.2 SOURCE-LEVEL TABLE -- ZERO, MISSING, LIMITATIONS
+// SOURCE-LEVEL TABLE 2: ZERO, MISSING, LIMITATIONS
 // =========================================================
 {
   const s = lightSlide();
@@ -436,22 +704,22 @@ function statRow(s, x, y, w, stats) {
   let ry = 1.7;
   rowDefs.forEach(([title, items]) => {
     s.addText(title, { x: M, y: ry, w: SW - 2 * M, h: 0.34, margin: 0, fontFace: "Cambria", fontSize: 14, bold: true, color: P });
-    card(s, M, ry + 0.4, SW - 2 * M, 1.14);
+    card(s, M, ry + 0.4, SW - 2 * M, 1.1);
     const iw = (SW - 2 * M) / 4;
     items.forEach(([n, d], i) => {
       s.addText(n, { x: M + i * iw + 0.2, y: ry + 0.52, w: iw - 0.3, h: 0.28, margin: 0, fontFace: "Calibri", fontSize: 10.5, bold: true, color: INK });
       s.addText(d, { x: M + i * iw + 0.2, y: ry + 0.8, w: iw - 0.3, h: 0.68, margin: 0, fontFace: "Calibri", fontSize: 9.5, color: MUTED, lineSpacing: 12 });
     });
-    ry += 1.74;
+    ry += 1.68;
   });
 
-  card(s, M, ry + 0.06, SW - 2 * M, 0.9, INK);
+  card(s, M, ry, SW - 2 * M, 0.86);
   s.addText("None of the four is a neutral, ground-truthed measure. Each one sees Somalia through the lens of who is watching, and why.",
-    { x: M + 0.3, y: ry + 0.2, w: SW - 2 * M - 0.6, h: 0.6, margin: 0, fontFace: "Calibri", fontSize: 12, italic: true, color: SAND });
+    { x: M + 0.3, y: ry + 0.14, w: SW - 2 * M - 0.6, h: 0.6, margin: 0, fontFace: "Calibri", fontSize: 12, italic: true, color: INK });
 }
 
 // =========================================================
-// 7.1 NEXT STEPS -- SHARPENING THE THREE SUB-QUESTIONS
+// NEXT STEPS 1: SHARPENING THE THREE SUB-QUESTIONS
 // =========================================================
 {
   const s = lightSlide();
@@ -465,16 +733,16 @@ function statRow(s, x, y, w, stats) {
   ];
   let y7 = 1.7;
   items.forEach(([n, t, d]) => {
-    card(s, M, y7, SW - 2 * M, 1.16);
+    card(s, M, y7, SW - 2 * M, 1.1);
     badge(s, n, M + 0.2, y7 + 0.18, 0.42, P, W);
-    s.addText(t, { x: M + 0.8, y: y7 + 0.14, w: 4.05, h: 0.9, margin: 0, fontFace: "Cambria", fontSize: 12.5, bold: true, color: INK, valign: "middle", lineSpacing: 15 });
-    s.addText(d, { x: 5.85, y: y7 + 0.12, w: SW - M - 5.85 - 0.3, h: 0.95, margin: 0, fontFace: "Calibri", fontSize: 10.5, color: MUTED, lineSpacing: 13, valign: "middle" });
-    y7 += 1.32;
+    s.addText(t, { x: M + 0.8, y: y7 + 0.14, w: 4.05, h: 0.82, margin: 0, fontFace: "Cambria", fontSize: 12.5, bold: true, color: INK, valign: "middle", lineSpacing: 15 });
+    s.addText(d, { x: 5.85, y: y7 + 0.1, w: SW - M - 5.85 - 0.3, h: 0.9, margin: 0, fontFace: "Calibri", fontSize: 10.5, color: MUTED, lineSpacing: 13, valign: "middle" });
+    y7 += 1.24;
   });
 }
 
 // =========================================================
-// 7.2 NEXT STEPS -- DATA QUALITY FINDINGS READY TO WRITE UP
+// NEXT STEPS 2: DATA QUALITY FINDINGS READY TO WRITE UP
 // =========================================================
 {
   const s = lightSlide();
@@ -487,7 +755,7 @@ function statRow(s, x, y, w, stats) {
     ["Trend features miss more than prices", "The price-change features are missing 56.8% of the time, versus 52.8% for the prices they're built from, since a trend needs two consecutive months."],
     ["\"Whole basket or nothing\" reporting", "A market reports all four basket foods in a month, or none of them, almost never a partial mix. A genuine, previously undocumented pattern in how WFP collects prices."],
   ];
-  let y8 = 1.7;
+  let y8 = 1.6;
   const colW = (SW - 2 * M - 0.24) / 2;
   items.forEach((it, i) => {
     const cx = M + (i % 2) * (colW + 0.24);
@@ -497,9 +765,9 @@ function statRow(s, x, y, w, stats) {
     s.addText(it[1], { x: cx + 0.22, y: cy + 0.5, w: colW - 0.44, h: 0.9, margin: 0, fontFace: "Calibri", fontSize: 10, color: INK, lineSpacing: 13 });
   });
 
-  card(s, M, 6.5, SW - 2 * M, 0.46, INK);
+  card(s, M, 6.48, SW - 2 * M, 0.46, INK);
   s.addText("None require new data. All reuse the datasets already in the repository.",
-    { x: M + 0.3, y: 6.58, w: SW - 2 * M - 0.6, h: 0.32, margin: 0, fontFace: "Calibri", fontSize: 11, italic: true, color: SAND });
+    { x: M + 0.3, y: 6.56, w: SW - 2 * M - 0.6, h: 0.32, margin: 0, fontFace: "Calibri", fontSize: 11, italic: true, color: SAND });
 }
 
 pres.writeFile({ fileName: "/tmp/claude-0/-home-user-Dissertation---Samuel-Aracena/f617b219-b21d-55dd-bcca-f625cfd1129d/scratchpad/2026_08_17_week_slides.pptx" })
