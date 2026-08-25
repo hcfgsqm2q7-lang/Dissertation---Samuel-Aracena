@@ -827,58 +827,153 @@ function footNote(s, text) {
 }
 
 // =========================================================
-// NEXT STEPS A1: FINDINGS THAT NEED NO FURTHER ANALYSIS
+// NEXT STEPS A1: FINDINGS THAT NEED NO FURTHER ANALYSIS (1/2)
 // =========================================================
 {
   const s = lightSlide();
   header(s, "Next steps, part 1: findings already in hand", "Checked against the actual data this week. No further analysis needed, only writing up");
 
-  s.addText("These five were investigated and verified this week. Nothing further needs to be computed; each is a finished result waiting to be written into the dissertation.",
-    { x: M, y: 1.56, w: SW - 2 * M, h: 0.4, margin: 0, fontFace: "Calibri", fontSize: 12, italic: true, color: MUTED });
-
   const items = [
-    ["Conflict location precision", "22.4% of Somalia's 2024 conflict events are only approximately located, not pinned to an exact site, and it varies sharply by district (0-69%)."],
-    ["The market/PEWI gap, quantified", "147 of 1,676 basket-commodity price records (8.8%) have a price but no PEWI score, concentrated in 3 districts missing it all year."],
-    ["Price outlier check", "Ran a check for implausible prices. Came back clean, nothing to report beyond confirming it was checked."],
-    ["Trend features miss more than prices", "The price-change features are missing 56.8% of the time, versus 52.8% for the prices they're built from, since a trend needs two consecutive months."],
-    ["\"Whole basket or nothing\" reporting", "A market reports all four basket foods in a month, or none of them, almost never a partial mix. A genuine, previously undocumented pattern in how WFP collects prices."],
+    ["Conflict location precision", "22.4%", "of Somalia's 2024 conflict events (772 of 3,448) are only approximately located, not pinned to an exact site. ACLED codes this itself: some events are placed at the nearest known town rather than their real one. It varies sharply by district, from 0% to 69%, with no simple link to how many events a district has."],
+    ["The market/PEWI gap, quantified", "147 of 1,676", "basket-commodity price records (8.8%) have a real price on file but no PEWI score at all. Almost all of this sits in 3 districts (Rab Dhuure, Taleex, Xudun) missing it completely, every month, all year, which is why PEWI-based market coverage (43.1%) reads lower than price-based coverage (47.2%)."],
+    ["Price outlier check, came back clean", "0 issues", "checked every price in the four basket foods for values that looked broken, like a typo or a currency-conversion mistake, using a standard rule for spotting numbers that sit unusually far from the rest of the data. The handful flagged were all normal, believable prices, not errors. Rules out a real, easy-to-miss risk to the market data."],
   ];
-  let y8 = 2.1;
-  const colW = (SW - 2 * M - 0.24) / 2;
-  items.forEach((it, i) => {
-    const cx = M + (i % 2) * (colW + 0.24);
-    const cy = y8 + Math.floor(i / 2) * 1.6;
-    card(s, cx, cy, colW, 1.44, SAND);
-    s.addText(it[0], { x: cx + 0.22, y: cy + 0.14, w: colW - 0.44, h: 0.34, margin: 0, fontFace: "Cambria", fontSize: 12, bold: true, color: INK });
-    s.addText(it[1], { x: cx + 0.22, y: cy + 0.5, w: colW - 0.44, h: 0.88, margin: 0, fontFace: "Calibri", fontSize: 10, color: INK, lineSpacing: 13 });
+  let y = 1.6;
+  items.forEach(([t, stat, d]) => {
+    card(s, M, y, SW - 2 * M, 1.7);
+    s.addText(t, { x: M + 0.26, y: y + 0.14, w: 2.6, h: 1.4, margin: 0, fontFace: "Cambria", fontSize: 13, bold: true, color: INK, valign: "middle", lineSpacing: 16 });
+    s.addText(stat, { x: 3.55, y: y + 0.14, w: 1.7, h: 1.4, margin: 0, fontFace: "Cambria", fontSize: 17, bold: true, color: P, valign: "middle" });
+    s.addText(d, { x: 5.5, y: y + 0.14, w: SW - M - 5.5 - 0.26, h: 1.4, margin: 0, fontFace: "Calibri", fontSize: 10.5, color: MUTED, lineSpacing: 14, valign: "middle" });
+    y += 1.84;
   });
 
-  card(s, M, 6.5, SW - 2 * M, 0.46, INK);
-  s.addText("None require new data. All reuse the datasets already in the repository.",
-    { x: M + 0.3, y: 6.58, w: SW - 2 * M - 0.6, h: 0.32, margin: 0, fontFace: "Calibri", fontSize: 11, italic: true, color: SAND });
+  footNote(s, "Two more findings continue on the next slide.");
 }
 
 // =========================================================
-// NEXT STEPS A2: NEW ANALYSIS STILL TO RUN
+// NEXT STEPS A1: FINDINGS THAT NEED NO FURTHER ANALYSIS (2/2)
 // =========================================================
 {
   const s = lightSlide();
-  header(s, "Next steps, part 2: new analysis still to run", "Identified this week, not yet built, each one sharpens one of the three sub-questions");
+  header(s, "Next steps, part 1: findings already in hand (continued)", "Two more, both about the market trend and PEWI features specifically");
 
   const items = [
-    ["1", "One table, coverage by month", "Pull the scattered month-by-month coverage numbers for every source into a single table, so the weakest months are visible at a glance."],
-    ["2", "Is market placement itself systematic?", "Market presence has only been checked against conflict. Check it against region and district size too, the same treatment reporting coverage already got."],
-    ["3", "Do the sources agree on where the crisis is?", "So far we've only checked whether sources cover the same places. Check whether conflict-severe districts are also the ones with stressed markets, or whether the two point elsewhere."],
-    ["4", "A note on how fine-grained each source is", "The research question asks about granularity by name. Document each source's native resolution, from exact GPS points down to a whole document, before it collapses to one number per district."],
+    ["Trend features miss more than the prices they're built from", "52.8%  ->  56.8%", "A commodity's price is missing 52.8% of the time. Its month-over-month change (`{c}_trend_log`) is missing more, 56.8%, since a trend needs two consecutive months of price, not just one. This gap between the two figures has never been stated anywhere before."],
+    ["\"Whole basket or nothing\" reporting", "99.4% all-or-nothing", "Checked, row by row, whether a market ever reports some of the four basket foods in a month but not others. It almost never happens: for both price and its trend, a market-month has all four commodities or none. PEWI follows the same pattern 99.4% of the time, with exactly 3 exceptions, all in Banadir. A genuine, previously undocumented pattern in how WFP collects prices."],
   ];
-  let y7 = 1.7;
-  items.forEach(([n, t, d]) => {
-    card(s, M, y7, SW - 2 * M, 1.1);
-    badge(s, n, M + 0.2, y7 + 0.18, 0.42, P, W);
-    s.addText(t, { x: M + 0.8, y: y7 + 0.14, w: 4.05, h: 0.82, margin: 0, fontFace: "Cambria", fontSize: 12.5, bold: true, color: INK, valign: "middle", lineSpacing: 15 });
-    s.addText(d, { x: 5.85, y: y7 + 0.1, w: SW - M - 5.85 - 0.3, h: 0.9, margin: 0, fontFace: "Calibri", fontSize: 10.5, color: MUTED, lineSpacing: 13, valign: "middle" });
-    y7 += 1.24;
+  let y = 1.7;
+  items.forEach(([t, stat, d]) => {
+    card(s, M, y, SW - 2 * M, 2.1);
+    s.addText(t, { x: M + 0.3, y: y + 0.16, w: SW - 2 * M - 0.6, h: 0.4, margin: 0, fontFace: "Cambria", fontSize: 14, bold: true, color: P });
+    s.addText(stat, { x: M + 0.3, y: y + 0.6, w: SW - 2 * M - 0.6, h: 0.4, margin: 0, fontFace: "Cambria", fontSize: 16, bold: true, color: INK });
+    s.addText(d, { x: M + 0.3, y: y + 1.06, w: SW - 2 * M - 0.6, h: 0.95, margin: 0, fontFace: "Calibri", fontSize: 11, color: MUTED, lineSpacing: 15 });
+    y += 2.3;
   });
+
+  card(s, M, 6.16, SW - 2 * M, 0.5, INK);
+  s.addText("All five findings on these two slides reuse datasets already in the repository. None require new data.",
+    { x: M + 0.3, y: 6.26, w: SW - 2 * M - 0.6, h: 0.34, margin: 0, fontFace: "Calibri", fontSize: 11, italic: true, color: SAND });
+}
+
+// =========================================================
+// NEXT STEPS A2: NEW ANALYSIS 1 -- MONTH x SOURCE TABLE
+// =========================================================
+{
+  const s = lightSlide();
+  header(s, "Next steps, part 2: new analysis still to run (1 of 4)", "One table, coverage by month");
+
+  card(s, M, 1.66, SW - 2 * M, 1.3, INK);
+  s.addText("Why", { x: M + 0.3, y: 1.8, w: SW - 2 * M - 0.6, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 13, bold: true, color: SAGE });
+  s.addText("The numbers on which months are well or poorly covered already exist, but scattered: the WFP audit has a month-by-month table, reporting's 34-54 swing is mentioned in prose, market's flat 34-35 is mentioned separately. Nothing currently puts all four sources side by side, by month.",
+    { x: M + 0.3, y: 2.1, w: SW - 2 * M - 0.6, h: 0.8, margin: 0, fontFace: "Calibri", fontSize: 11.5, color: SAND, lineSpacing: 15 });
+
+  card(s, M, 3.16, SW - 2 * M, 2.6);
+  s.addText("What we will actually do", { x: M + 0.3, y: 3.3, w: SW - 2 * M - 0.6, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 13, bold: true, color: P });
+  bullets(s, [
+    "Take the panel's existing per-source coverage flags (already used elsewhere: was conflict/climate/market/reporting observed for this district-month)",
+    "Group the 888 rows by month (time_id) instead of by district",
+    "For each of the 12 months, calculate what percentage of the 74 districts each source covered that month",
+    "Assemble the result into one 12-row table, one column per source, so the weakest months for each source are visible side by side",
+  ], M + 0.3, 3.62, SW - 2 * M - 0.6, 2.0, { size: 11.5, color: MUTED, lineSpacing: 15, gap: 9 });
+
+  footNote(s, "No new computation beyond a groupby on columns that already exist in the panel. The smallest of the four items here.");
+}
+
+// =========================================================
+// NEXT STEPS A2: NEW ANALYSIS 2 -- IS MARKET PLACEMENT SYSTEMATIC?
+// =========================================================
+{
+  const s = lightSlide();
+  header(s, "Next steps, part 2: new analysis still to run (2 of 4)", "Is market placement itself systematic?");
+
+  card(s, M, 1.66, SW - 2 * M, 1.3, INK);
+  s.addText("Why", { x: M + 0.3, y: 1.8, w: SW - 2 * M - 0.6, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 13, bold: true, color: SAGE });
+  s.addText("Sub-question 2 asks whether gaps are systematic. That has only been tested properly for reporting coverage (conflict, market status and region, in the logistic regression). Market coverage itself, which districts have a monitored market at all, has only ever been checked against conflict, and found not significant.",
+    { x: M + 0.3, y: 2.1, w: SW - 2 * M - 0.6, h: 0.8, margin: 0, fontFace: "Calibri", fontSize: 11.5, color: SAND, lineSpacing: 15 });
+
+  card(s, M, 3.16, SW - 2 * M, 2.6);
+  s.addText("What we will actually do", { x: M + 0.3, y: 3.3, w: SW - 2 * M - 0.6, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 13, bold: true, color: P });
+  bullets(s, [
+    "has_market_coverage does not change month to month, so this is tested at the district level (n=74), the same correction already applied to every other district-fixed variable",
+    "Check whether market presence relates to region (admin1): a simple breakdown of the percentage of districts with a market, by region",
+    "Check whether it relates to district size (area_km2): the same kind of correlation already run informally for reporting coverage, but never reported cleanly on its own",
+    "Report the result plainly either way: systematic (tied to region or size) or close to random placement",
+  ], M + 0.3, 3.62, SW - 2 * M - 0.6, 2.0, { size: 11.5, color: MUTED, lineSpacing: 15, gap: 9 });
+
+  footNote(s, "District-level only, so this does not run into the repeated-district-months problem from earlier.");
+}
+
+// =========================================================
+// NEXT STEPS A2: NEW ANALYSIS 3 -- DO SOURCES AGREE ON THE CRISIS?
+// =========================================================
+{
+  const s = lightSlide();
+  header(s, "Next steps, part 2: new analysis still to run (3 of 4)", "Do the sources agree on where the crisis actually is?");
+
+  card(s, M, 1.66, SW - 2 * M, 1.2, INK);
+  s.addText("Why", { x: M + 0.3, y: 1.78, w: SW - 2 * M - 0.6, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 13, bold: true, color: SAGE });
+  s.addText("Source complementarity so far only asks whether sources cover the same places. It has never asked whether, when two sources are both watching, they actually agree on what they see: does a district with severe conflict also show up as under market stress, or do the two mechanisms point at different places?",
+    { x: M + 0.3, y: 2.06, w: SW - 2 * M - 0.6, h: 0.75, margin: 0, fontFace: "Calibri", fontSize: 11, color: SAND, lineSpacing: 14 });
+
+  card(s, M, 2.98, SW - 2 * M, 2.0);
+  s.addText("What we will actually do", { x: M + 0.3, y: 3.1, w: SW - 2 * M - 0.6, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 13, bold: true, color: P });
+  bullets(s, [
+    "Restrict to the 383 district-months that actually have market data, so a \"not stressed\" reading isn't confused with \"no data\"",
+    "Flag conflict-severe district-months using the same worst-10% definition used throughout the conflict-vs-climate work",
+    "Flag market-stressed district-months as market_stress_count > 0 (WFP's Alert-or-worse phase)",
+    "Cross-tabulate the two flags and test the association, then apply the same district-level and cluster-bootstrap checks used for the conflict-vs-climate result, since a handful of repeat districts could otherwise distort it",
+  ], M + 0.3, 3.42, SW - 2 * M - 0.6, 1.5, { size: 10.5, color: MUTED, lineSpacing: 13, gap: 7 });
+
+  card(s, M, 5.1, SW - 2 * M, 1.55, SAND);
+  s.addText("A first pass has already been run, informally", { x: M + 0.3, y: 5.24, w: SW - 2 * M - 0.6, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 12, bold: true, color: INK });
+  s.addText("48.9% of conflict-severe district-months with market data were also market-stressed, against a 35.8% baseline; a first significance test came out borderline (p = 0.074). Promising, but not yet trustworthy: the district-level robustness check above still needs to be run before this can be reported as a real finding.",
+    { x: M + 0.3, y: 5.56, w: SW - 2 * M - 0.6, h: 1.0, margin: 0, fontFace: "Calibri", fontSize: 10.5, italic: true, color: INK, lineSpacing: 14 });
+}
+
+// =========================================================
+// NEXT STEPS A2: NEW ANALYSIS 4 -- GRANULARITY NOTE
+// =========================================================
+{
+  const s = lightSlide();
+  header(s, "Next steps, part 2: new analysis still to run (4 of 4)", "A note on how fine-grained each source is");
+
+  card(s, M, 1.66, SW - 2 * M, 1.3, INK);
+  s.addText("Why", { x: M + 0.3, y: 1.8, w: SW - 2 * M - 0.6, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 13, bold: true, color: SAGE });
+  s.addText("The research question names \"granularity\" specifically, alongside coverage, missingness and measurement reliability. Nothing in the notebook addresses it head-on: all four sources end up as one number per district per month, but they start at very different levels of detail.",
+    { x: M + 0.3, y: 2.1, w: SW - 2 * M - 0.6, h: 0.8, margin: 0, fontFace: "Calibri", fontSize: 11.5, color: SAND, lineSpacing: 15 });
+
+  card(s, M, 3.16, SW - 2 * M, 2.6);
+  s.addText("What we will actually do", { x: M + 0.3, y: 3.3, w: SW - 2 * M - 0.6, h: 0.3, margin: 0, fontFace: "Cambria", fontSize: 13, bold: true, color: P });
+  s.addText("This one is documentation, not statistical analysis. Each source's native resolution before it collapses to one district-level number will be written up as a short comparison, already partially checked directly against the raw files:",
+    { x: M + 0.3, y: 3.62, w: SW - 2 * M - 0.6, h: 0.5, margin: 0, fontFace: "Calibri", fontSize: 11, color: MUTED, lineSpacing: 14 });
+  bullets(s, [
+    "Conflict: each event is an exact GPS point (confirmed: ACLED carries latitude/longitude for every record)",
+    "Climate: satellite grid cells, confirmed directly from the raster files: CHIRPS at 0.05 degrees (~5.5km), VHI at 0.036 degrees (~4km)",
+    "Market: a specific, named market stall or stand",
+    "Reporting: a whole document; the geoparser can say a report mentions a district, never anything more precise than that",
+  ], M + 0.3, 4.2, SW - 2 * M - 0.6, 1.5, { size: 10.5, color: MUTED, lineSpacing: 13, gap: 7 });
+
+  footNote(s, "Slots into the existing source-level table as an added row.");
 }
 
 pres.writeFile({ fileName: "/tmp/claude-0/-home-user-Dissertation---Samuel-Aracena/f617b219-b21d-55dd-bcca-f625cfd1129d/scratchpad/2026_08_17_week_slides.pptx" })
