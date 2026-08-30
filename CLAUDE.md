@@ -329,15 +329,19 @@ rasterstats fiona scipy beautifulsoup4 nbclient nbformat ipykernel python-pptx`.
 Straight from the supervisor's to-do list, in priority order. Everything here is
 unblocked: all data is already in the repository.
 
-1. **Validate the final geoparser on a fresh manual sample.** The long pole, because it
-   needs Samuel's own eyes on 150 reports and cannot be automated. Harness is built in
-   `tools/geoparser_validation/`: `build_sample.py` draws a stratified sample (75
-   matched + 75 unmatched) from the Mar-Dec corpus, excluding the Jan-Feb prototype
-   reports used while improving the system, and writes a blind labelling workbook plus
-   a separate answer key. `score.py` computes precision, recall, F1 and pulls out false
-   positive and false negative examples once labels come back. Labelling is blind by
-   design: the geoparser's predictions are not in the workbook. Report against the
-   **final** method, never the original.
+1. ~~**Validate the final geoparser on a fresh manual sample.**~~ **Done 2026-08-24.**
+   Samuel labelled 100 of the originally planned 150 reports (52 matched + 48 unmatched,
+   stratified, blind, Mar-Dec only) and the sample size was fixed at 100 rather than
+   completing the rest; `sample_manifest.csv` and `answer_key.csv` were trimmed and
+   reweighted to match (`corpus_size / 100`, not `corpus_size / 150`). Scored against the
+   **final** method: report x district pairs precision 81.1% / recall 16.7% / F1 27.7%;
+   report level precision 78.8% / recall 56.8% / F1 66.0%. The low pair-level recall was
+   diagnosed, not just reported: 80.5% of the district mentions a human labeller found
+   genuinely about a report are structurally absent from ReliefWeb's exported text
+   (mostly PDF/table attachments the geoparser cannot read, e.g. the AWD/cholera weekly
+   bulletins), not missed by the matching logic. Restricted to mentions actually present
+   in the text, recall is 97.4%. Full write-up, including the geoparser's six matching
+   rules and the limitations, is in the notebook's "Week of August 17" chapter.
 2. ~~**WFP observed-vs-forecast audit.**~~ **Done 2026-08-21.** Month-by-month table
    of observed, forecast and missing record counts is in the notebook, both for every
    WFP-tracked commodity and restricted to the panel's own basket. See Current
@@ -396,6 +400,63 @@ the pre-reframing slide deck `tools/slides/build_next_steps.js`, carried into th
 without being checked against the actual supervisor feedback. Confirmed with Samuel and
 dropped rather than treated as a real requirement.
 
+**The "Week of August 17" notebook chapter, built 2026-08-24/25**: items 2-7 above were
+each already done earlier in the notebook (dates as marked); this chapter adds a
+plain-language recap section for each, in task-list order, so the notebook reads as a
+continuous weekly log rather than requiring the reader to hunt through earlier sections.
+No new analysis in items 2-7's recap cells, only re-verified figures restated more
+simply, with tables added on request. The chapter also carries item 1's full validation
+write-up (not just a recap, since that work was completed this week) and a 34-slide
+deck, `weekly_meetings/2026_08_17_slides.pptx` (see Slide decks below).
+
+**New candidate next-steps, identified 2026-08-25, not yet built into the notebook.**
+These came from Samuel asking directly what else could be done before moving to writing;
+none are from the supervisor's checklist, so flag them as self-identified, same as the
+"strip prediction apparatus" item above. Split into two groups:
+
+*Ready to write up, no further analysis needed (already verified against the data):*
+- ACLED's own `geo_precision` field shows 22.4% of Somalia's 2024 conflict events (772 of
+  3,448) are only approximately located, not pinned to an exact site; this varies sharply
+  by district (0% to 69% among districts with 10+ events) with no simple link to event
+  volume (r=-0.07).
+- The G1 market/PEWI gap (see Key decisions) quantified precisely: 147 of 1,676
+  basket-commodity price rows (8.8%) have a price but no PEWI score, almost all of it in
+  3 districts missing it completely all year (Rab Dhuure, Taleex, Xudun), plus a trivial
+  3-row exception in Banadir, Feb-Apr 2024.
+- A price-outlier check (IQR rule on the four basket commodities' USD prices) came back
+  clean: nothing flagged looked like a data-entry or currency error.
+- The market trend features (`{c}_trend_log`) are missing more often (56.8%) than the
+  prices they are built from (52.8%), since a trend needs two consecutive months of
+  price. Never stated anywhere before.
+- Verified row-by-row: a market either reports all 4 basket commodities in a month or
+  none of them, almost never a partial mix (true for price and trend_log 100% of the
+  time, true for PEWI 99.4% of the time, with exactly 3 exceptions, all in Banadir). A
+  genuine, previously undocumented pattern in how WFP collects prices.
+
+*New analysis still to run:*
+- One consolidated table of coverage by month, one column per source, reusing figures
+  already computed elsewhere but currently scattered across sections.
+- Whether market placement (`has_market_coverage`) is itself systematic: tested only
+  against conflict so far (not significant); still needs testing against region and
+  district area, at the district level (n=74).
+- Whether sources agree on where the crisis actually is, not just whether they cover the
+  same places: cross-tabulate conflict-severe district-months (top decile, the existing
+  definition) against market-stressed ones (`market_stress_count` > 0), restricted to the
+  383 district-months with market data. An informal first pass found 48.9% of
+  conflict-severe district-months with market data were also market-stressed, against a
+  35.8% baseline (chi2 p=0.074, borderline); needs the same district-level and
+  cluster-bootstrap check already applied to the conflict-vs-climate result before it can
+  be trusted, since a handful of repeat districts could be driving it.
+- A short note on each source's native granularity before it collapses to one
+  district-level number per month, since the RQ names "granularity" explicitly and
+  nothing currently addresses it: ACLED events are exact GPS points; CHIRPS/VHI are
+  raster pixels (confirmed directly from the files: CHIRPS 0.05 degrees / ~5.5km, VHI
+  0.036 degrees / ~4km); WFP prices are individual named markets; ReliefWeb reports are
+  whole documents with no finer resolution than "this district was mentioned".
+
+Samuel has not yet decided whether to build these out; flagged here so a fresh session
+doesn't need to re-derive them.
+
 ## Known issues
 
 - **Measurement problems are logged in `docs/data_quality_findings.md`**, with evidence
@@ -448,9 +509,19 @@ of helper functions, so a new deck can reuse them.
 
 - `build_week_deck.js` produced the 13-slide Week of August 10 deck.
 - `build_next_steps.js` produced the 5-slide next-steps section.
+- `build_source_table.js` produced a single condensed source-level-table slide.
+- `build_aug17_week_deck.js` produced the 34-slide Week of August 17 deck, covering all
+  seven of that week's task-list items plus a self-contained context slide and two
+  next-steps sections (findings ready to write up, then new analysis still to run).
+  Built deliberately dense: every analytical slide states its method before its result
+  (e.g. the district-cluster bootstrap and the quintile split each get their own
+  step-by-step slide), since the goal was a deck a reader could follow without the
+  notebook open alongside it.
 - `qa_geometry.py deck.pptx` checks for text overflow, overlapping boxes and margin
   violations. This exists because LibreOffice cannot render in this sandbox, so the
-  usual visual check is unavailable. It caught several real defects.
+  usual visual check is unavailable. It caught several real defects in every deck.
 
-Both decks are in `weekly_meetings/`. The README asks for PDF, which has to be
-exported from PowerPoint since conversion is not possible here.
+All decks are in `weekly_meetings/`. The README asks for PDF, which has to be
+exported from PowerPoint since conversion is not possible here. Always ask Samuel to
+skim a deck in PowerPoint before it goes anywhere, since it cannot be visually
+previewed in this environment.
