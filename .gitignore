@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node (slide generators in tools/)
+node_modules/
+
+# LaTeX build artefacts
+*.aux
+*.log
+*.toc
+*.lot
+*.lof
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk

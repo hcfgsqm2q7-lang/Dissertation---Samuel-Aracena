@@ -1,0 +1,28 @@
+# Python dependencies for src/Dissertation_master_file_integrated.ipynb
+# Install with:  pip install -r requirements.txt
+
+pandas
+numpy
+scipy
+statsmodels
+scikit-learn
+patsy
+
+# geospatial (zonal statistics over CHIRPS/VHI rasters, GADM boundaries)
+geopandas
+fiona
+pyproj
+rasterio
+rasterstats
+
+# plotting
+matplotlib
+
+# data acquisition and I/O
+requests
+beautifulsoup4
+openpyxl
+
+# notebook execution
+ipykernel
+nbformat
