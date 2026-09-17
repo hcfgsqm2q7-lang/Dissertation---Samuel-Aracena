@@ -770,8 +770,8 @@ SO_SAAKOW,SO,Jubbada Dhexe,Saakow,False,202412,0,0,0.0,3.23,34.64,,,,,,,,,,,,,0,
 SO_SABLALE,SO,Shabeellaha Hoose,Sablale,False,202401,0,0,,0.81,59.17,,,,,,,,,,,,,0,0
 SO_SABLALE,SO,Shabeellaha Hoose,Sablale,False,202402,0,0,0.0,0.93,52.67,,,,,,,,,,,,,0,0
 SO_SABLALE,SO,Shabeellaha Hoose,Sablale,False,202403,0,0,0.0,8.6,48.63,,,,,,,,,,,,,0,0
-SO_SABLALE,SO,Shabeellaha Hoose,Sablale,False,202404,0,0,0.0,236.43,63.05,,,,,,,,,,,,,0,0
-SO_SABLALE,SO,Shabeellaha Hoose,Sablale,False,202405,0,0,0.0,35.3,54.69,,,,,,,,,,,,,0,0
+SO_SABLALE,SO,Shabeellaha Hoose,Sablale,False,202404,1,20,0.6931471805599453,236.43,63.05,,,,,,,,,,,,,0,0
+SO_SABLALE,SO,Shabeellaha Hoose,Sablale,False,202405,0,0,-0.6931471805599453,35.3,54.69,,,,,,,,,,,,,0,0
 SO_SABLALE,SO,Shabeellaha Hoose,Sablale,False,202406,0,0,0.0,85.23,44.96,,,,,,,,,,,,,1,1
 SO_SABLALE,SO,Shabeellaha Hoose,Sablale,False,202407,0,0,0.0,38.98,43.18,,,,,,,,,,,,,0,0
 SO_SABLALE,SO,Shabeellaha Hoose,Sablale,False,202408,0,0,0.0,24.08,44.08,,,,,,,,,,,,,0,0
