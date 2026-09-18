@@ -74,7 +74,7 @@
 By\par
 \vspace{0.3cm}
 {\large \bfseries Samuel Aracena \par}
-\vspace{1.3cm}
+\vspace{3cm}
 A DISSERTATION\par
 Submitted to\par
 \vspace{0.3cm}
@@ -87,7 +87,7 @@ for the degree of\par
 {\bfseries MASTER OF SCIENCE \par}
 MSc Data Science\par
 by Examination and Dissertation\par
-\vspace{1.3cm}
+\vspace{5cm}
 September 2026
 \end{titlepage}
 
@@ -135,7 +135,7 @@ September 2026
 \hline
 \textbf{Title:} & \multicolumn{9}{p{10.76cm}|}{Integrating Heterogeneous Humanitarian Data for Crisis Analysis: A Source-Audit Framework Applied to Somalia} \\
 \hline
-\textbf{Declared Word Count:} & \multicolumn{9}{p{10.76cm}|}{8740} \\
+\textbf{Declared Word Count:} & \multicolumn{9}{p{10.76cm}|}{8739} \\
 \hline
 \end{tabular}
 \endgroup
@@ -238,7 +238,7 @@ This is addressed through three sub-questions:
 \clearpage
 \section{Literature Review}
 
-This chapter reviews prior work relevant to the two halves of this dissertation's central question: the recognition of data integration as a methodological problem, and the specific mechanisms by which humanitarian data sources fail to observe reality evenly. It moves from general concerns about combining heterogeneous humanitarian data, through source-specific evidence of reporting bias, to the downstream consequences such gaps produce, before identifying the gap this dissertation fills.
+This chapter reviews prior work relevant to this dissertation's main topics: the recognition of data integration as a methodological problem, and the specific mechanisms by which humanitarian data sources fail to observe reality evenly. It moves from general concerns about combining heterogeneous humanitarian data, through source-specific evidence of reporting bias, to the downstream consequences such gaps produce, before identifying the gap this dissertation fills.
 
 Bell, Lycett, Marshan and Monaghan (2021) combined eight different humanitarian datasets and found that they often do not match in terms of detail and precision, and that it is often hard to know in advance which datasets will need to be combined to answer a specific question. Due to this, a lot of potential value in humanitarian data ends up unused. They argue that the promise of big data assumes different datasets can be meaningfully connected to each other, but their own work shows this isn't always true. Based on this, they suggest five areas that need more research: data governance, data reliability, the trade-off between privacy and usefulness, transparency, and how people interact with the data. This dissertation connects most closely to two of those areas, data reliability and governance, but goes a step further by actually building and testing a method to deal with them, rather than just pointing out that they matter.
 
@@ -380,7 +380,7 @@ Not every one of the 19 engineered features was used as a predictor, and the two
 
 Two kinds of outcome are modelled in this dissertation, each requiring a different regression approach.
 
-Reporting counts (how many reports mention a district in a given month) are modelled using negative binomial regression. This is appropriate for count data because a linear regression does not naturally respect the non-negative, discrete nature of counts, while a simpler Poisson model assumes the conditional mean and variance are equal and can therefore be inappropriate when the data are overdispersed, meaning the variance in report counts is larger than a Poisson model assumes. The main model takes the form:
+Reporting counts (how many reports mention a district in a given month) are modelled using negative binomial regression. This is appropriate for count data because a linear regression does not naturally respect the non-negative, discrete nature of counts. On the other hand, a simpler Poisson model assumes the conditional mean and variance are equal and can therefore be inappropriate when the data are overdispersed, meaning the variance in report counts is larger than a Poisson model assumes. The main model takes the form:
 \[
 \text{reports}_{it} = f(\text{conflict\_z}_{it},\ \text{vhi\_stress\_z}_{it},\ \text{month}_t)
 \]
